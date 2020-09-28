@@ -16,7 +16,18 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
 
 # E-book
 
-TODO
+You can purchase the book using these links:
+
+* https://gumroad.com/l/ruby-oneliners
+* https://leanpub.com/ruby-oneliners
+* You can also get the book as part of **Ruby text processing** bundle from https://gumroad.com/l/ruby-textprocessing or https://leanpub.com/b/ruby-textprocessing
+* See https://learnbyexample.github.io/books/ for list of other books
+
+For a preview of the book, see [sample chapters](https://github.com/learnbyexample/learn_ruby_oneliners/blob/master/sample_chapters/ruby_oneliners_sample.pdf)
+
+The book can also be [viewed as a single markdown file in this repo](./ruby_oneliners.md). See my blogpost on [generating pdf/epub from markdown using pandoc](https://learnbyexample.github.io/customizing-pandoc/) if you are interested in the ebook creation process.
+
+For online `html` version of the book, visit https://learnbyexample.github.io/learn_ruby_oneliners/
 
 <br>
 
