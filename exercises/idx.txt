@@ -1,0 +1,4 @@
+match after the last newline character
+and then you want to test
+this is good bye then
+you were there to see?

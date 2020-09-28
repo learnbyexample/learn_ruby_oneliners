@@ -1,0 +1,10 @@
+<doc>
+    <greeting type="ask">Hi there. How are you?</greeting>
+    <greeting type="reply">I am good.</greeting>
+    <color>
+        <blue>flower</blue>
+        <blue>sand stone</blue>
+        <light-blue>sky</light-blue>
+        <light-blue>water</light-blue>
+    </color>
+</doc>
