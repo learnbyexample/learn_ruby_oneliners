@@ -1,0 +1,662 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Processing multiple records - Ruby one-liners cookbook</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide for text processing with ruby from the command line">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="one-liner-introduction.html"><strong aria-hidden="true">2.</strong> One-liner introduction</a></li><li class="chapter-item expanded "><a href="line-processing.html"><strong aria-hidden="true">3.</strong> Line processing</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">4.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">5.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">6.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html" class="active"><strong aria-hidden="true">7.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">8.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">9.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="processing-structured-data.html"><strong aria-hidden="true">10.</strong> Processing structured data</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">11.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Ruby one-liners cookbook</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_ruby_oneliners" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#processing-multiple-records" id="processing-multiple-records">Processing multiple records</a></h1>
+<p>Often, you need to consider multiple lines at a time to make a decision, such as the paragraph mode examples seen earlier. Sometimes, you need to match a particular record and then get records surrounding the matched record. Solution to these type of problems often take the form of state machines. See <a href="https://softwareengineering.stackexchange.com/questions/47806/examples-of-finite-state-machines">softwareengineering: FSM examples</a> if you are not familiar with state machines.</p>
+<h2><a class="header" href="#processing-consecutive-records" id="processing-consecutive-records">Processing consecutive records</a></h2>
+<p>You might need a condition that should satisfy something for one record and something else for the very next record. There are many ways to tackle this problem. One possible solution is to use a variable to save the previous record and then create the required conditional expression using the variable and <code>$_</code> which already has the current record content.</p>
+<pre><code class="language-bash">$ # match and print two consecutive records
+$ # first record should contain 'as' and second record should contain 'not'
+$ # note that this will not work if you use normal variable instead of $p
+$ ruby -ne 'puts $p, $_ if /not/ &amp;&amp; $p=~/as/; $p = $_' programming_quotes.txt
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+
+$ # same filtering as above, but print only the first record
+$ ruby -ne 'puts $p if /not/ &amp;&amp; $p=~/as/; $p = $_' programming_quotes.txt
+Therefore, if you write the code as cleverly as possible, you are,
+
+$ # same filtering as above, but print only the second record
+$ ruby -ne 'print if /not/ &amp;&amp; $p=~/as/; $p = $_' programming_quotes.txt
+by definition, not smart enough to debug it by Brian W. Kernighan
+</code></pre>
+<h2><a class="header" href="#context-matching" id="context-matching">Context matching</a></h2>
+<p>Sometimes you want not just the matching records, but the records relative to the matches as well. For example, it could be to see the comments at start of a function block that was matched while searching a program file. Or, it could be to see extended information from a log file while searching for a particular error message.</p>
+<p>Consider this sample input file:</p>
+<pre><code class="language-bash">$ cat context.txt
+blue
+    toy
+    flower
+    sand stone
+light blue
+    flower
+    sky
+    water
+language
+    english
+    hindi
+    spanish
+    tamil
+programming language
+    python
+    kotlin
+    ruby
+</code></pre>
+<p><strong>Case 1:</strong> Here's an example that emulates <code>grep --no-group-separator -A&lt;n&gt;</code> functionality. The <code>$n &amp;&amp; $n&gt;=0 &amp;&amp; $n-=1</code> trick used in the example below works like this:</p>
+<ul>
+<li>If <code>$n</code> hasn't been initialized yet, the expression becomes <code>false</code> and thus prevents <code>nil</code> being compared to a number</li>
+<li>If <code>$n=1</code>
+<ul>
+<li><code>1&gt;=0 &amp;&amp;  0</code> --&gt; evaluates to <code>true</code> and <code>$n</code> becomes <code>0</code></li>
+<li><code>0&gt;=0 &amp;&amp; -1</code> --&gt; evaluates to <code>true</code> and <code>$n</code> becomes <code>-1</code></li>
+<li><code>-1&gt;=0 &amp;&amp;  </code> --&gt; evaluates to <code>false</code> and <code>$n</code> no longer changes</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-bash">$ # same as: grep --no-group-separator -A1 'blue'
+$ # print matching line as well as the one that follows it
+$ ruby -ne '$n=1 if /blue/; print if $n &amp;&amp; $n&gt;=0 &amp;&amp; $n-=1' context.txt
+blue
+    toy
+light blue
+    flower
+
+$ # for overlapping cases, $n gets re-assigned before $n becomes negative
+$ ruby -ne '$n=1 if /toy|flower/; print if $n &amp;&amp; $n&gt;=0 &amp;&amp; $n-=1' context.txt
+    toy
+    flower
+    sand stone
+    flower
+    sky
+</code></pre>
+<p>Once you've understood the above examples, the rest of the examples in this section should be easier to comprehend. They are all variations of the logic used above and re-arranged to solve the use case being discussed.</p>
+<p><strong>Case 2:</strong> Print <code>n</code> records after the matching record. This is similar to previous case, except that the matching record isn't printed.</p>
+<pre><code class="language-bash">$ # print 2 lines after matching line
+$ # note that comparison here is $n&gt;0 and not $n&gt;=0
+$ ruby -ne 'print if $n &amp;&amp; $n&gt;0 &amp;&amp; $n-=1; $n=2 if /language/' context.txt
+    english
+    hindi
+    python
+    kotlin
+</code></pre>
+<p><strong>Case 3:</strong> Here's how to print <code>n</code>th record after the matching record.</p>
+<pre><code class="language-bash">$ # print only the 3rd line found after matching line
+$ # overlapping cases won't work as $n gets re-assigned before going to 0
+$ ruby -ne 'print if $n.to_i&gt;0 &amp;&amp; ($n-=1)==0; $n=3 if /language/' context.txt
+    spanish
+    ruby
+</code></pre>
+<p><strong>Case 4:</strong> Printing the matched record and <code>n</code> records before it.</p>
+<pre><code class="language-bash">$ # this won't work if there are less than n records before a match
+$ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i|
+           puts ip[i-n..i] if s.match?(/stone/) }' context.txt
+    toy
+    flower
+    sand stone
+
+$ # this will work even if there are less than n records before a match
+$ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i|
+           c=i-n; c=0 if c&lt;0;
+           puts ip[c..i] if s.match?(/toy/) }' context.txt
+blue
+    toy
+</code></pre>
+<p>To prevent confusion with overlapping cases, you can add a separation line between the results.</p>
+<pre><code class="language-bash">$ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i|
+           c=i-n; c=0 if c&lt;0;
+           (puts ip[c..i]; puts &quot;---&quot;) if s.match?(/toy|flower/) }' context.txt
+blue
+    toy
+---
+blue
+    toy
+    flower
+---
+    sand stone
+light blue
+    flower
+---
+</code></pre>
+<p><strong>Case 5:</strong> Print <code>n</code>th record before the matching record.</p>
+<pre><code class="language-bash">$ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i| c=i-n;
+           puts ip[c] if c&gt;=0 &amp;&amp; s.match?(/language/) }' context.txt
+    sky
+    spanish
+
+$ # if the count is small enough, you can save them in variables
+$ # this one prints 2nd line before the matching line
+$ # $.&gt;2 is needed as first 2 records shouldn't be considered for a match
+$ ruby -ne 'print $p2 if $.&gt;2 &amp;&amp; /toy|flower/; $p2=$p1; $p1=$_' context.txt
+blue
+    sand stone
+</code></pre>
+<h2><a class="header" href="#records-bounded-by-distinct-markers" id="records-bounded-by-distinct-markers">Records bounded by distinct markers</a></h2>
+<p>This section will cover cases where the input file will always contain the same number of starting and ending patterns and arranged in alternating fashion. For example, there cannot be two starting patterns appearing without an ending pattern between them and vice versa. Zero or more records of text can appear inside such groups as well as in between the groups.</p>
+<p>The sample file shown below will be used to illustrate examples in this section. For simplicity, assume that the starting pattern is marked by <code>start</code> and the ending pattern by <code>end</code>. They have also been given group numbers to make it easier to visualize the transformation between input and output for the commands discussed in this section.</p>
+<pre><code class="language-bash">$ cat uniform.txt
+mango
+icecream
+--start 1--
+1234
+6789
+**end 1**
+how are you
+have a nice day
+--start 2--
+a
+b
+c
+**end 2**
+par,far,mar,tar
+</code></pre>
+<p><strong>Case 1:</strong> Processing all the groups of records based on the distinct markers, including the records matched by markers themselves. For simplicity, the below command will just print all such records.</p>
+<pre><code class="language-bash">$ ruby -ne '$f=true if /start/; print if $f; $f=false if /end/' uniform.txt
+--start 1--
+1234
+6789
+**end 1**
+--start 2--
+a
+b
+c
+**end 2**
+</code></pre>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> You can also use <code>ruby -ne 'print if /start/../end/'</code> but compared to flip-flop operator, the state machine format is more suitable to adapt for various cases to follow.</p>
+</blockquote>
+<p><strong>Case 2:</strong> Processing all the groups of records but excluding the records matched by markers themselves.</p>
+<pre><code class="language-bash">$ ruby -ne '$f=false if /end/; print &quot;* &quot;, $_ if $f;
+            $f=true if /start/' uniform.txt
+* 1234
+* 6789
+* a
+* b
+* c
+</code></pre>
+<p><strong>Case 3-4:</strong> Processing all the groups of records but excluding one of the markers.</p>
+<pre><code class="language-bash">$ ruby -ne '$f=true if /start/; $f=false if /end/; print if $f' uniform.txt
+--start 1--
+1234
+6789
+--start 2--
+a
+b
+c
+
+$ ruby -ne 'print if $f; $f=true if /start/; $f=false if /end/' uniform.txt
+1234
+6789
+**end 1**
+a
+b
+c
+**end 2**
+</code></pre>
+<p>The next four cases are obtained by just using <code>if !$f</code> instead of <code>if $f</code> from the cases shown above.</p>
+<p><strong>Case 5:</strong> Processing all input records except the groups of records bound by the markers.</p>
+<pre><code class="language-bash">$ # same as: ruby -ne 'print if !(/start/../end/)'
+$ ruby -ne '$f=true if /start/; print if !$f; $f=false if /end/' uniform.txt
+mango
+icecream
+how are you
+have a nice day
+par,far,mar,tar
+</code></pre>
+<p><strong>Case 6</strong> Processing all input records except the groups of records between the markers.</p>
+<pre><code class="language-bash">$ ruby -ne '$f=false if /end/; print if !$f; $f=true if /start/' uniform.txt
+mango
+icecream
+--start 1--
+**end 1**
+how are you
+have a nice day
+--start 2--
+**end 2**
+par,far,mar,tar
+</code></pre>
+<p><strong>Case 7-8:</strong> Similar to case 6, but include only one of the markers.</p>
+<pre><code class="language-bash">$ ruby -ne 'print if !$f; $f=true if /start/; $f=false if /end/' uniform.txt
+mango
+icecream
+--start 1--
+how are you
+have a nice day
+--start 2--
+par,far,mar,tar
+
+$ ruby -ne '$f=true if /start/; $f=false if /end/; print if !$f' uniform.txt
+mango
+icecream
+**end 1**
+how are you
+have a nice day
+**end 2**
+par,far,mar,tar
+</code></pre>
+<h2><a class="header" href="#specific-blocks" id="specific-blocks">Specific blocks</a></h2>
+<p>Instead of working with all the groups (or blocks) bound by the markers, this section will discuss how to choose blocks based on additional criteria.</p>
+<p>Here's how you can process only the first matching block.</p>
+<pre><code class="language-bash">$ ruby -ne '$f=true if /start/; print if $f; exit if /end/' uniform.txt
+--start 1--
+1234
+6789
+**end 1**
+
+$ # use other tricks discussed in previous section as needed
+$ ruby -ne 'exit if /end/; print if $f; $f=true if /start/' uniform.txt
+1234
+6789
+</code></pre>
+<p>Getting last block alone involves lot more work, unless you happen to know how many blocks are present in the input file.</p>
+<pre><code class="language-bash">$ # reverse input linewise, change the order of comparison, reverse again
+$ # can't be used if record separator has to be something other than newline
+$ tac uniform.txt | ruby -ne '$f=true if /end/; print if $f; exit if /start/' | tac
+--start 2--
+a
+b
+c
+**end 2**
+
+$ # or, save the blocks in a buffer and print the last one alone
+$ # &lt;&lt; operator concatenates given string to the variable in-place
+$ ruby -ne '($f=true; buf=$_; next) if /start/;
+            buf &lt;&lt; $_ if $f;
+            $f=false if /end/;
+            END{print buf}' uniform.txt
+--start 2--
+a
+b
+c
+**end 2**
+</code></pre>
+<p>Only the <code>n</code>th block.</p>
+<pre><code class="language-bash">$ seq 30 | ruby -ne 'BEGIN{n=2; c=0}; c+=1 if /4/; (print; exit if /6/) if c==n'
+14
+15
+16
+</code></pre>
+<p>All blocks greater than <code>n</code>th block.</p>
+<pre><code class="language-bash">$ seq 30 | ruby -ne 'BEGIN{n=1; c=0}; ($f=true; c+=1) if /4/;
+                     print if $f &amp;&amp; c&gt;n; $f=false if /6/'
+14
+15
+16
+24
+25
+26
+</code></pre>
+<p>Excluding <code>n</code>th block.</p>
+<pre><code class="language-bash">$ seq 30 | ruby -ne 'BEGIN{n=2; c=0}; ($f=true; c+=1) if /4/;
+                     print if $f &amp;&amp; c!=n; $f=false if /6/'
+4
+5
+6
+24
+25
+26
+</code></pre>
+<p>All blocks, only if the records between the markers match an additional condition.</p>
+<pre><code class="language-bash">$ # additional condition here is '15' as record content between the two markers
+$ seq 30 | ruby -ne '($f=true; buf=$_; $m=false; next) if /4/;
+                     buf &lt;&lt; $_ if $f;
+                     ($f=false; print buf if $m) if /6/;
+                     $m=true if /\A15\Z/'
+14
+15
+16
+</code></pre>
+<h2><a class="header" href="#broken-blocks" id="broken-blocks">Broken blocks</a></h2>
+<p>Sometimes, you can have markers in random order and mixed in different ways. In such cases, to work with blocks without any other marker present in between them, the buffer approach comes in handy again.</p>
+<pre><code class="language-bash">$ cat broken.txt
+qqqqqqqqqqqqqqqq
+error 1
+hi
+error 2
+1234
+6789
+state 1
+bye
+state 2
+error 3
+xyz
+error 4
+abcd
+state 3
+zzzzzzzzzzzzzzzz
+
+$ ruby -ne '($f=true; buf=$_; next) if /error/;
+            buf &lt;&lt; $_ if $f;
+            (print buf if $f; $f=false) if /state/' broken.txt
+error 2
+1234
+6789
+state 1
+error 4
+abcd
+state 3
+</code></pre>
+<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
+<p>This chapter covered various examples of working with multiple records. State machines play an important role in deriving solutions for such cases. Knowing various corner cases is also crucial, otherwise a solution that works for one input may fail for others.</p>
+<p>Next chapter will discuss use cases where you need to process a file input based on contents of another file.</p>
+<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
+<p><strong>a)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if the previous line is empty and the line before that contains <code>you</code>.</p>
+<pre><code class="language-bash">##### add your solution here
+Just do-it
+Much ado about nothing
+</code></pre>
+<p><strong>b)</strong> Print only the second matching line respectively for the search terms <code>do</code> and <code>not</code> for the input file <code>sample.txt</code>. Match these terms case insensitively.</p>
+<pre><code class="language-bash">##### add your solution here
+No doubt you like it too
+Much ado about nothing
+</code></pre>
+<p><strong>c)</strong> For the input file <code>sample.txt</code>, print the matching lines containing <code>are</code> or <code>bit</code> as well as <code>n</code> lines around the matching lines. The value for <code>n</code> is passed to the <code>ruby</code> command as an environment value.</p>
+<pre><code class="language-bash">$ n=1 ##### add your solution here
+Good day
+How are you
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+$ # note that first and last line are empty for this case
+$ n=2 ##### add your solution here
+
+Good day
+How are you
+
+Just do-it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+</code></pre>
+<p><strong>d)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>ruby</code> command shown below doesn't work because it is matching till end of file if second marker isn't found. Assume that the input file cannot have two <code>top</code> markers without a <code>bottom</code> marker appearing in between and vice-versa.</p>
+<pre><code class="language-bash">$ cat broken.txt
+top
+3.14
+bottom
+---
+top
+1234567890
+bottom
+top
+Hi there
+Have a nice day
+Good bye
+
+$ # wrong output
+$ ruby -ne '$f=false if /bottom/; print if $f; $f=true if /top/' broken.txt
+3.14
+1234567890
+Hi there
+Have a nice day
+Good bye
+
+$ # expected output
+##### add your solution here
+3.14
+1234567890
+</code></pre>
+<p><strong>e)</strong> For the input file <code>concat.txt</code>, extract contents from a line starting with <code>### </code> until but not including the next such line. The block to be extracted is indicated by variable <code>n</code> passed as an environment value.</p>
+<pre><code class="language-bash">$ cat concat.txt
+### addr.txt
+How are you
+This game is good
+Today ### is sunny
+### broken.txt
+top ###
+1234567890
+bottom
+### sample.txt
+Just ### do-it
+Believe it
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+
+$ n=2 ##### add your solution here
+### broken.txt
+top ###
+1234567890
+bottom
+$ n=4 ##### add your solution here
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+</code></pre>
+<p><strong>f)</strong> For the input file <code>ruby.md</code>, replace all occurrences of <code>ruby</code> (irrespective of case) with <code>Ruby</code>. But, do not replace any matches between <code>```ruby</code> and <code>```</code> lines (<code>ruby</code> in these markers shouldn't be replaced either).</p>
+<pre><code class="language-bash">##### add your solution here, redirect the output to 'out.md'
+$ diff -sq out.md expected.md 
+Files out.md and expected.md are identical
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="multiple-file-input.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="two-file-processing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="multiple-file-input.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="two-file-processing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Exercise Solutions - Ruby one-liners cookbook</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Example based guide for text processing with ruby from the command line">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="custom.css">
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="one-liner-introduction.html"><strong aria-hidden="true">2.</strong> One-liner introduction</a></li><li class="chapter-item expanded "><a href="line-processing.html"><strong aria-hidden="true">3.</strong> Line processing</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">4.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">5.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">6.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">7.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">8.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">9.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="processing-structured-data.html"><strong aria-hidden="true">10.</strong> Processing structured data</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html" class="active"><strong aria-hidden="true">11.</strong> Exercise Solutions</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">Ruby one-liners cookbook</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="https://github.com/learnbyexample/learn_ruby_oneliners" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#one-liner-introduction" id="one-liner-introduction">One-liner introduction</a></h1>
+<blockquote>
+<p><img src="images/info.svg" alt="info" /> Exercise related files are available from <a href="https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/exercises">exercises folder of learn_ruby_oneliners repo</a>.</p>
+</blockquote>
+<p><strong>a)</strong> For the input file <code>ip.txt</code>, display all lines containing <code>is</code>.</p>
+<pre><code class="language-bash">$ cat ip.txt
+Hello World
+How are you
+This game is good
+Today is sunny
+12345
+You are funny
+
+$ ruby -ne 'print if /is/' ip.txt
+This game is good
+Today is sunny
+</code></pre>
+<p><strong>b)</strong> For the input file <code>ip.txt</code>, display first field of lines <em>not</em> containing <code>y</code>. Consider space as the field separator for this file.</p>
+<pre><code class="language-bash">$ ruby -ane 'puts $F[0] if !/y/' ip.txt
+Hello
+This
+12345
+</code></pre>
+<p><strong>c)</strong> For the input file <code>ip.txt</code>, display all lines containing no more than 2 fields.</p>
+<pre><code class="language-bash">$ ruby -ane 'print if $F.size &lt; 3' ip.txt
+Hello World
+12345
+</code></pre>
+<p><strong>d)</strong> For the input file <code>ip.txt</code>, display all lines containing <code>is</code> in the second field.</p>
+<pre><code class="language-bash">$ ruby -ane 'print if $F[1] =~ /is/' ip.txt
+Today is sunny
+</code></pre>
+<p><strong>e)</strong> For each line of the input file <code>ip.txt</code>, replace first occurrence of <code>o</code> with <code>0</code>.</p>
+<pre><code class="language-bash">$ ruby -pe 'sub(/o/, &quot;0&quot;)' ip.txt
+Hell0 World
+H0w are you
+This game is g0od
+T0day is sunny
+12345
+Y0u are funny
+</code></pre>
+<p><strong>f)</strong> For the input file <code>table.txt</code>, calculate and display the product of numbers in the last field of each line. Consider space as the field separator for this file.</p>
+<pre><code class="language-bash">$ cat table.txt
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+
+$ ruby -ane 'BEGIN{p = 1}; p *= $F[-1].to_f; END{puts p}' table.txt
+-923.1600000000001
+</code></pre>
+<p><strong>g)</strong> Append <code>.</code> to all the input lines for the given <code>stdin</code> data.</p>
+<pre><code class="language-bash">$ printf 'last\nappend\nstop\n' | ruby -pe 'sub(/$/, &quot;.&quot;)'
+last.
+append.
+stop.
+</code></pre>
+<p><strong>h)</strong> Use contents of <code>s</code> variable to display all matching lines from the input file <code>ip.txt</code>. Assume that <code>s</code> doesn't have any regexp metacharacters. Construct the solution such that there's at least one word character immediately preceding the contents of <code>s</code> variable.</p>
+<pre><code class="language-bash">$ s='is'
+
+$ r=&quot;$s&quot; ruby -ne 'print if /\B#{ENV[&quot;r&quot;]}/' ip.txt
+This game is good
+</code></pre>
+<p><strong>i)</strong> Use <code>system</code> to display contents of filename present in second field (space separated) of the given input line.</p>
+<pre><code class="language-bash">$ s='report.log ip.txt sorted.txt'
+$ echo &quot;$s&quot; | ruby -ane 'system(&quot;cat #{$F[1]}&quot;)'
+Hello World
+How are you
+This game is good
+Today is sunny
+12345
+You are funny
+
+$ s='power.txt table.txt'
+$ echo &quot;$s&quot; | ruby -ane 'system(&quot;cat #{$F[1]}&quot;)'
+brown bread mat hair 42
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+</code></pre>
+<br>
+<h1><a class="header" href="#line-processing" id="line-processing">Line processing</a></h1>
+<p><strong>a)</strong> Remove only the third line of given input.</p>
+<pre><code class="language-bash">$ # can also use: ruby -ne 'print if $. != 3'
+$ seq 34 37 | ruby -pe 'next if $. == 3'
+34
+35
+37
+</code></pre>
+<p><strong>b)</strong> Display only fourth, fifth, sixth and seventh lines for the given input.</p>
+<pre><code class="language-bash">$ seq 65 78 | ruby -ne 'print if 4..7'
+68
+69
+70
+71
+</code></pre>
+<p><strong>c)</strong> For the input file <code>ip.txt</code>, replace all occurrences of <code>are</code> with <code>are not</code> and <code>is</code> with <code>is not</code> only from line number <strong>4</strong> till end of file. Also, only the lines that were changed should be displayed in the output.</p>
+<pre><code class="language-bash">$ cat ip.txt
+Hello World
+How are you
+This game is good
+Today is sunny
+12345
+You are funny
+
+$ ruby -ne 'print if $. &gt;= 4 &amp;&amp; $_.gsub!(/are|is/, &quot;\\0 not&quot;)' ip.txt
+Today is not sunny
+You are not funny
+</code></pre>
+<p><strong>d)</strong> For the given <code>stdin</code>, display only the first three lines. Avoid processing lines that are not relevant.</p>
+<pre><code class="language-bash">$ seq 14 25 | ruby -pe 'exit if $. &gt; 3'
+14
+15
+16
+</code></pre>
+<p><strong>e)</strong> For the input file <code>ip.txt</code>, display all lines from start of the file till the first occurrence of <code>game</code>.</p>
+<pre><code class="language-bash">$ ruby -ne 'print; exit if /game/' ip.txt
+Hello World
+How are you
+This game is good
+</code></pre>
+<p><strong>f)</strong> For the input file <code>ip.txt</code>, display all lines that contain <code>is</code> but not <code>good</code>.</p>
+<pre><code class="language-bash">$ ruby -ne 'print if /is/ &amp;&amp; !/good/' ip.txt
+Today is sunny
+</code></pre>
+<p><strong>g)</strong> For the input file <code>ip.txt</code>, extract the word before the whole word <code>is</code> as well as the word after it. If such a match is found, display the two words around <code>is</code> in reversed order. For example, <code>hi;1 is--234 bye</code> should be converted to <code>234:1</code>. Assume that whole word <code>is</code> will not be present more than once in a single line.</p>
+<pre><code class="language-bash">$ ruby -ne 'puts &quot;#{$2}:#{$1}&quot; if /(\w+)\W+is\W+(\w+)/' ip.txt
+good:game
+sunny:Today
+</code></pre>
+<p><strong>h)</strong> For the given input string, replace <code>0xA0</code> with <code>0x7F</code> and <code>0xC0</code> with <code>0x1F</code>.</p>
+<pre><code class="language-bash">$ s='start address: 0xA0, func1 address: 0xC0'
+
+$ echo &quot;$s&quot; | ruby -ne 'print gsub(/0xA0/, &quot;0x7F&quot;).gsub(/0xC0/, &quot;0x1F&quot;)'
+start address: 0x7F, func1 address: 0x1F
+</code></pre>
+<p><strong>i)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>in</code> with <code>an</code> and write back the changes to <code>text.txt</code> itself. The original contents should get saved to <code>text.txt.orig</code></p>
+<pre><code class="language-bash">$ cat text.txt
+can ran want plant
+tin fin fit mine line
+$ ruby -i.orig -pe 'gsub(/in/, &quot;an&quot;)' text.txt
+
+$ cat text.txt
+can ran want plant
+tan fan fit mane lane
+$ cat text.txt.orig
+can ran want plant
+tin fin fit mine line
+</code></pre>
+<p><strong>j)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>an</code> with <code>in</code> and write back the changes to <code>text.txt</code> itself. Do not create backups for this exercise. Note that you should have solved the previous exercise before starting this one.</p>
+<pre><code class="language-bash">$ cat text.txt
+can ran want plant
+tan fan fit mane lane
+$ ruby -i -pe 'gsub(/an/, &quot;in&quot;)' text.txt
+
+$ cat text.txt
+cin rin wint plint
+tin fin fit mine line
+$ diff text.txt text.txt.orig
+1c1
+&lt; cin rin wint plint
+---
+&gt; can ran want plant
+</code></pre>
+<p><strong>k)</strong> Find the starting index of first occurrence of <code>is</code> or <code>the</code> or <code>was</code> or <code>to</code> for each input line of the file <code>idx.txt</code>. Assume all input lines will match at least one of these terms.</p>
+<pre><code class="language-bash">$ cat idx.txt
+match after the last newline character
+and then you want to test
+this is good bye then
+you were there to see?
+
+$ ruby -ne 'puts $_.index(/is|the|was|to/)' idx.txt
+12
+4
+2
+9
+</code></pre>
+<p><strong>l)</strong> Display all lines containing <code>[4]*</code> for the given <code>stdin</code> data.</p>
+<pre><code class="language-bash">$ printf '2.3/[4]*6\n2[4]5\n5.3-[4]*9\n' | ruby -ne 'print if $_.include?(&quot;[4]*&quot;)'
+2.3/[4]*6
+5.3-[4]*9
+</code></pre>
+<br>
+<h1><a class="header" href="#field-separators" id="field-separators">Field separators</a></h1>
+<p><strong>a)</strong> Extract only the contents between <code>()</code> or <code>)(</code> from each input line. Assume that <code>()</code> characters will be present only once every line.</p>
+<pre><code class="language-bash">$ cat brackets.txt
+foo blah blah(ice) 123 xyz$ 
+(almond-pista) choco
+yo )yoyo( yo
+
+$ ruby -F'[()]' -ane 'puts $F[1]' brackets.txt
+ice
+almond-pista
+yoyo
+</code></pre>
+<p><strong>b)</strong> For the input file <code>scores.csv</code>, extract <code>Name</code> and <code>Physics</code> fields in the format shown below.</p>
+<pre><code class="language-bash">$ cat scores.csv
+Name,Maths,Physics,Chemistry
+Blue,67,46,99
+Lin,78,83,80
+Er,56,79,92
+Cy,97,98,95
+Ort,68,72,66
+Ith,100,100,100
+
+$ ruby -F, -ane 'puts $F.values_at(0,2) * &quot;:&quot;' scores.csv
+Name:Physics
+Blue:46
+Lin:83
+Er:79
+Cy:98
+Ort:72
+Ith:100
+</code></pre>
+<p><strong>c)</strong> For the input file <code>scores.csv</code>, display names of those who've scored above <code>70</code> in Maths.</p>
+<pre><code class="language-bash">$ ruby -F, -ane 'puts $F[0] if $F[1].to_i &gt; 70' scores.csv
+Lin
+Cy
+Ith
+</code></pre>
+<p><strong>d)</strong> Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with <code>gsub</code> and one without substitution functions?</p>
+<pre><code class="language-bash">$ # solve using gsub
+$ echo 'hi there' | ruby -ne 'puts gsub(/\W+/, &quot;&quot;).size'
+7
+
+$ # solve without using substitution functions
+$ echo 'u-no;co%.&quot;(do_12:as' | ruby -ne 'puts $_.scan(/\w/).size'
+12
+</code></pre>
+<p><strong>e)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown.</p>
+<pre><code class="language-bash">$ s1='1 &quot;grape&quot; and &quot;mango&quot; and &quot;guava&quot;'
+$ s2='(&quot;a 1&quot;&quot;d&quot;&quot;c-2&quot;&quot;b&quot;)'
+
+$ echo &quot;$s1&quot; | ruby -ne 'puts $_.scan(/&quot;[^&quot;]+&quot;/).sort * &quot;,&quot;'
+&quot;grape&quot;,&quot;guava&quot;,&quot;mango&quot;
+$ echo &quot;$s2&quot; | ruby -ne 'puts $_.scan(/&quot;[^&quot;]+&quot;/).sort * &quot;,&quot;'
+&quot;a 1&quot;,&quot;b&quot;,&quot;c-2&quot;,&quot;d&quot;
+</code></pre>
+<p><strong>f)</strong> Display only the third and fifth characters from each line input line.</p>
+<pre><code class="language-bash">$ printf 'restore\ncat one\ncricket' | ruby -lne 'print $_[2], $_[4]'
+so
+to
+ik
+</code></pre>
+<p><strong>g)</strong> Transform the given input file <code>fw.txt</code> to get the output as shown below. If second field is empty (i.e. contains only space characters), replace it with <code>NA</code>.</p>
+<pre><code class="language-bash">$ cat fw.txt
+1.3  rs   90  0.134563
+3.8           6
+5.2  ye       8.2387
+4.2  kt   32  45.1
+
+$ ruby -ne 'a = $_.unpack(&quot;a3x2a2x7a*&quot;);
+            a[1] = &quot;NA&quot; if a[1] == &quot;  &quot;;
+            puts a * &quot;,&quot;' fw.txt
+1.3,rs,0.134563
+3.8,NA,6
+5.2,ye,8.2387
+4.2,kt,45.1
+</code></pre>
+<p><strong>h)</strong> For the input file <code>scores.csv</code>, display the header as well as any row which contains <code>b</code> or <code>t</code> (irrespective of case) in the first field.</p>
+<pre><code class="language-bash">$ ruby -F, -ane 'print if $.==1 || $F[0].match?(/[bt]/i)' scores.csv
+Name,Maths,Physics,Chemistry
+Blue,67,46,99
+Ort,68,72,66
+Ith,100,100,100
+</code></pre>
+<p><strong>i)</strong> Extract all whole words that contains <code>42</code> but not at the edge of a word. Assume a word cannot contain <code>42</code> more than once.</p>
+<pre><code class="language-bash">$ s='hi42bye nice1423 bad42 cool_42a 42fake'
+$ echo &quot;$s&quot; | ruby -ne 'puts $_.scan(/\w+42\w+/)'
+hi42bye
+nice1423
+cool_42a
+</code></pre>
+<p><strong>j)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.</p>
+<pre><code class="language-bash">$ ruby -F, -lane '$F.append($.==1 ? &quot;GP&quot; : ($F[1].to_f/2 + ($F[2].to_f+$F[3].to_f)/4));
+                  puts $F * &quot;,&quot;' scores.csv
+Name,Maths,Physics,Chemistry,GP
+Blue,67,46,99,69.75
+Lin,78,83,80,79.75
+Er,56,79,92,70.75
+Cy,97,98,95,96.75
+Ort,68,72,66,68.5
+Ith,100,100,100,100.0
+</code></pre>
+<p><strong>k)</strong> For the input file <code>mixed_fs.txt</code>, retain only first two fields from each input line. The input and output field separators should be space for first two lines and <code>,</code> for the rest of the lines.</p>
+<pre><code class="language-bash">$ cat mixed_fs.txt
+rose lily jasmine tulip
+pink blue white yellow
+car,mat,ball,basket
+light green,brown,black,purple
+
+$ ruby -ne 'f = $.&lt;3? &quot; &quot; : &quot;,&quot;; puts $_.split(f)[0..1] * f' mixed_fs.txt
+rose lily
+pink blue
+car,mat
+light green,brown
+</code></pre>
+<p><strong>l)</strong> For the given space separated numbers, filter only numbers in the range <code>20</code> to <code>1000</code> (inclusive).</p>
+<pre><code class="language-bash">$ echo '20 -983 5 756 634223' | ruby -ane 'puts $F.map(&amp;:to_i).grep(20..1000) * &quot; &quot;'
+20 756
+</code></pre>
+<p><strong>m)</strong> For the given space separated words, randomize the order of characters for each word.</p>
+<pre><code class="language-bash">$ s='this is a sample sentence'
+
+$ # sample randomized output shown here, could be different for you
+$ echo &quot;$s&quot; | ruby -ane 'puts $F.map {|s| s.chars.shuffle * &quot;&quot;} * &quot; &quot;'
+shti si a salemp sneentce
+</code></pre>
+<p><strong>n)</strong> For the given input file <code>words.txt</code>, filter all lines containing characters in ascending and descending order.</p>
+<pre><code class="language-bash">$ cat words.txt
+bot
+art
+are
+boat
+toe
+flee
+reed
+
+$ # ascending order
+$ ruby -lne 'print if $_ == $_.chars.sort * &quot;&quot;' words.txt
+bot
+art
+
+$ # descending order
+$ ruby -lne 'print if $_ == $_.chars.sort.reverse * &quot;&quot;' words.txt
+toe
+reed
+</code></pre>
+<p><strong>o)</strong> For the given space separated words, extract the three longest words.</p>
+<pre><code class="language-bash">$ s='I bought two bananas and three mangoes'
+
+$ echo &quot;$s&quot; | ruby -ane 'puts $F.max_by(3) {_1.size}'
+mangoes
+bananas
+bought
+</code></pre>
+<p><strong>p)</strong> Convert the contents of <code>split.txt</code> as shown below.</p>
+<pre><code class="language-bash">$ cat split.txt
+apple,1:2:5,mango
+wry,4,look
+pencil,3:8,paper
+
+$ ruby -F, -lane '$F[1].split(/:/).each {puts [$F[0],_1,$F[2]] * &quot;,&quot;}' split.txt
+apple,1,mango
+apple,2,mango
+apple,5,mango
+wry,4,look
+pencil,3,paper
+pencil,8,paper
+</code></pre>
+<br>
+<h1><a class="header" href="#record-separators" id="record-separators">Record separators</a></h1>
+<p><strong>a)</strong> The input file <code>jumbled.txt</code> consists of words separated by various delimiters. Display all words that contain <code>an</code> or <code>at</code> or <code>in</code> or <code>it</code>, one per line.</p>
+<pre><code class="language-bash">$ cat jumbled.txt
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+
+$ ruby -0777 -ne 'puts $_.scan(/\w*[ai][nt]\w*/)' jumbled.txt
+overcoats
+furrowing
+wavering
+</code></pre>
+<p><strong>b)</strong> Emulate <code>paste -sd,</code> with <code>ruby</code>.</p>
+<pre><code class="language-bash">$ # this command joins all input lines with ',' character
+$ paste -sd, addr.txt
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+$ # make sure there's no ',' at end of the line
+$ # and that there's a newline character at the end of the line
+$ ruby -lpe '$\ = $&lt;.eof ? &quot;\n&quot; : &quot;,&quot;' ip.txt
+Hello World,How are you,This game is good,Today is sunny,12345,You are funny
+
+$ # if there's only one line in input, again make sure there's no trailing ','
+$ # and that there's a newline character at the end of the line
+$ printf 'foo' | paste -sd,
+foo
+$ printf 'foo' | ruby -lpe '$\ = $&lt;.eof ? &quot;\n&quot; : &quot;,&quot;'
+foo
+</code></pre>
+<p><strong>c)</strong> For the input file <code>sample.txt</code>, extract all paragraphs with words starting with <code>do</code>.</p>
+<pre><code class="language-bash">$ cat sample.txt
+Hello World
+
+Good day
+How are you
+
+Just do-it
+Believe it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+Much ado about nothing
+He he he
+
+$ # note that there's no extra empty line at the end of expected output
+$ ruby -l -00 -ane '(print $s, $_; $s=&quot;\n&quot;) if /\bdo/' sample.txt
+Just do-it
+Believe it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+</code></pre>
+<p><strong>d)</strong> For the input file <code>sample.txt</code>, change all paragraphs into single line by joining lines using <code>.</code> and a space character as the separator. And add a final <code>.</code> to each paragraph.</p>
+<pre><code class="language-bash">$ # note that there's no extra empty line at the end of expected output
+$ ruby -F'\n' -00 -lane '$\ = $&lt;.eof ? &quot;.\n&quot; : &quot;.\n\n&quot;; print $F * &quot;. &quot;' sample.txt
+Hello World.
+
+Good day. How are you.
+
+Just do-it. Believe it.
+
+Today is sunny. Not a bit funny. No doubt you like it too.
+
+Much ado about nothing. He he he.
+</code></pre>
+<p><strong>e)</strong> For the given input, use <code>;;</code> as record separators and <code>:</code> as field separators. Display all records with second field having an integer greater than <code>50</code>.</p>
+<pre><code class="language-bash">$ s='mango:100;;apple:25;;grapes:75'
+
+$ # note that the output has ;; at the end but not newline character
+$ printf &quot;$s&quot; | ruby -F: -lane 'BEGIN{$/=$\=&quot;;;&quot;}; print if $F[1].to_i &gt; 50'
+mango:100;;grapes:75;; 
+</code></pre>
+<br>
+<h1><a class="header" href="#multiple-file-input" id="multiple-file-input">Multiple file input</a></h1>
+<p><strong>a)</strong> Print the last field of first two lines for the input files passed as arguments to the <code>ruby</code> script. Assume space as the field separators for these two files. To make the output more informative, print filenames and a separator as shown in the output below. Assume input files will have at least two lines.</p>
+<pre><code class="language-bash">$ # assume table.txt ip.txt are passed as file inputs
+$ ruby -lane 'puts &quot;&gt;#{ARGF.filename}&lt;&quot; if $.==1;
+              puts $F[-1];
+              (puts &quot;----------&quot;; ARGF.close) if $.==2' table.txt ip.txt
+&gt;table.txt&lt;
+42
+-7
+----------
+&gt;ip.txt&lt;
+World
+you
+----------
+</code></pre>
+<p><strong>b)</strong> For the given list of input files, display all filenames that contain <code>at</code> or <code>fun</code> in the third field in any of the input lines. Assume space as the field separator and note that some lines may not have three fields.</p>
+<pre><code class="language-bash">$ # assume sample.txt secrets.txt ip.txt table.txt are passed as file inputs
+$ # you'll need $F[2] &amp;&amp; $F[2].match?(/at|fun/) if you want to use match? method
+$ ruby -lane '(puts ARGF.filename; ARGF.close) if $F[2] =~ /at|fun/' sample.txt secrets.txt ip.txt table.txt
+secrets.txt
+ip.txt
+table.txt
+</code></pre>
+<br>
+<h1><a class="header" href="#processing-multiple-records" id="processing-multiple-records">Processing multiple records</a></h1>
+<p><strong>a)</strong> For the input file <code>sample.txt</code>, print a matching line containing <code>do</code> only if the previous line is empty and the line before that contains <code>you</code>.</p>
+<pre><code class="language-bash">$ ruby -lne 'print if $p2=~/you/ &amp;&amp; $p1==&quot;&quot;;
+             $p2=$p1; $p1=$_' sample.txt
+Just do-it
+Much ado about nothing
+</code></pre>
+<p><strong>b)</strong> Print only the second matching line respectively for the search terms <code>do</code> and <code>not</code> for the input file <code>sample.txt</code>. Match these terms case insensitively.</p>
+<pre><code class="language-bash">$ ruby -ne 'BEGIN{d=n=0};
+            print if /do/i &amp;&amp; (d+=1)==2;
+            print if /not/i &amp;&amp; (n+=1)==2' sample.txt
+No doubt you like it too
+Much ado about nothing
+</code></pre>
+<p><strong>c)</strong> For the input file <code>sample.txt</code>, print the matching lines containing <code>are</code> or <code>bit</code> as well as <code>n</code> lines around the matching lines. The value for <code>n</code> is passed to the <code>ruby</code> command as an environment value.</p>
+<pre><code class="language-bash">$ n=1 ruby -e 'BEGIN{n=ENV[&quot;n&quot;].to_i}; ip=readlines;
+               ip.each_with_index { |s, i| c=i-n; c=0 if c&lt;0;
+               puts ip[c..i+n] if s.match?(/are|bit/) }' sample.txt
+Good day
+How are you
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+$ # note that first and last line are empty for this case
+$ n=2 ruby -e 'BEGIN{n=ENV[&quot;n&quot;].to_i}; ip=readlines;
+               ip.each_with_index { |s, i| c=i-n; c=0 if c&lt;0;
+               puts ip[c..i+n] if s.match?(/are|bit/) }' sample.txt
+
+Good day
+How are you
+
+Just do-it
+
+Today is sunny
+Not a bit funny
+No doubt you like it too
+
+</code></pre>
+<p><strong>d)</strong> For the input file <code>broken.txt</code>, print all lines between the markers <code>top</code> and <code>bottom</code>. The first <code>ruby</code> command shown below doesn't work because it is matching till end of file if second marker isn't found. Assume that the input file cannot have two <code>top</code> markers without a <code>bottom</code> marker appearing in between and vice-versa.</p>
+<pre><code class="language-bash">$ cat broken.txt
+top
+3.14
+bottom
+---
+top
+1234567890
+bottom
+top
+Hi there
+Have a nice day
+Good bye
+
+$ # wrong output
+$ ruby -ne '$f=false if /bottom/; print if $f; $f=true if /top/' broken.txt
+3.14
+1234567890
+Hi there
+Have a nice day
+Good bye
+
+$ # expected output
+$ tac broken.txt | ruby -ne '$f=false if /top/; print if $f; $f=true if /bottom/' | tac
+3.14
+1234567890
+</code></pre>
+<p><strong>e)</strong> For the input file <code>concat.txt</code>, extract contents from a line starting with <code>### </code> until but not including the next such line. The block to be extracted is indicated by variable <code>n</code> passed as an environment value.</p>
+<pre><code class="language-bash">$ cat concat.txt
+### addr.txt
+How are you
+This game is good
+Today ### is sunny
+### broken.txt
+top ###
+1234567890
+bottom
+### sample.txt
+Just ### do-it
+Believe it
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+
+$ n=2 ruby -ne 'BEGIN{n=ENV[&quot;n&quot;].to_i; c=0};
+                c+=1 if /\A### /; print if c==n' concat.txt
+### broken.txt
+top ###
+1234567890
+bottom
+$ n=4 ruby -ne 'BEGIN{n=ENV[&quot;n&quot;].to_i; c=0};
+                c+=1 if /\A### /; print if c==n' concat.txt
+### mixed_fs.txt
+pink blue white yellow
+car,mat,ball,basket
+</code></pre>
+<p><strong>f)</strong> For the input file <code>ruby.md</code>, replace all occurrences of <code>ruby</code> (irrespective of case) with <code>Ruby</code>. But, do not replace any matches between <code>```ruby</code> and <code>```</code> lines (<code>ruby</code> in these markers shouldn't be replaced either).</p>
+<pre><code class="language-bash">$ # can also use: ruby -pe 'gsub(/ruby/i, &quot;Ruby&quot;) if !(/```ruby$/../```$/)'
+$ ruby -pe '$f=true if /```ruby$/; $f=false if /```$/;
+            gsub(/ruby/i, &quot;Ruby&quot;) if !$f' ruby.md &gt; out.md
+$ diff -sq out.md expected.md 
+Files out.md and expected.md are identical
+</code></pre>
+<br>
+<h1><a class="header" href="#two-file-processing" id="two-file-processing">Two file processing</a></h1>
+<p><strong>a)</strong> Use contents of <code>match_words.txt</code> file to display matching lines from <code>jumbled.txt</code> and <code>sample.txt</code>. The matching criteria is that the second word of lines from these files should match the third word of lines from <code>match_words.txt</code>.</p>
+<pre><code class="language-bash">$ cat match_words.txt
+%whole(Hello)--{doubt}==ado==
+just,\joint*,concession&lt;=nice
+
+$ # 'concession' is one of the third words from 'match_words.txt'
+$ # and second word from 'jumbled.txt'
+$ ruby -rset -ne 'BEGIN{s=Set.new};
+                  (s.add($_.scan(/\w+/)[2]); next) if ARGV.size==2;
+                  print if s.include?($_.scan(/\w+/)[1])
+                 ' match_words.txt jumbled.txt sample.txt
+wavering:concession/woof\retailer
+No doubt you like it too
+</code></pre>
+<p><strong>b)</strong> Interleave contents of <code>secrets.txt</code> with the contents of a file passed as <code>stdin</code> in the format as shown below.</p>
+<pre><code class="language-bash">$ ruby -ne 'print; puts STDIN.gets, &quot;---&quot;' &lt;table.txt secrets.txt
+stag area row tick
+brown bread mat hair 42
+---
+deaf chi rate tall glad
+blue cake mug shirt -7
+---
+Bi tac toe - 42
+yellow banana window shoes 3.14
+---
+</code></pre>
+<p><strong>c)</strong> The file <code>search_terms.txt</code> contains one search string per line (these have no regexp metacharacters). Construct a solution that reads this file and displays search terms (matched case insensitively) that were found in all of the other input file arguments. Note that these terms should be matched with any part of the line, not just whole words.</p>
+<pre><code class="language-bash">$ cat search_terms.txt
+hello
+row
+you
+is
+at
+
+$ # ip: search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt oops.txt
+$ ruby -rset -lne 'BEGIN{s1=Set.new; s2=Set.new; c=ARGV.size-1};
+             (s1.add($_); next) if ARGV.size==c;
+             s1.each { |k| s2.add(k) if /#{k}/i };
+             (s1 = s1 &amp; s2; s2 = Set.new) if ARGF.eof; END { puts s1.to_a }
+             ' search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt oops.txt
+row
+at
+
+$ # ip: search_terms.txt ip.txt sample.txt oops.txt
+$ ruby -rset -lne 'BEGIN{s1=Set.new; s2=Set.new; c=ARGV.size-1};
+             (s1.add($_); next) if ARGV.size==c;
+             s1.each { |k| s2.add(k) if /#{k}/i };
+             (s1 = s1 &amp; s2; s2 = Set.new) if ARGF.eof; END { puts s1.to_a }
+             ' search_terms.txt ip.txt sample.txt oops.txt
+hello
+you
+is
+</code></pre>
+<p><strong>d)</strong> For the input file <code>ip.txt</code>, print all lines that contain <code>are</code> and the line that comes after such a line, if any. Use <code>gets</code> method to construct the solution.</p>
+<pre><code class="language-bash">$ # note that there shouldn't be an empty line at the end of the output
+$ ruby -ne '(print; print gets) if /are/' ip.txt
+How are you
+This game is good
+You are funny
+</code></pre>
+<p><strong>Bonus:</strong> Will <code>grep -A1 'is' ip.txt</code> give identical results for your solution with <code>is</code> as the search term? If not, why?</p>
+<p>No, it will not give identical results because <code>grep</code> will work for overlapping cases too.</p>
+<br>
+<h1><a class="header" href="#dealing-with-duplicates" id="dealing-with-duplicates">Dealing with duplicates</a></h1>
+<p><strong>a)</strong> Retain only first copy of a line for the input file <code>lines.txt</code>. Case should be ignored while comparing lines. For example <code>hi there</code> and <code>HI TheRE</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ cat lines.txt
+Go There
+come on
+go there
+---
+2 apples and 5 mangoes
+come on!
+---
+2 Apples
+COME ON
+
+$ # same as: ruby -e 'puts readlines.uniq(&amp;:downcase)' lines.txt
+$ ruby -rset -ne 'BEGIN{s=Set.new}; print if s.add?($_.downcase)' lines.txt
+Go There
+come on
+---
+2 apples and 5 mangoes
+come on!
+2 Apples
+</code></pre>
+<p><strong>b)</strong> Retain only first copy of a line for the input file <code>twos.txt</code>. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ cat twos.txt
+hehe haha
+door floor
+haha hehe
+6;8 3-4
+true blue
+hehe bebe
+floor door
+3-4 6;8
+tru eblue
+haha hehe
+
+$ # can also use: ruby -rset -lane 'BEGIN{s=Set.new};
+$ #    print if s.add?($F[0] &gt; $F[1] ? $_ : &quot;#{$F[1]} #{$F[0]}&quot;)' twos.txt
+$ ruby -e 'puts readlines.uniq {_1.split.sort}' twos.txt
+hehe haha
+door floor
+6;8 3-4
+true blue
+hehe bebe
+tru eblue
+</code></pre>
+<p><strong>c)</strong> For the input file <code>twos.txt</code>, display only unique lines. Assume space as field separator with two fields on each line. Compare the lines irrespective of order of the fields. For example, <code>hehe haha</code> and <code>haha hehe</code> will be considered as duplicates.</p>
+<pre><code class="language-bash">$ ruby -lane 'BEGIN{h=Hash.new(0)};
+              h[$F[0] &gt; $F[1] ? $_ : &quot;#{$F[1]} #{$F[0]}&quot;] += 1;
+              END{ h.each_key{|k| puts k if h[k]==1} }' twos.txt
+true blue
+hehe bebe
+tru eblue
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="processing-structured-data.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="processing-structured-data.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>

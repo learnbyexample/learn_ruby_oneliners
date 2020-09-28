@@ -1,3 +1,0 @@
-apple,1:2:5,mango
-wry,4,look
-pencil,3:8,paper
