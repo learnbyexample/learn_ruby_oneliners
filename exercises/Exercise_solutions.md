@@ -1,6 +1,10 @@
-# One-liner introduction
+# Exercise solutions
 
 >![info](../images/info.svg) Exercise related files are available from [exercises folder of learn_ruby_oneliners repo](https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/exercises).
+
+<br>
+
+# One-liner introduction
 
 **a)** For the input file `ip.txt`, display all lines containing `is`.
 
@@ -243,6 +247,27 @@ $ printf '2.3/[4]*6\n2[4]5\n5.3-[4]*9\n' | ruby -ne 'print if $_.include?("[4]*"
 5.3-[4]*9
 ```
 
+**m)** For the given input string, replace all lowercase alphabets to `x` only for words starting with `m`.
+
+```bash
+$ s='ma2T3a a2p kite e2e3m meet'
+
+$ echo "$s" | ruby -pe 'gsub(/\bm\w*+/) {$&.tr("a-z", "x")}'
+xx2T3x a2p kite e2e3m xxxx
+```
+
+**n)** For the input file `ip.txt`, delete all characters other than lowercase vowels and newline character. Perform this transformation only between a line containing `you` up to line number `4` (inclusive).
+
+```bash
+$ ruby -pe '$_.tr!("^aeiou\n", "") if /you/..4' ip.txt
+Hello World
+oaeou
+iaeioo
+oaiu
+12345
+You are funny
+```
+
 <br>
 
 # Field separators
@@ -316,7 +341,7 @@ $ echo "$s2" | ruby -ne 'puts $_.scan(/"[^"]+"/).sort * ","'
 "a 1","b","c-2","d"
 ```
 
-**f)** Display only the third and fifth characters from each line input line.
+**f)** Display only the third and fifth characters from each input line.
 
 ```bash
 $ printf 'restore\ncat one\ncricket' | ruby -lne 'print $_[2], $_[4]'
@@ -482,7 +507,7 @@ wavering
 
 ```bash
 $ # this command joins all input lines with ',' character
-$ paste -sd, addr.txt
+$ paste -sd, ip.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 $ # make sure there's no ',' at end of the line
 $ # and that there's a newline character at the end of the line
@@ -517,7 +542,7 @@ Much ado about nothing
 He he he
 
 $ # note that there's no extra empty line at the end of expected output
-$ ruby -l -00 -ane '(print $s, $_; $s="\n") if /\bdo/' sample.txt
+$ ruby -l -00 -ne '(print $s, $_; $s="\n") if /\bdo/' sample.txt
 Just do-it
 Believe it
 
@@ -549,7 +574,7 @@ $ s='mango:100;;apple:25;;grapes:75'
 
 $ # note that the output has ;; at the end but not newline character
 $ printf "$s" | ruby -F: -lane 'BEGIN{$/=$\=";;"}; print if $F[1].to_i > 50'
-mango:100;;grapes:75;; 
+mango:100;;grapes:75;;
 ```
 
 <br>
@@ -582,6 +607,21 @@ $ ruby -lane '(puts ARGF.filename; ARGF.close) if $F[2] =~ /at|fun/' sample.txt 
 secrets.txt
 ip.txt
 table.txt
+```
+
+**c)** Print the first two lines for each of the input files `ip.txt`, `sample.txt` and `table.txt`. Also, add a separator between the results as shown below (note that the separator isn't present at the end of the output). Assume input files will have at least two lines.
+
+```bash
+$ ruby -pe 'print $s if $.==1; (ARGF.close; $s="---\n") if $.==2
+           ' ip.txt sample.txt table.txt
+Hello World
+How are you
+---
+Hello World
+
+---
+brown bread mat hair 42
+blue cake mug shirt -7
 ```
 
 <br>
@@ -666,34 +706,34 @@ $ tac broken.txt | ruby -ne '$f=false if /top/; print if $f; $f=true if /bottom/
 1234567890
 ```
 
-**e)** For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed as an environment value.
+**e)** For the input file `concat.txt`, extract contents from a line starting with ``%%% `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed as an environment value.
 
 ```bash
 $ cat concat.txt
-### addr.txt
+%%% addr.txt
 How are you
 This game is good
-Today ### is sunny
-### broken.txt
-top ###
+Today %%% is sunny
+%%% broken.txt
+top %%%
 1234567890
 bottom
-### sample.txt
-Just ### do-it
+%%% sample.txt
+Just %%% do-it
 Believe it
-### mixed_fs.txt
+%%% mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 
 $ n=2 ruby -ne 'BEGIN{n=ENV["n"].to_i; c=0};
-                c+=1 if /\A### /; print if c==n' concat.txt
-### broken.txt
-top ###
+                c+=1 if /\A%%% /; print if c==n' concat.txt
+%%% broken.txt
+top %%%
 1234567890
 bottom
 $ n=4 ruby -ne 'BEGIN{n=ENV["n"].to_i; c=0};
-                c+=1 if /\A### /; print if c==n' concat.txt
-### mixed_fs.txt
+                c+=1 if /\A%%% /; print if c==n' concat.txt
+%%% mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 ```
@@ -702,10 +742,25 @@ car,mat,ball,basket
 
 ```bash
 $ # can also use: ruby -pe 'gsub(/ruby/i, "Ruby") if !(/```ruby$/../```$/)'
-$ ruby -pe '$f=true if /```ruby$/; $f=false if /```$/;
-            gsub(/ruby/i, "Ruby") if !$f' ruby.md > out.md
-$ diff -sq out.md expected.md 
+$ ruby -pe '$f=true if /```ruby$/; gsub(/ruby/i, "Ruby") if !$f;
+            $f=false if /```$/' ruby.md > out.md
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
+```
+
+**g)** Print the last two lines for each of the input files `ip.txt`, `sample.txt` and `table.txt`. Also, add a separator between the results as shown below (note that the separator isn't present at the end of the output). Assume input files will have at least two lines.
+
+```bash
+$ ruby -ne '(print $s,$p,$_; $s="---\n") if ARGF.eof;
+            $p=$_' ip.txt sample.txt table.txt
+12345
+You are funny
+---
+Much ado about nothing
+He he he
+---
+blue cake mug shirt -7
+yellow banana window shoes 3.14
 ```
 
 <br>
@@ -721,9 +776,9 @@ just,\joint*,concession<=nice
 
 $ # 'concession' is one of the third words from 'match_words.txt'
 $ # and second word from 'jumbled.txt'
-$ ruby -rset -ne 'BEGIN{s=Set.new};
-                  (s.add($_.scan(/\w+/)[2]); next) if ARGV.size==2;
-                  print if s.include?($_.scan(/\w+/)[1])
+$ ruby -rset -ne 'BEGIN{s=Set.new}; words = $_.scan(/\w+/);
+                  (s.add(words[2]); next) if ARGV.size==2;
+                  print if s.include?(words[1])
                  ' match_words.txt jumbled.txt sample.txt
 wavering:concession/woof\retailer
 No doubt you like it too
@@ -732,7 +787,7 @@ No doubt you like it too
 **b)** Interleave contents of `secrets.txt` with the contents of a file passed as `stdin` in the format as shown below.
 
 ```bash
-$ ruby -ne 'print; puts STDIN.gets, "---"' <table.txt secrets.txt
+$ ruby -ne 'print $s, $_; puts STDIN.gets; $s="---\n"' <table.txt secrets.txt
 stag area row tick
 brown bread mat hair 42
 ---
@@ -741,7 +796,6 @@ blue cake mug shirt -7
 ---
 Bi tac toe - 42
 yellow banana window shoes 3.14
----
 ```
 
 **c)** The file `search_terms.txt` contains one search string per line (these have no regexp metacharacters). Construct a solution that reads this file and displays search terms (matched case insensitively) that were found in all of the other input file arguments. Note that these terms should be matched with any part of the line, not just whole words.
@@ -787,6 +841,60 @@ You are funny
 **Bonus:** Will `grep -A1 'is' ip.txt` give identical results for your solution with `is` as the search term? If not, why?
 
 No, it will not give identical results because `grep` will work for overlapping cases too.
+
+**e)** Replace third to fifth lines of input file `ip.txt` with second to fourth lines from file `para.txt`
+
+```bash
+$ ruby -ne 'print if 2..4' para.txt | ruby -pe '
+            print STDIN.read if $.==3; $_ = "" if 3..5' ip.txt
+Hello World
+How are you
+Start working on that
+project you always wanted
+to, do not let it end
+You are funny
+```
+
+**f)** Insert one line from `jumbled.txt` before every two lines of `idx.txt`
+
+```bash
+$ ruby -ne 's = $_; print STDIN.gets if $. % 2 == 1; print s' <jumbled.txt idx.txt
+overcoats;furrowing-typeface%pewter##hobby
+match after the last newline character
+and then you want to test
+wavering:concession/woof\retailer
+this is good bye then
+you were there to see?
+```
+
+**g)** Use entire contents of `match.txt` to search `error.txt` and replace with contents of `jumbled.txt`. Partial lines should NOT be matched.
+
+```bash
+$ cat match.txt
+print+this
+but not that
+$ cat error.txt
+print+this
+but not that or this
+print+this
+but not that
+if print+this
+but not that
+print+this
+but not that
+
+$ ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
+                  print(gsub(/^#{Regexp.escape(s)}/, r.gsub(/\\/, "\\\0")))
+                 ' match.txt jumbled.txt error.txt
+print+this
+but not that or this
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+if print+this
+but not that
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+```
 
 <br>
 

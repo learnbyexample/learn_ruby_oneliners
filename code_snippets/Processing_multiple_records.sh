@@ -27,12 +27,16 @@ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i|
 
 ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i|
          c=i-n; c=0 if c<0;
-         (puts ip[c..i]; puts "---") if s.match?(/toy|flower/) }' context.txt
+         (print $s; puts ip[c..i]; $s="---\n") if s.match?(/toy|flower/) }
+        ' context.txt
 
 ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i| c=i-n;
          puts ip[c] if c>=0 && s.match?(/language/) }' context.txt
 
 ruby -ne 'print $p2 if $.>2 && /toy|flower/; $p2=$p1; $p1=$_' context.txt
+
+tac context.txt | ruby -ne 'print if $n.to_i>0 && ($n-=1)==0;
+                  $n=2 if /language/' | tac
 
 ## Records bounded by distinct markers
 
@@ -76,10 +80,9 @@ seq 30 | ruby -ne 'BEGIN{n=1; c=0}; ($f=true; c+=1) if /4/;
 seq 30 | ruby -ne 'BEGIN{n=2; c=0}; ($f=true; c+=1) if /4/;
                    print if $f && c!=n; $f=false if /6/'
 
-seq 30 | ruby -ne '($f=true; buf=$_; $m=false; next) if /4/;
+seq 30 | ruby -ne '($f=true; buf=$_; next) if /4/;
                    buf << $_ if $f;
-                   ($f=false; print buf if $m) if /6/;
-                   $m=true if /\A15\Z/'
+                   ($f=false; print buf if buf.match?(/^15$/)) if /6/;'
 
 ## Broken blocks
 

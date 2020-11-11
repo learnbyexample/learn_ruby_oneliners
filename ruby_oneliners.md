@@ -24,6 +24,7 @@ You should also have prior experience working with command line and `bash` shell
 * [stackoverflow](https://stackoverflow.com/) — for getting answers to pertinent questions on Ruby, one-liners, etc
 * [tex.stackexchange](https://tex.stackexchange.com/) — for help on `pandoc` and `tex` related questions
 * [LibreOffice Draw](https://www.libreoffice.org/discover/draw/) — cover image
+* [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) for optimizing images
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
 * [softwareengineering.stackexchange](https://softwareengineering.stackexchange.com/questions/39/whats-your-favourite-quote-about-programming) and [skolakoda](https://skolakoda.org/programming-quotes) for programming quotes
 
@@ -55,7 +56,7 @@ Resources mentioned in Acknowledgements section above are available under origin
 
 ## Book version
 
-1.0
+1.5
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_ruby_oneliners/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -297,6 +298,15 @@ apparent effort
 two spare computers
 ```
 
+You can also make use of the `-s` option to assign a global variable.
+
+```bash
+$ r='\Bpar\B'
+$ ruby -sne 'print if /#{$rgx}/' -- -rgx="$r" word_anchors.txt
+apparent effort
+two spare computers
+```
+
 >![info](images/info.svg) As an example, see my repo [ch: command help](https://github.com/learnbyexample/command_help/blob/master/ch) for a practical shell script, where commands are constructed dynamically.
 
 ## Executing external commands
@@ -457,7 +467,7 @@ yellow banana window shoes 3.14
 
 # Line processing
 
-Now that you are familiar with `ruby` cli usage, this chapter will dive deep into line processing examples. You'll learn various ways for matching lines based on regular expressions, fixed string matching, line numbers, etc. You'll also see how to group multiple statements and learn about control flow keywords `next` and `exit`.
+Now that you are familiar with basic `ruby` cli usage, this chapter will dive deeper into line processing examples. You'll learn various ways for matching lines based on regular expressions, fixed string matching, line numbers, etc. You'll also see how to group multiple statements and learn about control flow keywords `next` and `exit`.
 
 ## Regexp based filtering
 
@@ -556,17 +566,23 @@ naming things, and off-by-1 errors by Leon Bambrick
 The transliteration method `tr` allows you to specify per character transformation rule. See [ruby-doc: tr](https://ruby-doc.org/core-2.7.1/String.html#method-i-tr) for documentation.
 
 ```bash
+$ # rot13
 $ echo 'Uryyb Jbeyq' | ruby -pe '$_.tr!("a-zA-Z", "n-za-mN-ZA-M")'
 Hello World
 
 $ # use ^ at start of first argument to complement specified characters
-$ # note that input doesn't have newline character here
-$ printf 'foo:123:baz' | ruby -ne 'puts $_.tr("^0-9", "-")'
+$ echo 'foo:123:baz' | ruby -pe '$_.tr!("^0-9\n", "-")'
 ----123----
 
 $ # use empty second argument to delete specified characters
-$ printf 'foo:123:baz' | ruby -ne 'puts $_.tr("^0-9", "")'
+$ echo 'foo:123:baz' | ruby -pe '$_.tr!("^0-9\n", "")'
 123
+
+$ # if second list is shorter than number of characters in the first list,
+$ # the last character in the second list will be used to fill the gaps
+$ s='orange apple appleseed cab'
+$ echo "$s" | ruby -pe 'gsub(/\b(?!apple\b)\w++/) {$&.tr("a-z", "1-9")}'
+991975 apple 199959554 312
 ```
 
 ## Conditional substitution
@@ -609,7 +625,7 @@ Some people, when confronted with a problem, think - I know, I will
 
 ## next
 
-When `next` is executed, rest of the code will be skipped and the next input line will be fetched for processing. It doesn't affect `BEGIN` or `END` blocks as they are outside the file content loop. 
+When `next` is executed, rest of the code will be skipped and the next input line will be fetched for processing. It doesn't affect `BEGIN` or `END` blocks as they are outside the file content loop.
 
 ```bash
 $ ruby -ne '(puts "%% #{$_}"; next) if /\bpar/;
@@ -658,9 +674,22 @@ $ echo $?
 2
 ```
 
+Any code in `END` block will still be executed before exiting. This doesn't apply if `exit` was called from the `BEGIN` block.
+
+```bash
+$ ruby -pe 'exit if /cake/' table.txt
+brown bread mat hair 42
+$ ruby -pe 'exit if /cake/; END{puts "bye"}' table.txt
+brown bread mat hair 42
+bye
+
+$ ruby -pe 'BEGIN{puts "hi"; exit; puts "hello"}; END{puts "bye"}' table.txt
+hi
+```
+
 >![warning](images/warning.svg) Be careful if you want to use `exit` with multiple input files, as `ruby` will stop even if there are other files remaining to be processed.
 
-## Line numbers
+## Line number based processing
 
 Line numbers can also be used as a filtering criteria. It can be accessed using the `$.` global variable.
 
@@ -674,10 +703,10 @@ $ ruby -ne 'print if $. == 2 || $. == 5' programming_quotes.txt
 Therefore, if you write the code as cleverly as possible, you are,
 Some people, when confronted with a problem, think - I know, I will
 
-$ # substitution only on 2nd line
-$ printf 'gates\nnot\nused\n' | ruby -pe 'gsub(/t/, "*") if $. == 2'
+$ # transliterate only 2nd line
+$ printf 'gates\nnot\nused\n' | ruby -pe '$_.tr!("a-z", "*") if $. == 2'
 gates
-no*
+***
 used
 
 $ # selecting from particular line number to end of input
@@ -690,32 +719,18 @@ $ seq 14 25 | ruby -ne 'print if $. >= 10'
 The global variable `$<` contains the file handle for the current file input being processed. Use `eof` method to process lines based on end of file condition. See [ruby-doc: eof](https://ruby-doc.org/core-2.7.1/IO.html#method-i-eof) for documentation. You can also use `ARGF` instead of `$<` here, see [ARGV and ARGF](#argv-and-argf) section for details.
 
 ```bash
+$ # same as: tail -n1 programming_quotes.txt
 $ ruby -ne 'print if $<.eof' programming_quotes.txt
 naming things, and off-by-1 errors by Leon Bambrick
 
 $ ruby -ne 'puts "#{$.}:#{$_}" if $<.eof' programming_quotes.txt
 12:naming things, and off-by-1 errors by Leon Bambrick
 
+$ # multiple file example
 $ # same as: tail -q -n1 programming_quotes.txt table.txt
 $ ruby -ne 'print if $<.eof' programming_quotes.txt table.txt
 naming things, and off-by-1 errors by Leon Bambrick
 yellow banana window shoes 3.14
-```
-
-You can use Flip-Flop operator to select between pair of line numbers. See [ruby-doc: Flip-Flop](https://ruby-doc.org/core-2.7.1/doc/syntax/control_expressions_rdoc.html#label-Flip-Flop) for syntax details.
-
-```bash
-$ # the range is automatically compared against $. in this context
-$ seq 14 25 | ruby -ne 'print if 3..5'
-16
-17
-18
-
-$ # 'print if 3...5' gives same result as above,
-$ # you can use include? method to exclude the end range
-$ seq 14 25 | ruby -ne 'print if (3...5).include?($.)'
-16
-17
 ```
 
 For large input files, use `exit` method to avoid processing unnecessary input lines.
@@ -734,14 +749,82 @@ $ time seq 3542 4623452 | ruby -ne 'print if $. == 2452' > f2
 real    0m1.158s
 ```
 
-## Fixed string matching
+## Flip-Flop operator
 
-To match strings literally, use the `include?` method instead of regular expressions.
+You can use Flip-Flop operator to select between pair of matching conditions like line numbers and regexp. See [ruby-doc: Flip-Flop](https://ruby-doc.org/core-2.7.1/doc/syntax/control_expressions_rdoc.html#label-Flip-Flop) for syntax details.
+
+```bash
+$ # the range is automatically compared against $. in this context
+$ seq 14 25 | ruby -ne 'print if 3..5'
+16
+17
+18
+
+$ # 'print if 3...5' gives same result as above,
+$ # you can use include? method to exclude the end range
+$ seq 14 25 | ruby -ne 'print if (3...5).include?($.)'
+16
+17
+
+$ # the range is automatically compared against $_ in this context
+$ # note that all the matching ranges are printed
+$ ruby -ne 'print if /are/../by/' programming_quotes.txt
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+There are 2 hard problems in computer science: cache invalidation,
+naming things, and off-by-1 errors by Leon Bambrick
+```
+
+>![info](images/info.svg) See [Records bounded by distinct markers](#records-bounded-by-distinct-markers) section for an alternate, flexible solution.
+
+You can also mix line number and regexp conditions.
+
+```bash
+$ ruby -ne 'print if 5../use/' programming_quotes.txt
+Some people, when confronted with a problem, think - I know, I will
+use regular expressions. Now they have two problems by Jamie Zawinski
+
+$ # same logic as: ruby -pe 'exit if /ll/'
+$ # inefficient, but this will work for multiple file inputs
+$ ruby -ne 'print if !(/ll/..$<.eof)' programming_quotes.txt table.txt
+Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+
+brown bread mat hair 42
+blue cake mug shirt -7
+```
+
+>![warning](images/warning.svg) Both conditions can match the same line too! Also, if the second condition doesn't match, lines starting from first condition to the last line of the input will be matched.
+
+```bash
+$ # 'worth' matches the 9th line
+$ ruby -ne 'print if 9../worth/' programming_quotes.txt
+is not worth knowing by Alan Perlis
+
+$ # there's a line containing 'affect' but doesn't have matching pair
+$ # so, all lines till the end of input is printed
+$ ruby -ne 'print if /affect/../XYZ/' programming_quotes.txt
+A language that does not affect the way you think about programming,
+is not worth knowing by Alan Perlis
+
+There are 2 hard problems in computer science: cache invalidation,
+naming things, and off-by-1 errors by Leon Bambrick
+```
+
+## Working with fixed strings
+
+To match strings literally, use the `include?` method for line filtering and string argument instead of regexp for substitutions.
 
 ```bash
 $ echo 'int a[5]' | ruby -ne 'print if /a[5]/'
 $ echo 'int a[5]' | ruby -ne 'print if $_.include?("a[5]")'
 int a[5]
+
+$ echo 'int a[5]' | ruby -pe 'sub(/a[5]/, "b")'
+int a[5]
+$ echo 'int a[5]' | ruby -pe 'sub("a[5]", "b")'
+int b
 ```
 
 The above example uses double quotes for the string argument, which allows escape sequences like `\t`, `\n`, etc and interpolation with `#{}`. This isn't the case with single quoted string values. Using single quotes within the script from command line requires messing with shell metacharacters. So, use `%q` instead or pass the fixed string to be matched as an environment variable, which can be accessed via the `ENV` hash.
@@ -754,10 +837,15 @@ value of a:     5
 $ # use %q as an alternate to specify single quoted string
 $ echo 'int #{a}' | ruby -ne 'print if $_.include?(%q/#{a}/)'
 int #{a}
+$ echo 'int #{a}' | ruby -pe 'sub(%q/#{a}/, "b")'
+int b
 
 $ # or pass the string as environment variable
 $ echo 'int #{a}' | s='#{a}' ruby -ne 'print if $_.include?(ENV["s"])'
 int #{a}
+$ # \\ is special within single quotes, so ENV is the better choice here
+$ echo 'int #{a\\}' | s='#{a\\}' ruby -pe 'sub(ENV["s"], "b")'
+int b
 ```
 
 Use `start_with?` and `end_with?` methods to restrict the fixed string matching to the start or end of the input line. The line content in `$_` variable contains the `\n` line ending character as well. You can either use `chomp` method explicitly or use the `-l` command line option, which will be discussed in detail in [Record separators](#record-separators) chapter. For now, it is enough to know that `-l` will remove the line ending from `$_` and add it back when `print` is used.
@@ -798,6 +886,41 @@ a=b,a-b=c,c*d
 $ # for > or >= comparison, use the optional second argument
 $ s='a+b' ruby -ne 'print if $_.index(ENV["s"], 1)' eqns.txt
 i*(t+9-g)/8,4-a+b
+```
+
+If you need to match entire input line or field, you can use comparison operators.
+
+```bash
+$ printf 'a.b\na+b\n' | ruby -lne 'print if /^a.b$/'
+a.b
+a+b
+$ printf 'a.b\na+b\n' | ruby -lne 'print if $_ == %q/a.b/'
+a.b
+
+$ printf '1 a.b\n2 a+b\n' | ruby -lane 'print if $F[1] != %q/a.b/'
+2 a+b
+```
+
+To provide a fixed string in replacement section, environment variable comes in handy again. But you have to replace any `\` character in the environment variable with `\\` before using it as replacement string.
+
+```bash
+$ # the \ character special in replacement section
+$ # and \ is special within double quotes too
+$ echo 'x+y' | ruby -pe 'sub(%q/x+y/, "x\y\\0z")'
+xyx+yz
+
+$ # \ in value passed via environment variable is still special 
+$ echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"])'
+x\y\0z
+$ # have to preprocess the value by replacing \ with \\
+$ echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"].gsub(/\\/, "\\\0"))'
+x\y\\0z
+
+$ # can't use %q strings for all cases as \\ is special
+$ ruby -e 'puts %q/x\y\\0z/'
+x\y\0z
+$ echo 'x+y' | ruby -pe 'sub(%q/x+y/, %q/x\y\\0z/.gsub(/\\/, "\\\0"))'
+x\y\0z
 ```
 
 ## In-place file editing
@@ -1006,9 +1129,30 @@ $ printf '2.3/[4]*6\n2[4]5\n5.3-[4]*9\n' | ##### add your solution here
 5.3-[4]*9
 ```
 
+**m)** For the given input string, replace all lowercase alphabets to `x` only for words starting with `m`.
+
+```bash
+$ s='ma2T3a a2p kite e2e3m meet'
+
+$ echo "$s" | ##### add your solution here
+xx2T3x a2p kite e2e3m xxxx
+```
+
+**n)** For the input file `ip.txt`, delete all characters other than lowercase vowels and newline character. Perform this transformation only between a line containing `you` up to line number `4` (inclusive).
+
+```bash
+##### add your solution here
+Hello World
+oaeou
+iaeioo
+oaiu
+12345
+You are funny
+```
+
 # Field separators
 
-This chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields. 
+This chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields.
 
 ## Default field separation
 
@@ -1329,11 +1473,15 @@ bat:dubious:floor:four:to
 $ echo "$s" | ruby -ane 'puts $F.sort_by(&:size) * ":"'
 to:bat:four:floor:dubious
 
+$ # numeric sort example
+$ echo '23 756 -983 5' | ruby -lane 'puts $F.sort_by(&:to_i) * ":"'
+-983:5:23:756
+
 $ echo 'foobar' | ruby -lne 'puts $_.chars.sort.reverse * ""'
 roofba
 
 $ s='try a bad to good i teal by nice how'
-# longer words first, ascending alphabetic order as tie-breaker
+$ # longer words first, ascending alphabetic order as tie-breaker
 $ echo "$s" | ruby -ane 'puts $F.sort { |a, b|
                 [b.size, a] <=> [a.size, b] } * ":"'
 good:nice:teal:bad:how:try:by:to:a:i
@@ -1467,7 +1615,7 @@ $ echo "$s2" | ##### add your solution here
 "a 1","b","c-2","d"
 ```
 
-**f)** Display only the third and fifth characters from each line input line.
+**f)** Display only the third and fifth characters from each input line.
 
 ```bash
 $ printf 'restore\ncat one\ncricket' | ##### add your solution here
@@ -1695,8 +1843,8 @@ a:sample:
 Recall that default `-a` will split input record based on whitespaces and remove leading/trailing whitespaces. Now that you've seen how input record separator can be something other than newline, here's an example to show the full effect of default record splitting.
 
 ```bash
-$ # here, ':' character is the input record separator
-$ s='   a\t\tb:1000\n\n\n\n123 7777:x  y \n \n z  '
+$ # ':' character is the input record separator here
+$ s='   a\t\tb\n\t\n:1000\n\n\n\n123 7777:x  y \n \n z  '
 $ printf '%b' "$s" | ruby -0072 -lane 'puts $F * ","'
 a,b
 1000,123,7777
@@ -1794,21 +1942,21 @@ a
 
 ```
 
-Any leading/trailing newlines in the input data file will be trimmed and not lead to empty elements. This is similar to how `-a` treats whitespaces for default field separation.
+Any leading newlines (only newlines, not other whitespace characters) in the input data file will be trimmed and not lead to empty records. This is similar to how `-a` treats whitespaces for default field separation.
 
 ```bash
-$ s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n\n\n\n'
+$ s='\n\n\na\n\n12\n34\n\nhi\nhello\n\n\n\n'
 
 $ # note that -l is used to chomp the record separator here
-$ printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---\n" if $. <= 2'
+$ printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---" if $. <= 2'
 a
-b
 ---
 12
 34
 ---
 
-$ printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---\n" if $<.eof'
+$ # max. of two trailing newlines will be preserved if -l isn't used
+$ printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---" if $<.eof'
 hi
 hello
 ---
@@ -1855,7 +2003,7 @@ $ seq 2 | ruby -ne 'BEGIN{$\ = "---\n"}; print'
 ---
 
 $ # change NUL record separator to dot and newline
-$ # -l here helps to chomp the NUL character 
+$ # -l here helps to chomp the NUL character
 $ # -l also sets NUL to be added to print, but gets overridden in BEGIN block
 $ printf 'foo\0bar\0' | ruby -0 -lpe 'BEGIN{$\ = ".\n"}'
 foo.
@@ -1894,7 +2042,7 @@ wavering
 
 ```bash
 $ # this command joins all input lines with ',' character
-$ paste -sd, addr.txt
+$ paste -sd, ip.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 $ # make sure there's no ',' at end of the line
 $ # and that there's a newline character at the end of the line
@@ -1961,7 +2109,7 @@ $ s='mango:100;;apple:25;;grapes:75'
 
 $ # note that the output has ;; at the end but not newline character
 $ printf "$s" | ##### add your solution here
-mango:100;;grapes:75;; 
+mango:100;;grapes:75;;
 ```
 
 # Multiple file input
@@ -1983,12 +2131,12 @@ greeting.txt
 
 $ # ARGV continuously ejects the filename being processed
 $ # f1.txt and f2.txt have 1 line each, table.txt has 3 lines
-$ ruby -lne 'print ARGV' f[12].txt table.txt
-["f2.txt", "table.txt"]
-["table.txt"]
-[]
-[]
-[]
+$ ruby -ne 'puts "#{ARGV.size}: " + ARGV * ","' f[12].txt table.txt
+2: f2.txt,table.txt
+1: table.txt
+0: 
+0: 
+0: 
 ```
 
 `ARGF` (or the `$<` global variable) represents the filehandle of the current file (that was passed as an argument to the `ruby` script) being processed. If `ARGV` is empty, then `ARGF` will process `stdin` data if available. If you explicitly call the `close` method on `ARGF`, it will reset the `$.` variable. See [ruby-doc: ARGF](https://ruby-doc.org/core-2.7.1/ARGF.html) for documentation.
@@ -2015,6 +2163,21 @@ Good bye
 yellow banana window shoes 3.14
 ```
 
+Here's some more examples.
+
+```bash
+$ # same as: awk 'FNR==2{print; nextfile}' greeting.txt table.txt
+$ ruby -ne '(print; ARGF.close) if $.==2' greeting.txt table.txt
+Have a nice day
+blue cake mug shirt -7
+
+$ # same as: head -q -n1 and awk 'FNR>1{nextfile} 1'
+$ # can also use: ruby -pe 'ARGF.close'
+$ ruby -pe 'ARGF.close if $.>=1' greeting.txt table.txt
+Hi there
+brown bread mat hair 42
+```
+
 You can use methods like `read`, `readline`, `readlines`, `gets`, etc to explicitly get data from specific filehandle. `ARGF` is the default source for some of these methods like `readlines`, `gets`, etc as they are part of Kernel (see [ruby-doc: Kernel](https://ruby-doc.org/core-2.7.1/Kernel.html) for details).
 
 ```bash
@@ -2022,6 +2185,12 @@ $ # note that only -e option is used
 $ # same as: ruby -e 'puts ARGF.gets' greeting.txt
 $ ruby -e 'puts gets' greeting.txt
 Hi there
+
+$ ruby -e 'puts gets, "---", ARGF.read' greeting.txt
+Hi there
+---
+Have a nice day
+Good bye
 
 $ ruby -e 'puts readlines' greeting.txt
 Hi there
@@ -2037,10 +2206,16 @@ H
 The `STDIN` filehandle is useful to distinguish between files passed as argument and `stdin` data. See [Comparing records](#comparing-records) section for more examples.
 
 ```bash
-$ echo 'apple' | ruby -e 'puts readline' greeting.txt
+$ # with no file arguments, readline works on stdin data
+$ printf 'apple\nmango\n' | ruby -e 'puts readline'
+apple
+
+$ # with file arguments, readline doesn't work on stdin data
+$ printf 'apple\nmango\n' | ruby -e 'puts readline' greeting.txt
 Hi there
 
-$ echo 'apple' | ruby -e 'puts STDIN.readline' greeting.txt
+$ # use STDIN to work on stdin data irrespective of file arguments
+$ printf 'apple\nmango\n' | ruby -e 'puts STDIN.readline' greeting.txt
 apple
 ```
 
@@ -2057,12 +2232,12 @@ $ ruby -ne '(puts ARGF.filename; ARGF.close) if /I/' f[1-3].txt greeting.txt
 f1.txt
 f2.txt
 
-$ # print filename if it contains both 'o' and 'at' anywhere in the file
-$ # same as: ruby -0777 -ne 'puts ARGF.filename if /(?=.*?o).*at/m'
-$ ruby -ne '$m1=true if /o/; $m2=true if /at/;
+$ # print filename if it contains a word ending with 'e'
+$ # and 'bat' or 'mat' (irrespective of case) anywhere in the file
+$ # same as: ruby -0777 -ne 'puts ARGF.filename if /(?=.*?e\b)(?i).*[bm]at/m'
+$ ruby -ne '$m1=true if /e\b/; $m2=true if /[bm]at/i;
             (puts ARGF.filename; $m1=$m2=false; ARGF.close; next) if $m1 && $m2;
             $m1=$m2=false if ARGF.eof' f[1-3].txt greeting.txt
-f2.txt
 f3.txt
 ```
 
@@ -2095,6 +2270,20 @@ $ # assume sample.txt secrets.txt ip.txt table.txt are passed as file inputs
 secrets.txt
 ip.txt
 table.txt
+```
+
+**c)** Print the first two lines for each of the input files `ip.txt`, `sample.txt` and `table.txt`. Also, add a separator between the results as shown below (note that the separator isn't present at the end of the output). Assume input files will have at least two lines.
+
+```bash
+##### add your solution here
+Hello World
+How are you
+---
+Hello World
+
+---
+brown bread mat hair 42
+blue cake mug shirt -7
 ```
 
 # Processing multiple records
@@ -2222,7 +2411,8 @@ To prevent confusion with overlapping cases, you can add a separation line betwe
 ```bash
 $ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i|
            c=i-n; c=0 if c<0;
-           (puts ip[c..i]; puts "---") if s.match?(/toy|flower/) }' context.txt
+           (print $s; puts ip[c..i]; $s="---\n") if s.match?(/toy|flower/) }
+          ' context.txt
 blue
     toy
 ---
@@ -2233,7 +2423,6 @@ blue
     sand stone
 light blue
     flower
----
 ```
 
 **Case 5:** Print `n`th record before the matching record.
@@ -2250,6 +2439,15 @@ $ # $.>2 is needed as first 2 records shouldn't be considered for a match
 $ ruby -ne 'print $p2 if $.>2 && /toy|flower/; $p2=$p1; $p1=$_' context.txt
 blue
     sand stone
+```
+
+You can also use the logic from **Case 3** by applying `tac` twice. This avoids the need to use an array variable.
+
+```bash
+$ tac context.txt | ruby -ne 'print if $n.to_i>0 && ($n-=1)==0;
+                    $n=2 if /language/' | tac
+    sky
+    spanish
 ```
 
 ## Records bounded by distinct markers
@@ -2291,7 +2489,7 @@ c
 **end 2**
 ```
 
->![info](images/info.svg) You can also use `ruby -ne 'print if /start/../end/'` but compared to flip-flop operator, the state machine format is more suitable to adapt for various cases to follow.
+>![info](images/info.svg) You can also use `ruby -ne 'print if /start/../end/'` but compared to Flip-Flop operator, the state machine format is more suitable to adapt for various cases to follow.
 
 **Case 2:** Processing all the groups of records but excluding the records matched by markers themselves.
 
@@ -2457,14 +2655,13 @@ $ seq 30 | ruby -ne 'BEGIN{n=2; c=0}; ($f=true; c+=1) if /4/;
 26
 ```
 
-All blocks, only if the records between the markers match an additional condition.
+All blocks, only if the block matches an additional condition.
 
 ```bash
-$ # additional condition here is '15' as record content between the two markers
-$ seq 30 | ruby -ne '($f=true; buf=$_; $m=false; next) if /4/;
+$ # additional condition here is '15' as one of the lines in the block
+$ seq 30 | ruby -ne '($f=true; buf=$_; next) if /4/;
                      buf << $_ if $f;
-                     ($f=false; print buf if $m) if /6/;
-                     $m=true if /\A15\Z/'
+                     ($f=false; print buf if buf.match?(/^15$/)) if /6/;'
 14
 15
 16
@@ -2583,32 +2780,32 @@ $ # expected output
 1234567890
 ```
 
-**e)** For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed as an environment value.
+**e)** For the input file `concat.txt`, extract contents from a line starting with ``%%% `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed as an environment value.
 
 ```bash
 $ cat concat.txt
-### addr.txt
+%%% addr.txt
 How are you
 This game is good
-Today ### is sunny
-### broken.txt
-top ###
+Today %%% is sunny
+%%% broken.txt
+top %%%
 1234567890
 bottom
-### sample.txt
-Just ### do-it
+%%% sample.txt
+Just %%% do-it
 Believe it
-### mixed_fs.txt
+%%% mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 
 $ n=2 ##### add your solution here
-### broken.txt
-top ###
+%%% broken.txt
+top %%%
 1234567890
 bottom
 $ n=4 ##### add your solution here
-### mixed_fs.txt
+%%% mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 ```
@@ -2617,17 +2814,31 @@ car,mat,ball,basket
 
 ```bash
 ##### add your solution here, redirect the output to 'out.md'
-$ diff -sq out.md expected.md 
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
+```
+
+**g)** Print the last two lines for each of the input files `ip.txt`, `sample.txt` and `table.txt`. Also, add a separator between the results as shown below (note that the separator isn't present at the end of the output). Assume input files will have at least two lines.
+
+```bash
+##### add your solution here
+12345
+You are funny
+---
+Much ado about nothing
+He he he
+---
+blue cake mug shirt -7
+yellow banana window shoes 3.14
 ```
 
 # Two file processing
 
-This chapter focuses on solving problems which depend upon contents of two files. These are usually based on comparing records and fields. Sometimes, record number plays a role too. You'll also see examples with `-r` command line option and `gets` method.
+This chapter focuses on solving problems which depend upon contents of two or more files. These are usually based on comparing records and fields. Sometimes, record number plays a role and some cases need entire file content. You'll also see examples with `-r` command line option and `gets` method.
 
 ## Comparing records
 
-Consider the following input files which will be compared line wise to get common lines and unique lines.
+Consider the following input files which will be compared line wise in this section.
 
 ```bash
 $ cat color_list1.txt
@@ -2784,7 +2995,7 @@ CSE     Amy     67      C
 `gets` (or the `readline`) method allows you to read a record from a file on demand. This is most useful when you need something based on record number. The following example shows how you can replace `m`th line from a file with `n`th line from another file.
 
 ```bash
-$ ruby -pe 'BEGIN{m=3; n=2; n.times {$s = STDIN.gets}}
+$ ruby -pe 'BEGIN{m=3; n=2; n.times {$s = STDIN.gets}};
             $_ = $s if $. == m' <greeting.txt table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
@@ -2803,9 +3014,69 @@ Hi there
 Good bye
 ```
 
+## Multiline fixed string substitution
+
+You can use file slurping for fixed string multiline search and replace requirements. Both `sub` and `gsub` methods allow matching fixed string if the first argument is a string instead of a regexp object. Since `\` is special in replacement section, you'll have to escape it to provide a fixed string.
+
+The below example is substituting complete lines. The solution will work for partial lines as well, provided there is no newline character at the end of `search.txt` and `repl.txt` files.
+
+```bash
+$ head -n2 table.txt > search.txt
+$ cat repl.txt
+2$1$&3\0x\\yz
+wise ice go goa
+
+$ ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
+                  print(gsub(s, r.gsub(/\\/, "\\\0")))
+                 ' search.txt repl.txt table.txt
+2$1$&3\0x\\yz
+wise ice go goa
+yellow banana window shoes 3.14
+```
+
+>![warning](images/warning.svg) Don't save contents of `search.txt` and `repl.txt` in shell variables for passing them to the `ruby` script. Trailing newlines and ASCII NUL characters will cause issues. See [stackoverflow: pitfalls of reading file into shell variable](https://stackoverflow.com/questions/7427262/how-to-read-a-file-into-a-variable-in-shell/22607352#22607352) for details.
+
+## Add file content conditionally
+
+**Case 1:** replace each matching line with entire contents of `STDIN`.
+
+```bash
+$ # same as: sed -e '/[ot]/{r dept.txt' -e 'd}' greeting.txt
+$ ruby -pe 'BEGIN{r = STDIN.read}; $_ = r if /[ot]/' <dept.txt greeting.txt
+CSE
+ECE
+Have a nice day
+CSE
+ECE
+```
+
+**Case 2:** insert entire contents of `STDIN` before each matching line.
+
+```bash
+$ # same as: sed '/nice/e cat dept.txt' greeting.txt
+$ ruby -pe 'BEGIN{r = STDIN.read}; print r if /nice/' <dept.txt greeting.txt
+Hi there
+CSE
+ECE
+Have a nice day
+Good bye
+```
+
+**Case 3:** append entire contents of `STDIN` after each matching line.
+
+```bash
+$ # same as: sed '/nice/r dept.txt' greeting.txt
+$ ruby -pe 'BEGIN{r = STDIN.read}; $_ << r if /nice/' <dept.txt greeting.txt
+Hi there
+Have a nice day
+CSE
+ECE
+Good bye
+```
+
 ## Summary
 
-This chapter discussed a few cases where you need to compare the contents of two files. The `ARGV.size==1` trick is handy for such cases (where the number is `n-1` to match first file passed among `n` input files). The `gets` method is helpful for record number based comparisons.
+This chapter discussed use cases where you need to process the contents of two or more files based on entire record/file or field(s). The `ARGV.size==1` trick is handy for such cases (where the number is `n-1` to match first file passed among `n` input files). The `gets` method is helpful for record number based comparisons.
 
 ## Exercises
 
@@ -2835,7 +3106,6 @@ blue cake mug shirt -7
 ---
 Bi tac toe - 42
 yellow banana window shoes 3.14
----
 ```
 
 **c)** The file `search_terms.txt` contains one search string per line (these have no regexp metacharacters). Construct a solution that reads this file and displays search terms (matched case insensitively) that were found in all of the other input file arguments. Note that these terms should be matched with any part of the line, not just whole words.
@@ -2871,6 +3141,57 @@ You are funny
 ```
 
 **Bonus:** Will `grep -A1 'is' ip.txt` give identical results for your solution with `is` as the search term? If not, why?
+
+**e)** Replace third to fifth lines of input file `ip.txt` with second to fourth lines from file `para.txt`
+
+```bash
+##### add your solution here
+Hello World
+How are you
+Start working on that
+project you always wanted
+to, do not let it end
+You are funny
+```
+
+**f)** Insert one line from `jumbled.txt` before every two lines of `idx.txt`
+
+```bash
+##### add your solution here
+overcoats;furrowing-typeface%pewter##hobby
+match after the last newline character
+and then you want to test
+wavering:concession/woof\retailer
+this is good bye then
+you were there to see?
+```
+
+**g)** Use entire contents of `match.txt` to search `error.txt` and replace with contents of `jumbled.txt`. Partial lines should NOT be matched.
+
+```bash
+$ cat match.txt
+print+this
+but not that
+$ cat error.txt
+print+this
+but not that or this
+print+this
+but not that
+if print+this
+but not that
+print+this
+but not that
+
+##### add your solution here
+print+this
+but not that or this
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+if print+this
+but not that
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+```
 
 # Dealing with duplicates
 

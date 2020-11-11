@@ -1,8 +1,12 @@
-# One-liner introduction
+# Exercises
 
 >![info](../images/info.svg) Exercise related files are available from [exercises folder of learn_ruby_oneliners repo](https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/exercises).
 
 >![info](../images/info.svg) For solutions, see [Exercise_solutions.md](https://github.com/learnbyexample/learn_ruby_oneliners/blob/master/exercises/Exercise_solutions.md).
+
+<br>
+
+# One-liner introduction
 
 **a)** For the input file `ip.txt`, display all lines containing `is`.
 
@@ -244,6 +248,27 @@ $ printf '2.3/[4]*6\n2[4]5\n5.3-[4]*9\n' | ##### add your solution here
 5.3-[4]*9
 ```
 
+**m)** For the given input string, replace all lowercase alphabets to `x` only for words starting with `m`.
+
+```bash
+$ s='ma2T3a a2p kite e2e3m meet'
+
+$ echo "$s" | ##### add your solution here
+xx2T3x a2p kite e2e3m xxxx
+```
+
+**n)** For the input file `ip.txt`, delete all characters other than lowercase vowels and newline character. Perform this transformation only between a line containing `you` up to line number `4` (inclusive).
+
+```bash
+##### add your solution here
+Hello World
+oaeou
+iaeioo
+oaiu
+12345
+You are funny
+```
+
 <br>
 
 # Field separators
@@ -317,7 +342,7 @@ $ echo "$s2" | ##### add your solution here
 "a 1","b","c-2","d"
 ```
 
-**f)** Display only the third and fifth characters from each line input line.
+**f)** Display only the third and fifth characters from each input line.
 
 ```bash
 $ printf 'restore\ncat one\ncricket' | ##### add your solution here
@@ -480,7 +505,7 @@ wavering
 
 ```bash
 $ # this command joins all input lines with ',' character
-$ paste -sd, addr.txt
+$ paste -sd, ip.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 $ # make sure there's no ',' at end of the line
 $ # and that there's a newline character at the end of the line
@@ -547,7 +572,7 @@ $ s='mango:100;;apple:25;;grapes:75'
 
 $ # note that the output has ;; at the end but not newline character
 $ printf "$s" | ##### add your solution here
-mango:100;;grapes:75;; 
+mango:100;;grapes:75;;
 ```
 
 <br>
@@ -577,6 +602,20 @@ $ # assume sample.txt secrets.txt ip.txt table.txt are passed as file inputs
 secrets.txt
 ip.txt
 table.txt
+```
+
+**c)** Print the first two lines for each of the input files `ip.txt`, `sample.txt` and `table.txt`. Also, add a separator between the results as shown below (note that the separator isn't present at the end of the output). Assume input files will have at least two lines.
+
+```bash
+##### add your solution here
+Hello World
+How are you
+---
+Hello World
+
+---
+brown bread mat hair 42
+blue cake mug shirt -7
 ```
 
 <br>
@@ -654,32 +693,32 @@ $ # expected output
 1234567890
 ```
 
-**e)** For the input file `concat.txt`, extract contents from a line starting with ``### `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed as an environment value.
+**e)** For the input file `concat.txt`, extract contents from a line starting with ``%%% `` until but not including the next such line. The block to be extracted is indicated by variable `n` passed as an environment value.
 
 ```bash
 $ cat concat.txt
-### addr.txt
+%%% addr.txt
 How are you
 This game is good
-Today ### is sunny
-### broken.txt
-top ###
+Today %%% is sunny
+%%% broken.txt
+top %%%
 1234567890
 bottom
-### sample.txt
-Just ### do-it
+%%% sample.txt
+Just %%% do-it
 Believe it
-### mixed_fs.txt
+%%% mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 
 $ n=2 ##### add your solution here
-### broken.txt
-top ###
+%%% broken.txt
+top %%%
 1234567890
 bottom
 $ n=4 ##### add your solution here
-### mixed_fs.txt
+%%% mixed_fs.txt
 pink blue white yellow
 car,mat,ball,basket
 ```
@@ -688,8 +727,22 @@ car,mat,ball,basket
 
 ```bash
 ##### add your solution here, redirect the output to 'out.md'
-$ diff -sq out.md expected.md 
+$ diff -sq out.md expected.md
 Files out.md and expected.md are identical
+```
+
+**g)** Print the last two lines for each of the input files `ip.txt`, `sample.txt` and `table.txt`. Also, add a separator between the results as shown below (note that the separator isn't present at the end of the output). Assume input files will have at least two lines.
+
+```bash
+##### add your solution here
+12345
+You are funny
+---
+Much ado about nothing
+He he he
+---
+blue cake mug shirt -7
+yellow banana window shoes 3.14
 ```
 
 <br>
@@ -722,7 +775,6 @@ blue cake mug shirt -7
 ---
 Bi tac toe - 42
 yellow banana window shoes 3.14
----
 ```
 
 **c)** The file `search_terms.txt` contains one search string per line (these have no regexp metacharacters). Construct a solution that reads this file and displays search terms (matched case insensitively) that were found in all of the other input file arguments. Note that these terms should be matched with any part of the line, not just whole words.
@@ -758,6 +810,57 @@ You are funny
 ```
 
 **Bonus:** Will `grep -A1 'is' ip.txt` give identical results for your solution with `is` as the search term? If not, why?
+
+**e)** Replace third to fifth lines of input file `ip.txt` with second to fourth lines from file `para.txt`
+
+```bash
+##### add your solution here
+Hello World
+How are you
+Start working on that
+project you always wanted
+to, do not let it end
+You are funny
+```
+
+**f)** Insert one line from `jumbled.txt` before every two lines of `idx.txt`
+
+```bash
+##### add your solution here
+overcoats;furrowing-typeface%pewter##hobby
+match after the last newline character
+and then you want to test
+wavering:concession/woof\retailer
+this is good bye then
+you were there to see?
+```
+
+**g)** Use entire contents of `match.txt` to search `error.txt` and replace with contents of `jumbled.txt`. Partial lines should NOT be matched.
+
+```bash
+$ cat match.txt
+print+this
+but not that
+$ cat error.txt
+print+this
+but not that or this
+print+this
+but not that
+if print+this
+but not that
+print+this
+but not that
+
+##### add your solution here
+print+this
+but not that or this
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+if print+this
+but not that
+overcoats;furrowing-typeface%pewter##hobby
+wavering:concession/woof\retailer
+```
 
 <br>
 

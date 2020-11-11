@@ -46,9 +46,27 @@ ruby -lane 'BEGIN{g = %w[D C B A S]};
 
 ## gets
 
-ruby -pe 'BEGIN{m=3; n=2; n.times {$s = STDIN.gets}}
+ruby -pe 'BEGIN{m=3; n=2; n.times {$s = STDIN.gets}};
           $_ = $s if $. == m' <greeting.txt table.txt
 
 ruby -ne 'a=$_; n = STDIN.gets.split[-1].to_f;
           print a if n > 0' <table.txt greeting.txt
+
+## Multiline fixed string substitution
+
+head -n2 table.txt > search.txt
+
+cat repl.txt
+
+ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
+                print(gsub(s, r.gsub(/\\/, "\\\0")))
+               ' search.txt repl.txt table.txt
+
+## Add file content conditionally
+
+ruby -pe 'BEGIN{r = STDIN.read}; $_ = r if /[ot]/' <dept.txt greeting.txt
+
+ruby -pe 'BEGIN{r = STDIN.read}; print r if /nice/' <dept.txt greeting.txt
+
+ruby -pe 'BEGIN{r = STDIN.read}; $_ << r if /nice/' <dept.txt greeting.txt
 

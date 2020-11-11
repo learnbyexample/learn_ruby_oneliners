@@ -58,6 +58,10 @@ r='\Bpar\B'
 
 rgx="$r" ruby -ne 'print if /#{ENV["rgx"]}/' word_anchors.txt
 
+r='\Bpar\B'
+
+ruby -sne 'print if /#{$rgx}/' -- -rgx="$r" word_anchors.txt
+
 ## Executing external commands
 
 ruby -e 'system("echo Hello World")'

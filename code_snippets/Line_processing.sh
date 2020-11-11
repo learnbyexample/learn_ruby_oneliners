@@ -28,9 +28,13 @@ ruby -ne 'print if $_.match?(/on\b/)' programming_quotes.txt
 
 echo 'Uryyb Jbeyq' | ruby -pe '$_.tr!("a-zA-Z", "n-za-mN-ZA-M")'
 
-printf 'foo:123:baz' | ruby -ne 'puts $_.tr("^0-9", "-")'
+echo 'foo:123:baz' | ruby -pe '$_.tr!("^0-9\n", "-")'
 
-printf 'foo:123:baz' | ruby -ne 'puts $_.tr("^0-9", "")'
+echo 'foo:123:baz' | ruby -pe '$_.tr!("^0-9\n", "")'
+
+s='orange apple appleseed cab'
+
+echo "$s" | ruby -pe 'gsub(/\b(?!apple\b)\w++/) {$&.tr("a-z", "1-9")}'
 
 ## Conditional substitution
 
@@ -63,13 +67,19 @@ printf 'sea\neat\ndrop\n' | ruby -ne 'print; exit(2) if /at/'
 
 echo $?
 
-## Line numbers
+ruby -pe 'exit if /cake/' table.txt
+
+ruby -pe 'exit if /cake/; END{puts "bye"}' table.txt
+
+ruby -pe 'BEGIN{puts "hi"; exit; puts "hello"}; END{puts "bye"}' table.txt
+
+## Line number based processing
 
 ruby -ne 'print if $. == 3' programming_quotes.txt
 
 ruby -ne 'print if $. == 2 || $. == 5' programming_quotes.txt
 
-printf 'gates\nnot\nused\n' | ruby -pe 'gsub(/t/, "*") if $. == 2'
+printf 'gates\nnot\nused\n' | ruby -pe '$_.tr!("a-z", "*") if $. == 2'
 
 seq 14 25 | ruby -ne 'print if $. >= 10'
 
@@ -79,10 +89,6 @@ ruby -ne 'puts "#{$.}:#{$_}" if $<.eof' programming_quotes.txt
 
 ruby -ne 'print if $<.eof' programming_quotes.txt table.txt
 
-seq 14 25 | ruby -ne 'print if 3..5'
-
-seq 14 25 | ruby -ne 'print if (3...5).include?($.)'
-
 seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452'
 
 seq 3542 4623452 | ruby -ne 'print if $. == 250; (print; exit) if $. == 2452'
@@ -91,17 +97,41 @@ time seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452' > f1
 
 time seq 3542 4623452 | ruby -ne 'print if $. == 2452' > f2
 
-## Fixed string matching
+## Flip-Flop operator
+
+seq 14 25 | ruby -ne 'print if 3..5'
+
+seq 14 25 | ruby -ne 'print if (3...5).include?($.)'
+
+ruby -ne 'print if /are/../by/' programming_quotes.txt
+
+ruby -ne 'print if 5../use/' programming_quotes.txt
+
+ruby -ne 'print if !(/ll/..$<.eof)' programming_quotes.txt table.txt
+
+ruby -ne 'print if 9../worth/' programming_quotes.txt
+
+ruby -ne 'print if /affect/../XYZ/' programming_quotes.txt
+
+## Working with fixed strings
 
 echo 'int a[5]' | ruby -ne 'print if /a[5]/'
 
 echo 'int a[5]' | ruby -ne 'print if $_.include?("a[5]")'
 
+echo 'int a[5]' | ruby -pe 'sub(/a[5]/, "b")'
+
+echo 'int a[5]' | ruby -pe 'sub("a[5]", "b")'
+
 ruby -e 'a=5; puts "value of a:\t#{a}"'
 
 echo 'int #{a}' | ruby -ne 'print if $_.include?(%q/#{a}/)'
 
+echo 'int #{a}' | ruby -pe 'sub(%q/#{a}/, "b")'
+
 echo 'int #{a}' | s='#{a}' ruby -ne 'print if $_.include?(ENV["s"])'
+
+echo 'int #{a\\}' | s='#{a\\}' ruby -pe 'sub(ENV["s"], "b")'
 
 cat eqns.txt
 
@@ -116,6 +146,22 @@ ruby -ne 'print if $_.index("a+b")==0' eqns.txt
 ruby -ne '$i = $_.index("="); print if $i && $i < 6' eqns.txt
 
 s='a+b' ruby -ne 'print if $_.index(ENV["s"], 1)' eqns.txt
+
+printf 'a.b\na+b\n' | ruby -lne 'print if /^a.b$/'
+
+printf 'a.b\na+b\n' | ruby -lne 'print if $_ == %q/a.b/'
+
+printf '1 a.b\n2 a+b\n' | ruby -lane 'print if $F[1] != %q/a.b/'
+
+echo 'x+y' | ruby -pe 'sub(%q/x+y/, "x\y\\0z")'
+
+echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"])'
+
+echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"].gsub(/\\/, "\\\0"))'
+
+ruby -e 'puts %q/x\y\\0z/'
+
+echo 'x+y' | ruby -pe 'sub(%q/x+y/, %q/x\y\\0z/.gsub(/\\/, "\\\0"))'
 
 ## In-place file editing
 

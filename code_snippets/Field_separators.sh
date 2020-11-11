@@ -137,6 +137,8 @@ echo "$s" | ruby -ane 'puts $F.sort * ":"'
 
 echo "$s" | ruby -ane 'puts $F.sort_by(&:size) * ":"'
 
+echo '23 756 -983 5' | ruby -lane 'puts $F.sort_by(&:to_i) * ":"'
+
 echo 'foobar' | ruby -lne 'puts $_.chars.sort.reverse * ""'
 
 s='try a bad to good i teal by nice how'

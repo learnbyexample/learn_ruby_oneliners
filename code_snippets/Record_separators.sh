@@ -22,7 +22,7 @@ echo "$s" | ruby -l -0072 -ne 'print if /a/'
 
 echo "$s" | ruby -0072 -lne 'print if /a/'
 
-s='   a\t\tb:1000\n\n\n\n123 7777:x  y \n \n z  '
+s='   a\t\tb\n\t\n:1000\n\n\n\n123 7777:x  y \n \n z  '
 
 printf '%b' "$s" | ruby -0072 -lane 'puts $F * ","'
 
@@ -50,11 +50,11 @@ s='a\n\n\n\n\n\n\n\n12\n34\n\nhi\nhello\n'
 
 printf '%b' "$s" | ruby -00 -ne 'print if $. <= 2'
 
-s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n\n\n\n'
+s='\n\n\na\n\n12\n34\n\nhi\nhello\n\n\n\n'
 
-printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---\n" if $. <= 2'
+printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---" if $. <= 2'
 
-printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---\n" if $<.eof'
+printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---" if $<.eof'
 
 printf '%b' "$s" | ruby -00 -ne 'END{puts $.}'
 
