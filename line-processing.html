@@ -1,60 +1,7 @@
-<!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Line processing - Ruby one-liners cookbook</title>
-        
-        
-
-
-        <!-- Custom HTML head -->
-        
-
-
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Example based guide for text processing with ruby from the command line">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
-
-        
-        <link rel="icon" href="favicon.svg">
-        
-        
-        <link rel="shortcut icon" href="favicon.png">
-        
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
-        <link rel="stylesheet" href="fonts/fonts.css">
-        
-
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
-
-        <!-- Custom theme stylesheets -->
-        
-        <link rel="stylesheet" href="custom.css">
-        
-
-        
-    </head>
-    <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Line processing - Ruby one-liners cookbook</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide for text processing with Ruby from the command line"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
-
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        </script><script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -67,10 +14,7 @@
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
             } catch (e) { }
-        </script>
-
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        </script><script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -79,10 +23,7 @@
             html.classList.remove('light')
             html.classList.add(theme);
             html.classList.add('js');
-        </script>
-
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        </script><script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -91,101 +32,22 @@
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
-        </script>
-
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="one-liner-introduction.html"><strong aria-hidden="true">2.</strong> One-liner introduction</a></li><li class="chapter-item expanded "><a href="line-processing.html" class="active"><strong aria-hidden="true">3.</strong> Line processing</a></li><li class="chapter-item expanded "><a href="field-separators.html"><strong aria-hidden="true">4.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">5.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">6.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">7.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">8.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">9.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="processing-structured-data.html"><strong aria-hidden="true">10.</strong> Processing structured data</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">11.</strong> Exercise Solutions</a></li></ol>
-            </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
-        </nav>
-
-        <div id="page-wrapper" class="page-wrapper">
-
-            <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
-                    <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
-                        </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                        </ul>
-                        
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        
-                    </div>
-
-                    <h1 class="menu-title">Ruby one-liners cookbook</h1>
-
-                    <div class="right-buttons">
-                        
-                        <a href="https://github.com/learnbyexample/learn_ruby_oneliners" title="Git repository" aria-label="Git repository">
-                            <i id="git-repository-button" class="fa fa-github"></i>
-                        </a>
-                        
-                    </div>
-                </div>
-
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=one-liner-introduction.html><strong aria-hidden=true>2.</strong> One-liner introduction</a><li class="chapter-item expanded"><a href=line-processing.html class=active><strong aria-hidden=true>3.</strong> Line processing</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>4.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>5.</strong> Record separators</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>6.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>7.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>8.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>9.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=processing-structured-data.html><strong aria-hidden=true>10.</strong> Processing structured data</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>11.</strong> Exercise Solutions</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Ruby one-liners cookbook</h1><div class=right-buttons><a href=https://github.com/learnbyexample/learn_ruby_oneliners title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search name=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script>
-
-                <div id="content" class="content">
-                    <main>
-                        <h1><a class="header" href="#line-processing" id="line-processing">Line processing</a></h1>
-<p>Now that you are familiar with <code>ruby</code> cli usage, this chapter will dive deep into line processing examples. You'll learn various ways for matching lines based on regular expressions, fixed string matching, line numbers, etc. You'll also see how to group multiple statements and learn about control flow keywords <code>next</code> and <code>exit</code>.</p>
-<h2><a class="header" href="#regexp-based-filtering" id="regexp-based-filtering">Regexp based filtering</a></h2>
-<p>As mentioned before, in a conditional context:</p>
-<ul>
-<li><code>/regexp/</code> is a shortcut for <code>$_ =~ /regexp/</code></li>
-<li><code>!/regexp/</code> is a shortcut for <code>$_ !~ /regexp/</code></li>
-</ul>
-<p>But, this is not applicable for all types of expressions. For example:</p>
-<pre><code class="language-bash">$ # /at$/ will be 'true' as it is treated as just a Regexp object here
-$ printf 'gate\napple\nwhat\n' | ruby -ne '/at$/ &amp;&amp; print'
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1><a class=header href=#line-processing id=line-processing>Line processing</a></h1><p>Now that you are familiar with basic <code>ruby</code> cli usage, this chapter will dive deeper into line processing examples. You'll learn various ways for matching lines based on regular expressions, fixed string matching, line numbers, etc. You'll also see how to group multiple statements and learn about control flow keywords <code>next</code> and <code>exit</code>.<h2><a class=header href=#regexp-based-filtering id=regexp-based-filtering>Regexp based filtering</a></h2><p>As mentioned before, in a conditional context:<ul><li><code>/regexp/</code> is a shortcut for <code>$_ =~ /regexp/</code><li><code>!/regexp/</code> is a shortcut for <code>$_ !~ /regexp/</code></ul><p>But, this is not applicable for all types of expressions. For example:<pre><code class=language-bash>$ # /at$/ will be 'true' as it is treated as just a Regexp object here
+$ printf 'gate\napple\nwhat\n' | ruby -ne '/at$/ && print'
 gate
 apple
 what
 
 $ # same as: ruby -ne 'print if /at$/'
-$ printf 'gate\napple\nwhat\n' | ruby -ne '$_ =~ /at$/ &amp;&amp; print'
+$ printf 'gate\napple\nwhat\n' | ruby -ne '$_ =~ /at$/ && print'
 what
-</code></pre>
-<p>If required, you can also use different delimiters with <code>%r</code>. Quoting from <a href="https://ruby-doc.org/core-2.7.1/doc/syntax/literals_rdoc.html#label-Percent+Strings">ruby-doc: Percent Strings</a>:</p>
-<blockquote>
-<p>If you are using <code>(</code>, <code>[</code>, <code>{</code>, <code>&lt;</code> you must close it with <code>)</code>, <code>]</code>, <code>}</code>, <code>&gt;</code> respectively. You may use most other non-alphanumeric characters for percent string delimiters such as <code>%</code>, <code>|</code>, <code>^</code>, etc.</p>
-</blockquote>
-<pre><code class="language-bash">$ cat paths.txt
+</code></pre><p>If required, you can also use different delimiters with <code>%r</code>. Quoting from <a href=https://ruby-doc.org/core-2.7.1/doc/syntax/literals_rdoc.html#label-Percent+Strings>ruby-doc: Percent Strings</a>:<blockquote><p>If you are using <code>(</code>, <code>[</code>, <code>{</code>, <code><</code> you must close it with <code>)</code>, <code>]</code>, <code>}</code>, <code>></code> respectively. You may use most other non-alphanumeric characters for percent string delimiters such as <code>%</code>, <code>|</code>, <code>^</code>, etc.</blockquote><pre><code class=language-bash>$ cat paths.txt
 /foo/a/report.log
 /foo/y/power.log
 /foo/abc/errors.log
@@ -199,10 +61,7 @@ $ ruby -ne 'print if %r{/foo/a/}' paths.txt
 $ ruby -ne 'print if !%r#/foo/a/#' paths.txt
 /foo/y/power.log
 /foo/abc/errors.log
-</code></pre>
-<h2><a class="header" href="#extracting-matched-portions" id="extracting-matched-portions">Extracting matched portions</a></h2>
-<p>You can use regexp related global variables to extract only the matching portions instead of filtering entire matching line. Consider this input file.</p>
-<pre><code class="language-bash">$ cat programming_quotes.txt
+</code></pre><h2><a class=header href=#extracting-matched-portions id=extracting-matched-portions>Extracting matched portions</a></h2><p>You can use regexp related global variables to extract only the matching portions instead of filtering entire matching line. Consider this input file.<pre><code class=language-bash>$ cat programming_quotes.txt
 Debugging is twice as hard as writing the code in the first place.
 Therefore, if you write the code as cleverly as possible, you are,
 by definition, not smart enough to debug it by Brian W. Kernighan
@@ -215,89 +74,71 @@ is not worth knowing by Alan Perlis
 
 There are 2 hard problems in computer science: cache invalidation,
 naming things, and off-by-1 errors by Leon Bambrick
-</code></pre>
-<p>Here's some examples with regexp global variables.</p>
-<pre><code class="language-bash">$ # note that this will print only the first match for each input line
-$ ruby -ne 'puts $&amp; if /\bt\w*[et]\b/' programming_quotes.txt
+</code></pre><p>Here's some examples with regexp global variables.<pre><code class=language-bash>$ # note that this will print only the first match for each input line
+$ ruby -ne 'puts $& if /\bt\w*[et]\b/' programming_quotes.txt
 twice
 the
 that
 
 $ # extract only capture group portions
-$ ruby -ne 'puts $~.captures * &quot;::&quot; if /not (.+)y(.+)/i' programming_quotes.txt
+$ ruby -ne 'puts $~.captures * "::" if /not (.+)y(.+)/i' programming_quotes.txt
 smart enough to debug it b:: Brian W. Kernighan
 affect the way ::ou think about programming,
 worth knowing b:: Alan Perlis
-</code></pre>
-<blockquote>
-<p><img src="images/info.svg" alt="info" /> See <a href="https://learnbyexample.github.io/Ruby_Regexp/working-with-matched-portions.html">Working with matched portions</a> chapter from my book for examples with <code>match</code> method and regexp global variables.</p>
-</blockquote>
-<h2><a class="header" href="#match-method" id="match-method">match? method</a></h2>
-<p>As seen in previous section, using <code>$_ =~ /regexp/</code> also sets global variables. If you just need <code>true</code> or <code>false</code> result, using <code>match?</code> method is better suited for performance reasons. The difference would be more visible for large input files.</p>
-<pre><code class="language-bash">$ # same result as: ruby -ne 'print if /on\b/'
+</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=https://learnbyexample.github.io/Ruby_Regexp/working-with-matched-portions.html>Working with matched portions</a> chapter from my book for examples with <code>match</code> method and regexp global variables.</blockquote><h2><a class=header href=#match-method id=match-method>match? method</a></h2><p>As seen in previous section, using <code>$_ =~ /regexp/</code> also sets global variables. If you just need <code>true</code> or <code>false</code> result, using <code>match?</code> method is better suited for performance reasons. The difference would be more visible for large input files.<pre><code class=language-bash>$ # same result as: ruby -ne 'print if /on\b/'
 $ ruby -ne 'print if $_.match?(/on\b/)' programming_quotes.txt
 by definition, not smart enough to debug it by Brian W. Kernighan
 There are 2 hard problems in computer science: cache invalidation,
 naming things, and off-by-1 errors by Leon Bambrick
-</code></pre>
-<h2><a class="header" href="#tr-method" id="tr-method">tr method</a></h2>
-<p>The transliteration method <code>tr</code> allows you to specify per character transformation rule. See <a href="https://ruby-doc.org/core-2.7.1/String.html#method-i-tr">ruby-doc: tr</a> for documentation.</p>
-<pre><code class="language-bash">$ echo 'Uryyb Jbeyq' | ruby -pe '$_.tr!(&quot;a-zA-Z&quot;, &quot;n-za-mN-ZA-M&quot;)'
+</code></pre><h2><a class=header href=#tr-method id=tr-method>tr method</a></h2><p>The transliteration method <code>tr</code> allows you to specify per character transformation rule. See <a href=https://ruby-doc.org/core-2.7.1/String.html#method-i-tr>ruby-doc: tr</a> for documentation.<pre><code class=language-bash>$ # rot13
+$ echo 'Uryyb Jbeyq' | ruby -pe '$_.tr!("a-zA-Z", "n-za-mN-ZA-M")'
 Hello World
 
 $ # use ^ at start of first argument to complement specified characters
-$ # note that input doesn't have newline character here
-$ printf 'foo:123:baz' | ruby -ne 'puts $_.tr(&quot;^0-9&quot;, &quot;-&quot;)'
+$ echo 'foo:123:baz' | ruby -pe '$_.tr!("^0-9\n", "-")'
 ----123----
 
 $ # use empty second argument to delete specified characters
-$ printf 'foo:123:baz' | ruby -ne 'puts $_.tr(&quot;^0-9&quot;, &quot;&quot;)'
+$ echo 'foo:123:baz' | ruby -pe '$_.tr!("^0-9\n", "")'
 123
-</code></pre>
-<h2><a class="header" href="#conditional-substitution" id="conditional-substitution">Conditional substitution</a></h2>
-<p>These examples combine line filtering and substitution in different ways. As noted before, <code>sub</code> and <code>gsub</code> Kernel methods update <code>$_</code> if substitution succeeds and always return the value of <code>$_</code>.</p>
-<pre><code class="language-bash">$ # change commas to hyphens if the input line does NOT contain '2'
+
+$ # if second list is shorter than number of characters in the first list,
+$ # the last character in the second list will be used to fill the gaps
+$ s='orange apple appleseed cab'
+$ echo "$s" | ruby -pe 'gsub(/\b(?!apple\b)\w++/) {$&.tr("a-z", "1-9")}'
+991975 apple 199959554 312
+</code></pre><h2><a class=header href=#conditional-substitution id=conditional-substitution>Conditional substitution</a></h2><p>These examples combine line filtering and substitution in different ways. As noted before, <code>sub</code> and <code>gsub</code> Kernel methods update <code>$_</code> if substitution succeeds and always return the value of <code>$_</code>.<pre><code class=language-bash>$ # change commas to hyphens if the input line does NOT contain '2'
 $ # prints all input lines even if substitution fails
-$ printf '1,2,3,4\na,b,c,d\n' | ruby -pe 'gsub(/,/, &quot;-&quot;) if !/2/'
+$ printf '1,2,3,4\na,b,c,d\n' | ruby -pe 'gsub(/,/, "-") if !/2/'
 1,2,3,4
 a-b-c-d
 
 $ # prints filtered input lines even if substitution fails
 $ # for example, the 2nd output line doesn't match 'by'
-$ ruby -ne 'print gsub(/by/, &quot;**&quot;) if /not/' programming_quotes.txt
+$ ruby -ne 'print gsub(/by/, "**") if /not/' programming_quotes.txt
 ** definition, not smart enough to debug it ** Brian W. Kernighan
 A language that does not affect the way you think about programming,
 is not worth knowing ** Alan Perlis
 
 $ # print only if substitution succeeded
 $ # $_.gsub! is required for this scenario
-$ ruby -ne 'print if $_.gsub!(/1/, &quot;one&quot;)' programming_quotes.txt
+$ ruby -ne 'print if $_.gsub!(/1/, "one")' programming_quotes.txt
 naming things, and off-by-one errors by Leon Bambrick
-</code></pre>
-<h2><a class="header" href="#multiple-conditions" id="multiple-conditions">Multiple conditions</a></h2>
-<p>It is good to remember that Ruby is a programming language. You have control structures and you can combine multiple conditions using logical operators, methods like <code>all?</code>, <code>any?</code>, etc. You don't have to create a single complex regexp.</p>
-<pre><code class="language-bash">$ ruby -ne 'print if /not/ &amp;&amp; !/it/' programming_quotes.txt
+</code></pre><h2><a class=header href=#multiple-conditions id=multiple-conditions>Multiple conditions</a></h2><p>It is good to remember that Ruby is a programming language. You have control structures and you can combine multiple conditions using logical operators, methods like <code>all?</code>, <code>any?</code>, etc. You don't have to create a single complex regexp.<pre><code class=language-bash>$ ruby -ne 'print if /not/ && !/it/' programming_quotes.txt
 A language that does not affect the way you think about programming,
 is not worth knowing by Alan Perlis
 
-$ ruby -ane 'print if /twice/ || $F.size &gt; 12' programming_quotes.txt
+$ ruby -ane 'print if /twice/ || $F.size > 12' programming_quotes.txt
 Debugging is twice as hard as writing the code in the first place.
 Some people, when confronted with a problem, think - I know, I will
-</code></pre>
-<h2><a class="header" href="#next" id="next">next</a></h2>
-<p>When <code>next</code> is executed, rest of the code will be skipped and the next input line will be fetched for processing. It doesn't affect <code>BEGIN</code> or <code>END</code> blocks as they are outside the file content loop. </p>
-<pre><code class="language-bash">$ ruby -ne '(puts &quot;%% #{$_}&quot;; next) if /\bpar/;
-            puts /s/ ? &quot;X&quot; : &quot;Y&quot;' word_anchors.txt
+</code></pre><h2><a class=header href=#next id=next>next</a></h2><p>When <code>next</code> is executed, rest of the code will be skipped and the next input line will be fetched for processing. It doesn't affect <code>BEGIN</code> or <code>END</code> blocks as they are outside the file content loop.<pre><code class=language-bash>$ ruby -ne '(puts "%% #{$_}"; next) if /\bpar/;
+            puts /s/ ? "X" : "Y"' word_anchors.txt
 %% sub par
 X
 Y
 X
 %% cart part tart mart
-</code></pre>
-<p><strong>Note</strong> that <code>()</code> is used in the above example to group multiple statements to be executed for a single <code>if</code> condition. You'll see many more examples with <code>next</code> in coming chapters.</p>
-<h2><a class="header" href="#exit" id="exit">exit</a></h2>
-<p>Using <code>exit</code> method will cause the <code>ruby</code> script to terminate immediately. This is useful to avoid processing unnecessary input content after a termination condition.</p>
-<pre><code class="language-bash">$ # quits after an input line containing 'you' is found
+</code></pre><p><strong>Note</strong> that <code>()</code> is used in the above example to group multiple statements to be executed for a single <code>if</code> condition. You'll see many more examples with <code>next</code> in coming chapters.<h2><a class=header href=#exit id=exit>exit</a></h2><p>Using <code>exit</code> method will cause the <code>ruby</code> script to terminate immediately. This is useful to avoid processing unnecessary input content after a termination condition.<pre><code class=language-bash>$ # quits after an input line containing 'you' is found
 $ ruby -ne 'print; exit if /you/' programming_quotes.txt
 Debugging is twice as hard as writing the code in the first place.
 Therefore, if you write the code as cleverly as possible, you are,
@@ -305,27 +146,25 @@ Therefore, if you write the code as cleverly as possible, you are,
 $ # matching line won't be printed in this case
 $ ruby -pe 'exit if /you/' programming_quotes.txt
 Debugging is twice as hard as writing the code in the first place.
-</code></pre>
-<p>Use <code>tac</code> to get all lines starting from last occurrence of the search string with respect to entire file content.</p>
-<pre><code class="language-bash">$ tac programming_quotes.txt | ruby -ne 'print; exit if /not/' | tac
+</code></pre><p>Use <code>tac</code> to get all lines starting from last occurrence of the search string with respect to entire file content.<pre><code class=language-bash>$ tac programming_quotes.txt | ruby -ne 'print; exit if /not/' | tac
 is not worth knowing by Alan Perlis
 
 There are 2 hard problems in computer science: cache invalidation,
 naming things, and off-by-1 errors by Leon Bambrick
-</code></pre>
-<p>You can optionally provide a status code along with the <code>exit</code> method.</p>
-<pre><code class="language-bash">$ printf 'sea\neat\ndrop\n' | ruby -ne 'print; exit(2) if /at/'
+</code></pre><p>You can optionally provide a status code along with the <code>exit</code> method.<pre><code class=language-bash>$ printf 'sea\neat\ndrop\n' | ruby -ne 'print; exit(2) if /at/'
 sea
 eat
 $ echo $?
 2
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> Be careful if you want to use <code>exit</code> with multiple input files, as <code>ruby</code> will stop even if there are other files remaining to be processed.</p>
-</blockquote>
-<h2><a class="header" href="#line-numbers" id="line-numbers">Line numbers</a></h2>
-<p>Line numbers can also be used as a filtering criteria. It can be accessed using the <code>$.</code> global variable.</p>
-<pre><code class="language-bash">$ # print only the 3rd line
+</code></pre><p>Any code in <code>END</code> block will still be executed before exiting. This doesn't apply if <code>exit</code> was called from the <code>BEGIN</code> block.<pre><code class=language-bash>$ ruby -pe 'exit if /cake/' table.txt
+brown bread mat hair 42
+$ ruby -pe 'exit if /cake/; END{puts "bye"}' table.txt
+brown bread mat hair 42
+bye
+
+$ ruby -pe 'BEGIN{puts "hi"; exit; puts "hello"}; END{puts "bye"}' table.txt
+hi
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Be careful if you want to use <code>exit</code> with multiple input files, as <code>ruby</code> will stop even if there are other files remaining to be processed.</blockquote><h2><a class=header href=#line-number-based-processing id=line-number-based-processing>Line number based processing</a></h2><p>Line numbers can also be used as a filtering criteria. It can be accessed using the <code>$.</code> global variable.<pre><code class=language-bash>$ # print only the 3rd line
 $ ruby -ne 'print if $. == 3' programming_quotes.txt
 by definition, not smart enough to debug it by Brian W. Kernighan
 
@@ -334,32 +173,41 @@ $ ruby -ne 'print if $. == 2 || $. == 5' programming_quotes.txt
 Therefore, if you write the code as cleverly as possible, you are,
 Some people, when confronted with a problem, think - I know, I will
 
-$ # substitution only on 2nd line
-$ printf 'gates\nnot\nused\n' | ruby -pe 'gsub(/t/, &quot;*&quot;) if $. == 2'
+$ # transliterate only 2nd line
+$ printf 'gates\nnot\nused\n' | ruby -pe '$_.tr!("a-z", "*") if $. == 2'
 gates
-no*
+***
 used
 
 $ # selecting from particular line number to end of input
-$ seq 14 25 | ruby -ne 'print if $. &gt;= 10'
+$ seq 14 25 | ruby -ne 'print if $. >= 10'
 23
 24
 25
-</code></pre>
-<p>The global variable <code>$&lt;</code> contains the file handle for the current file input being processed. Use <code>eof</code> method to process lines based on end of file condition. See <a href="https://ruby-doc.org/core-2.7.1/IO.html#method-i-eof">ruby-doc: eof</a> for documentation. You can also use <code>ARGF</code> instead of <code>$&lt;</code> here, see <a href="./multiple-file-input.html#argv-and-argf">ARGV and ARGF</a> section for details.</p>
-<pre><code class="language-bash">$ ruby -ne 'print if $&lt;.eof' programming_quotes.txt
+</code></pre><p>The global variable <code>$<</code> contains the file handle for the current file input being processed. Use <code>eof</code> method to process lines based on end of file condition. See <a href=https://ruby-doc.org/core-2.7.1/IO.html#method-i-eof>ruby-doc: eof</a> for documentation. You can also use <code>ARGF</code> instead of <code>$<</code> here, see <a href=./multiple-file-input.html#argv-and-argf>ARGV and ARGF</a> section for details.<pre><code class=language-bash>$ # same as: tail -n1 programming_quotes.txt
+$ ruby -ne 'print if $<.eof' programming_quotes.txt
 naming things, and off-by-1 errors by Leon Bambrick
 
-$ ruby -ne 'puts &quot;#{$.}:#{$_}&quot; if $&lt;.eof' programming_quotes.txt
+$ ruby -ne 'puts "#{$.}:#{$_}" if $<.eof' programming_quotes.txt
 12:naming things, and off-by-1 errors by Leon Bambrick
 
+$ # multiple file example
 $ # same as: tail -q -n1 programming_quotes.txt table.txt
-$ ruby -ne 'print if $&lt;.eof' programming_quotes.txt table.txt
+$ ruby -ne 'print if $<.eof' programming_quotes.txt table.txt
 naming things, and off-by-1 errors by Leon Bambrick
 yellow banana window shoes 3.14
-</code></pre>
-<p>You can use Flip-Flop operator to select between pair of line numbers. See <a href="https://ruby-doc.org/core-2.7.1/doc/syntax/control_expressions_rdoc.html#label-Flip-Flop">ruby-doc: Flip-Flop</a> for syntax details.</p>
-<pre><code class="language-bash">$ # the range is automatically compared against $. in this context
+</code></pre><p>For large input files, use <code>exit</code> method to avoid processing unnecessary input lines.<pre><code class=language-bash>$ seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452'
+5993
+$ seq 3542 4623452 | ruby -ne 'print if $. == 250; (print; exit) if $. == 2452'
+3791
+5993
+
+$ # here is a sample time comparison
+$ time seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452' > f1
+real    0m0.068s
+$ time seq 3542 4623452 | ruby -ne 'print if $. == 2452' > f2
+real    0m1.158s
+</code></pre><h2><a class=header href=#flip-flop-operator id=flip-flop-operator>Flip-Flop operator</a></h2><p>You can use Flip-Flop operator to select between pair of matching conditions like line numbers and regexp. See <a href=https://ruby-doc.org/core-2.7.1/doc/syntax/control_expressions_rdoc.html#label-Flip-Flop>ruby-doc: Flip-Flop</a> for syntax details.<pre><code class=language-bash>$ # the range is automatically compared against $. in this context
 $ seq 14 25 | ruby -ne 'print if 3..5'
 16
 17
@@ -370,83 +218,126 @@ $ # you can use include? method to exclude the end range
 $ seq 14 25 | ruby -ne 'print if (3...5).include?($.)'
 16
 17
-</code></pre>
-<p>For large input files, use <code>exit</code> method to avoid processing unnecessary input lines.</p>
-<pre><code class="language-bash">$ seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452'
-5993
-$ seq 3542 4623452 | ruby -ne 'print if $. == 250; (print; exit) if $. == 2452'
-3791
-5993
 
-$ # here is a sample time comparison
-$ time seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452' &gt; f1
-real    0m0.068s
-$ time seq 3542 4623452 | ruby -ne 'print if $. == 2452' &gt; f2
-real    0m1.158s
-</code></pre>
-<h2><a class="header" href="#fixed-string-matching" id="fixed-string-matching">Fixed string matching</a></h2>
-<p>To match strings literally, use the <code>include?</code> method instead of regular expressions.</p>
-<pre><code class="language-bash">$ echo 'int a[5]' | ruby -ne 'print if /a[5]/'
-$ echo 'int a[5]' | ruby -ne 'print if $_.include?(&quot;a[5]&quot;)'
+$ # the range is automatically compared against $_ in this context
+$ # note that all the matching ranges are printed
+$ ruby -ne 'print if /are/../by/' programming_quotes.txt
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+There are 2 hard problems in computer science: cache invalidation,
+naming things, and off-by-1 errors by Leon Bambrick
+</code></pre><blockquote><p><img src=images/info.svg alt=info> See <a href=./processing-multiple-records.html#records-bounded-by-distinct-markers>Records bounded by distinct markers</a> section for an alternate, flexible solution.</blockquote><p>You can also mix line number and regexp conditions.<pre><code class=language-bash>$ ruby -ne 'print if 5../use/' programming_quotes.txt
+Some people, when confronted with a problem, think - I know, I will
+use regular expressions. Now they have two problems by Jamie Zawinski
+
+$ # same logic as: ruby -pe 'exit if /ll/'
+$ # inefficient, but this will work for multiple file inputs
+$ ruby -ne 'print if !(/ll/..$<.eof)' programming_quotes.txt table.txt
+Debugging is twice as hard as writing the code in the first place.
+Therefore, if you write the code as cleverly as possible, you are,
+by definition, not smart enough to debug it by Brian W. Kernighan
+
+brown bread mat hair 42
+blue cake mug shirt -7
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Both conditions can match the same line too! Also, if the second condition doesn't match, lines starting from first condition to the last line of the input will be matched.</blockquote><pre><code class=language-bash>$ # 'worth' matches the 9th line
+$ ruby -ne 'print if 9../worth/' programming_quotes.txt
+is not worth knowing by Alan Perlis
+
+$ # there's a line containing 'affect' but doesn't have matching pair
+$ # so, all lines till the end of input is printed
+$ ruby -ne 'print if /affect/../XYZ/' programming_quotes.txt
+A language that does not affect the way you think about programming,
+is not worth knowing by Alan Perlis
+
+There are 2 hard problems in computer science: cache invalidation,
+naming things, and off-by-1 errors by Leon Bambrick
+</code></pre><h2><a class=header href=#working-with-fixed-strings id=working-with-fixed-strings>Working with fixed strings</a></h2><p>To match strings literally, use the <code>include?</code> method for line filtering and string argument instead of regexp for substitutions.<pre><code class=language-bash>$ echo 'int a[5]' | ruby -ne 'print if /a[5]/'
+$ echo 'int a[5]' | ruby -ne 'print if $_.include?("a[5]")'
 int a[5]
-</code></pre>
-<p>The above example uses double quotes for the string argument, which allows escape sequences like <code>\t</code>, <code>\n</code>, etc and interpolation with <code>#{}</code>. This isn't the case with single quoted string values. Using single quotes within the script from command line requires messing with shell metacharacters. So, use <code>%q</code> instead or pass the fixed string to be matched as an environment variable, which can be accessed via the <code>ENV</code> hash.</p>
-<pre><code class="language-bash">$ # double quotes allow escape sequences and interpolation
-$ ruby -e 'a=5; puts &quot;value of a:\t#{a}&quot;'
+
+$ echo 'int a[5]' | ruby -pe 'sub(/a[5]/, "b")'
+int a[5]
+$ echo 'int a[5]' | ruby -pe 'sub("a[5]", "b")'
+int b
+</code></pre><p>The above example uses double quotes for the string argument, which allows escape sequences like <code>\t</code>, <code>\n</code>, etc and interpolation with <code>#{}</code>. This isn't the case with single quoted string values. Using single quotes within the script from command line requires messing with shell metacharacters. So, use <code>%q</code> instead or pass the fixed string to be matched as an environment variable, which can be accessed via the <code>ENV</code> hash.<pre><code class=language-bash>$ # double quotes allow escape sequences and interpolation
+$ ruby -e 'a=5; puts "value of a:\t#{a}"'
 value of a:     5
 
 $ # use %q as an alternate to specify single quoted string
 $ echo 'int #{a}' | ruby -ne 'print if $_.include?(%q/#{a}/)'
 int #{a}
+$ echo 'int #{a}' | ruby -pe 'sub(%q/#{a}/, "b")'
+int b
 
 $ # or pass the string as environment variable
-$ echo 'int #{a}' | s='#{a}' ruby -ne 'print if $_.include?(ENV[&quot;s&quot;])'
+$ echo 'int #{a}' | s='#{a}' ruby -ne 'print if $_.include?(ENV["s"])'
 int #{a}
-</code></pre>
-<p>Use <code>start_with?</code> and <code>end_with?</code> methods to restrict the fixed string matching to the start or end of the input line. The line content in <code>$_</code> variable contains the <code>\n</code> line ending character as well. You can either use <code>chomp</code> method explicitly or use the <code>-l</code> command line option, which will be discussed in detail in <a href="./record-separators.html#record-separators">Record separators</a> chapter. For now, it is enough to know that <code>-l</code> will remove the line ending from <code>$_</code> and add it back when <code>print</code> is used.</p>
-<pre><code class="language-bash">$ cat eqns.txt
+$ # \\ is special within single quotes, so ENV is the better choice here
+$ echo 'int #{a\\}' | s='#{a\\}' ruby -pe 'sub(ENV["s"], "b")'
+int b
+</code></pre><p>Use <code>start_with?</code> and <code>end_with?</code> methods to restrict the fixed string matching to the start or end of the input line. The line content in <code>$_</code> variable contains the <code>\n</code> line ending character as well. You can either use <code>chomp</code> method explicitly or use the <code>-l</code> command line option, which will be discussed in detail in <a href=./record-separators.html#record-separators>Record separators</a> chapter. For now, it is enough to know that <code>-l</code> will remove the line ending from <code>$_</code> and add it back when <code>print</code> is used.<pre><code class=language-bash>$ cat eqns.txt
 a=b,a-b=c,c*d
 a+b,pi=3.14,5e12
 i*(t+9-g)/8,4-a+b
 
 $ # start of line
-$ s='a+b' ruby -ne 'print if $_.start_with?(ENV[&quot;s&quot;])' eqns.txt
+$ s='a+b' ruby -ne 'print if $_.start_with?(ENV["s"])' eqns.txt
 a+b,pi=3.14,5e12
 
 $ # end of line
 $ # -l option is needed here to remove \n from $_
-$ s='a+b' ruby -lne 'print if $_.end_with?(ENV[&quot;s&quot;])' eqns.txt
+$ s='a+b' ruby -lne 'print if $_.end_with?(ENV["s"])' eqns.txt
 i*(t+9-g)/8,4-a+b
-</code></pre>
-<p>Use <code>index</code> method if you need more control over the location of the matching strings. You can use either the return value (which gives you the index of the matching string) or use the optional second argument to specify an offset to start searching. See <a href="https://ruby-doc.org/core-2.7.1/String.html#method-i-index">ruby-doc: index</a> for details.</p>
-<pre><code class="language-bash">$ # same as: $_.include?(&quot;a+b&quot;)
-$ ruby -ne 'print if $_.index(&quot;a+b&quot;)' eqns.txt
+</code></pre><p>Use <code>index</code> method if you need more control over the location of the matching strings. You can use either the return value (which gives you the index of the matching string) or use the optional second argument to specify an offset to start searching. See <a href=https://ruby-doc.org/core-2.7.1/String.html#method-i-index>ruby-doc: index</a> for details.<pre><code class=language-bash>$ # same as: $_.include?("a+b")
+$ ruby -ne 'print if $_.index("a+b")' eqns.txt
 a+b,pi=3.14,5e12
 i*(t+9-g)/8,4-a+b
 
-$ # same as: $_.start_with?(&quot;a+b&quot;)
-$ ruby -ne 'print if $_.index(&quot;a+b&quot;)==0' eqns.txt
+$ # same as: $_.start_with?("a+b")
+$ ruby -ne 'print if $_.index("a+b")==0' eqns.txt
 a+b,pi=3.14,5e12
 
 $ # since 'index' returns 'nil' if there's no match,
-$ # you need some more processing for &lt; or &lt;= numeric comparison
-$ ruby -ne '$i = $_.index(&quot;=&quot;); print if $i &amp;&amp; $i &lt; 6' eqns.txt
+$ # you need some more processing for < or <= numeric comparison
+$ ruby -ne '$i = $_.index("="); print if $i && $i < 6' eqns.txt
 a=b,a-b=c,c*d
 
-$ # for &gt; or &gt;= comparison, use the optional second argument
-$ s='a+b' ruby -ne 'print if $_.index(ENV[&quot;s&quot;], 1)' eqns.txt
+$ # for > or >= comparison, use the optional second argument
+$ s='a+b' ruby -ne 'print if $_.index(ENV["s"], 1)' eqns.txt
 i*(t+9-g)/8,4-a+b
-</code></pre>
-<h2><a class="header" href="#in-place-file-editing" id="in-place-file-editing">In-place file editing</a></h2>
-<p>You can use the <code>-i</code> option to write back the changes to the input file instead of displaying the output on terminal. When an extension is provided as an argument to <code>-i</code>, the original contents of the input file gets preserved as per the extension given. For example, if the input file is <code>ip.txt</code> and <code>-i.orig</code> is used, <code>ip.txt.orig</code> will be the backup filename.</p>
-<pre><code class="language-bash">$ cat colors.txt
+</code></pre><p>If you need to match entire input line or field, you can use comparison operators.<pre><code class=language-bash>$ printf 'a.b\na+b\n' | ruby -lne 'print if /^a.b$/'
+a.b
+a+b
+$ printf 'a.b\na+b\n' | ruby -lne 'print if $_ == %q/a.b/'
+a.b
+
+$ printf '1 a.b\n2 a+b\n' | ruby -lane 'print if $F[1] != %q/a.b/'
+2 a+b
+</code></pre><p>To provide a fixed string in replacement section, environment variable comes in handy again. But you have to replace any <code>\</code> character in the environment variable with <code>\\</code> before using it as replacement string.<pre><code class=language-bash>$ # the \ character special in replacement section
+$ # and \ is special within double quotes too
+$ echo 'x+y' | ruby -pe 'sub(%q/x+y/, "x\y\\0z")'
+xyx+yz
+
+$ # \ in value passed via environment variable is still special 
+$ echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"])'
+x\y\0z
+$ # have to preprocess the value by replacing \ with \\
+$ echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"].gsub(/\\/, "\\\0"))'
+x\y\\0z
+
+$ # can't use %q strings for all cases as \\ is special
+$ ruby -e 'puts %q/x\y\\0z/'
+x\y\0z
+$ echo 'x+y' | ruby -pe 'sub(%q/x+y/, %q/x\y\\0z/.gsub(/\\/, "\\\0"))'
+x\y\0z
+</code></pre><h2><a class=header href=#in-place-file-editing id=in-place-file-editing>In-place file editing</a></h2><p>You can use the <code>-i</code> option to write back the changes to the input file instead of displaying the output on terminal. When an extension is provided as an argument to <code>-i</code>, the original contents of the input file gets preserved as per the extension given. For example, if the input file is <code>ip.txt</code> and <code>-i.orig</code> is used, <code>ip.txt.orig</code> will be the backup filename.<pre><code class=language-bash>$ cat colors.txt
 deep blue
 light orange
 blue delight
 
 $ # no output on terminal as -i option is used
 $ # space is NOT allowed between -i and the extension
-$ ruby -i.bkp -pe 'sub(/blue/, &quot;green&quot;)' colors.txt
+$ ruby -i.bkp -pe 'sub(/blue/, "green")' colors.txt
 $ # changes are written back to 'colors.txt'
 $ cat colors.txt
 deep green
@@ -458,9 +349,7 @@ $ cat colors.txt.bkp
 deep blue
 light orange
 blue delight
-</code></pre>
-<p>Multiple input files are treated individually and the changes are written back to respective files.</p>
-<pre><code class="language-bash">$ cat t1.txt
+</code></pre><p>Multiple input files are treated individually and the changes are written back to respective files.<pre><code class=language-bash>$ cat t1.txt
 have a nice day
 bad morning
 what a pleasant evening
@@ -468,7 +357,7 @@ $ cat t2.txt
 worse than ever
 too bad
 
-$ ruby -i.bkp -pe 'sub(/bad/, &quot;good&quot;)' t1.txt t2.txt
+$ ruby -i.bkp -pe 'sub(/bad/, "good")' t1.txt t2.txt
 $ ls t?.*
 t1.txt  t1.txt.bkp  t2.txt  t2.txt.bkp
 
@@ -479,37 +368,26 @@ what a pleasant evening
 $ cat t2.txt
 worse than ever
 too good
-</code></pre>
-<p>Sometimes backups are not desirable. Using <code>-i</code> option on its own will not create backups. Be careful though, as changes made cannot be undone. In such cases, test the command with sample input before using <code>-i</code> option on actual file. You could also use the option with backup, compare the differences with a <code>diff</code> program and then delete the backup.</p>
-<pre><code class="language-bash">$ cat fruits.txt
+</code></pre><p>Sometimes backups are not desirable. Using <code>-i</code> option on its own will not create backups. Be careful though, as changes made cannot be undone. In such cases, test the command with sample input before using <code>-i</code> option on actual file. You could also use the option with backup, compare the differences with a <code>diff</code> program and then delete the backup.<pre><code class=language-bash>$ cat fruits.txt
 banana
 papaya
 mango
 
-$ ruby -i -pe 'gsub(/an/, &quot;AN&quot;)' fruits.txt
+$ ruby -i -pe 'gsub(/an/, "AN")' fruits.txt
 $ cat fruits.txt
 bANANa
 papaya
 mANgo
-</code></pre>
-<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
-<p>This chapter showed various examples of processing only lines of interest instead of entire input file. Filtering can be specified using a regexp, fixed string, line number or a combination of them. You also saw how to combine multiple statements using <code>()</code> for compact cli usage. <code>next</code> and <code>exit</code> are often needed to control the flow of code. The <code>-i</code> option is handy for in-place editing.</p>
-<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
-<p><strong>a)</strong> Remove only the third line of given input.</p>
-<pre><code class="language-bash">$ seq 34 37 | ##### add your solution here
+</code></pre><h2><a class=header href=#summary id=summary>Summary</a></h2><p>This chapter showed various examples of processing only lines of interest instead of entire input file. Filtering can be specified using a regexp, fixed string, line number or a combination of them. You also saw how to combine multiple statements using <code>()</code> for compact cli usage. <code>next</code> and <code>exit</code> are often needed to control the flow of code. The <code>-i</code> option is handy for in-place editing.<h2><a class=header href=#exercises id=exercises>Exercises</a></h2><p><strong>a)</strong> Remove only the third line of given input.<pre><code class=language-bash>$ seq 34 37 | ##### add your solution here
 34
 35
 37
-</code></pre>
-<p><strong>b)</strong> Display only fourth, fifth, sixth and seventh lines for the given input.</p>
-<pre><code class="language-bash">$ seq 65 78 | ##### add your solution here
+</code></pre><p><strong>b)</strong> Display only fourth, fifth, sixth and seventh lines for the given input.<pre><code class=language-bash>$ seq 65 78 | ##### add your solution here
 68
 69
 70
 71
-</code></pre>
-<p><strong>c)</strong> For the input file <code>ip.txt</code>, replace all occurrences of <code>are</code> with <code>are not</code> and <code>is</code> with <code>is not</code> only from line number <strong>4</strong> till end of file. Also, only the lines that were changed should be displayed in the output.</p>
-<pre><code class="language-bash">$ cat ip.txt
+</code></pre><p><strong>c)</strong> For the input file <code>ip.txt</code>, replace all occurrences of <code>are</code> with <code>are not</code> and <code>is</code> with <code>is not</code> only from line number <strong>4</strong> till end of file. Also, only the lines that were changed should be displayed in the output.<pre><code class=language-bash>$ cat ip.txt
 Hello World
 How are you
 This game is good
@@ -520,36 +398,24 @@ You are funny
 ##### add your solution here
 Today is not sunny
 You are not funny
-</code></pre>
-<p><strong>d)</strong> For the given <code>stdin</code>, display only the first three lines. Avoid processing lines that are not relevant.</p>
-<pre><code class="language-bash">$ seq 14 25 | ##### add your solution here
+</code></pre><p><strong>d)</strong> For the given <code>stdin</code>, display only the first three lines. Avoid processing lines that are not relevant.<pre><code class=language-bash>$ seq 14 25 | ##### add your solution here
 14
 15
 16
-</code></pre>
-<p><strong>e)</strong> For the input file <code>ip.txt</code>, display all lines from start of the file till the first occurrence of <code>game</code>.</p>
-<pre><code class="language-bash">##### add your solution here
+</code></pre><p><strong>e)</strong> For the input file <code>ip.txt</code>, display all lines from start of the file till the first occurrence of <code>game</code>.<pre><code class=language-bash>##### add your solution here
 Hello World
 How are you
 This game is good
-</code></pre>
-<p><strong>f)</strong> For the input file <code>ip.txt</code>, display all lines that contain <code>is</code> but not <code>good</code>.</p>
-<pre><code class="language-bash">##### add your solution here
+</code></pre><p><strong>f)</strong> For the input file <code>ip.txt</code>, display all lines that contain <code>is</code> but not <code>good</code>.<pre><code class=language-bash>##### add your solution here
 Today is sunny
-</code></pre>
-<p><strong>g)</strong> For the input file <code>ip.txt</code>, extract the word before the whole word <code>is</code> as well as the word after it. If such a match is found, display the two words around <code>is</code> in reversed order. For example, <code>hi;1 is--234 bye</code> should be converted to <code>234:1</code>. Assume that whole word <code>is</code> will not be present more than once in a single line.</p>
-<pre><code class="language-bash">##### add your solution here
+</code></pre><p><strong>g)</strong> For the input file <code>ip.txt</code>, extract the word before the whole word <code>is</code> as well as the word after it. If such a match is found, display the two words around <code>is</code> in reversed order. For example, <code>hi;1 is--234 bye</code> should be converted to <code>234:1</code>. Assume that whole word <code>is</code> will not be present more than once in a single line.<pre><code class=language-bash>##### add your solution here
 good:game
 sunny:Today
-</code></pre>
-<p><strong>h)</strong> For the given input string, replace <code>0xA0</code> with <code>0x7F</code> and <code>0xC0</code> with <code>0x1F</code>.</p>
-<pre><code class="language-bash">$ s='start address: 0xA0, func1 address: 0xC0'
+</code></pre><p><strong>h)</strong> For the given input string, replace <code>0xA0</code> with <code>0x7F</code> and <code>0xC0</code> with <code>0x1F</code>.<pre><code class=language-bash>$ s='start address: 0xA0, func1 address: 0xC0'
 
-$ echo &quot;$s&quot; | ##### add your solution here
+$ echo "$s" | ##### add your solution here
 start address: 0x7F, func1 address: 0x1F
-</code></pre>
-<p><strong>i)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>in</code> with <code>an</code> and write back the changes to <code>text.txt</code> itself. The original contents should get saved to <code>text.txt.orig</code></p>
-<pre><code class="language-bash">$ cat text.txt
+</code></pre><p><strong>i)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>in</code> with <code>an</code> and write back the changes to <code>text.txt</code> itself. The original contents should get saved to <code>text.txt.orig</code><pre><code class=language-bash>$ cat text.txt
 can ran want plant
 tin fin fit mine line
 ##### add your solution here
@@ -560,9 +426,7 @@ tan fan fit mane lane
 $ cat text.txt.orig
 can ran want plant
 tin fin fit mine line
-</code></pre>
-<p><strong>j)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>an</code> with <code>in</code> and write back the changes to <code>text.txt</code> itself. Do not create backups for this exercise. Note that you should have solved the previous exercise before starting this one.</p>
-<pre><code class="language-bash">$ cat text.txt
+</code></pre><p><strong>j)</strong> For the input file <code>text.txt</code>, replace all occurrences of <code>an</code> with <code>in</code> and write back the changes to <code>text.txt</code> itself. Do not create backups for this exercise. Note that you should have solved the previous exercise before starting this one.<pre><code class=language-bash>$ cat text.txt
 can ran want plant
 tan fan fit mane lane
 ##### add your solution here
@@ -572,12 +436,10 @@ cin rin wint plint
 tin fin fit mine line
 $ diff text.txt text.txt.orig
 1c1
-&lt; cin rin wint plint
+< cin rin wint plint
 ---
-&gt; can ran want plant
-</code></pre>
-<p><strong>k)</strong> Find the starting index of first occurrence of <code>is</code> or <code>the</code> or <code>was</code> or <code>to</code> for each input line of the file <code>idx.txt</code>. Assume all input lines will match at least one of these terms.</p>
-<pre><code class="language-bash">$ cat idx.txt
+> can ran want plant
+</code></pre><p><strong>k)</strong> Find the starting index of first occurrence of <code>is</code> or <code>the</code> or <code>was</code> or <code>to</code> for each input line of the file <code>idx.txt</code>. Assume all input lines will match at least one of these terms.<pre><code class=language-bash>$ cat idx.txt
 match after the last newline character
 and then you want to test
 this is good bye then
@@ -588,78 +450,20 @@ you were there to see?
 4
 2
 9
-</code></pre>
-<p><strong>l)</strong> Display all lines containing <code>[4]*</code> for the given <code>stdin</code> data.</p>
-<pre><code class="language-bash">$ printf '2.3/[4]*6\n2[4]5\n5.3-[4]*9\n' | ##### add your solution here
+</code></pre><p><strong>l)</strong> Display all lines containing <code>[4]*</code> for the given <code>stdin</code> data.<pre><code class=language-bash>$ printf '2.3/[4]*6\n2[4]5\n5.3-[4]*9\n' | ##### add your solution here
 2.3/[4]*6
 5.3-[4]*9
-</code></pre>
+</code></pre><p><strong>m)</strong> For the given input string, replace all lowercase alphabets to <code>x</code> only for words starting with <code>m</code>.<pre><code class=language-bash>$ s='ma2T3a a2p kite e2e3m meet'
 
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="one-liner-introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="field-separators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a rel="prev" href="one-liner-introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                
-
-                
-                    <a rel="next" href="field-separators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                
-            </nav>
-
-        </div>
-
-        
-
-        
-
-        
-
-        
-        <script type="text/javascript">
+$ echo "$s" | ##### add your solution here
+xx2T3x a2p kite e2e3m xxxx
+</code></pre><p><strong>n)</strong> For the input file <code>ip.txt</code>, delete all characters other than lowercase vowels and newline character. Perform this transformation only between a line containing <code>you</code> up to line number <code>4</code> (inclusive).<pre><code class=language-bash>##### add your solution here
+Hello World
+oaeou
+iaeioo
+oaiu
+12345
+You are funny
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=one-liner-introduction.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=field-separators.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=one-liner-introduction.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=field-separators.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
-        </script>
-        
-
-        
-
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
-        
-
-    </body>
-</html>
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>

@@ -1,60 +1,7 @@
-<!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
-    <head>
-        <!-- Book generated using mdBook -->
-        <meta charset="UTF-8">
-        <title>Field separators - Ruby one-liners cookbook</title>
-        
-        
-
-
-        <!-- Custom HTML head -->
-        
-
-
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <meta name="description" content="Example based guide for text processing with ruby from the command line">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
-
-        
-        <link rel="icon" href="favicon.svg">
-        
-        
-        <link rel="shortcut icon" href="favicon.png">
-        
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
-
-        <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
-        
-        <link rel="stylesheet" href="fonts/fonts.css">
-        
-
-        <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
-
-        <!-- Custom theme stylesheets -->
-        
-        <link rel="stylesheet" href="custom.css">
-        
-
-        
-    </head>
-    <body>
-        <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Field separators - Ruby one-liners cookbook</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide for text processing with Ruby from the command line"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script>
-
-        <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        </script><script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -67,10 +14,7 @@
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
             } catch (e) { }
-        </script>
-
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        </script><script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
@@ -79,10 +23,7 @@
             html.classList.remove('light')
             html.classList.add(theme);
             html.classList.add('js');
-        </script>
-
-        <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
+        </script><script>
             var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
@@ -91,102 +32,27 @@
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
-        </script>
-
-        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="cover.html">Cover</a></li><li class="chapter-item expanded affix "><a href="buy.html">Buy PDF/EPUB versions</a></li><li class="chapter-item expanded "><a href="preface.html"><strong aria-hidden="true">1.</strong> Preface</a></li><li class="chapter-item expanded "><a href="one-liner-introduction.html"><strong aria-hidden="true">2.</strong> One-liner introduction</a></li><li class="chapter-item expanded "><a href="line-processing.html"><strong aria-hidden="true">3.</strong> Line processing</a></li><li class="chapter-item expanded "><a href="field-separators.html" class="active"><strong aria-hidden="true">4.</strong> Field separators</a></li><li class="chapter-item expanded "><a href="record-separators.html"><strong aria-hidden="true">5.</strong> Record separators</a></li><li class="chapter-item expanded "><a href="multiple-file-input.html"><strong aria-hidden="true">6.</strong> Multiple file input</a></li><li class="chapter-item expanded "><a href="processing-multiple-records.html"><strong aria-hidden="true">7.</strong> Processing multiple records</a></li><li class="chapter-item expanded "><a href="two-file-processing.html"><strong aria-hidden="true">8.</strong> Two file processing</a></li><li class="chapter-item expanded "><a href="dealing-with-duplicates.html"><strong aria-hidden="true">9.</strong> Dealing with duplicates</a></li><li class="chapter-item expanded "><a href="processing-structured-data.html"><strong aria-hidden="true">10.</strong> Processing structured data</a></li><li class="chapter-item expanded "><a href="Exercise_solutions.html"><strong aria-hidden="true">11.</strong> Exercise Solutions</a></li></ol>
-            </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
-        </nav>
-
-        <div id="page-wrapper" class="page-wrapper">
-
-            <div class="page">
-                
-                <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
-                    <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                            <i class="fa fa-paint-brush"></i>
-                        </button>
-                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                        </ul>
-                        
-                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                            <i class="fa fa-search"></i>
-                        </button>
-                        
-                    </div>
-
-                    <h1 class="menu-title">Ruby one-liners cookbook</h1>
-
-                    <div class="right-buttons">
-                        
-                        <a href="https://github.com/learnbyexample/learn_ruby_oneliners" title="Git repository" aria-label="Git repository">
-                            <i id="git-repository-button" class="fa fa-github"></i>
-                        </a>
-                        
-                    </div>
-                </div>
-
-                
-                <div id="search-wrapper" class="hidden">
-                    <form id="searchbar-outer" class="searchbar-outer">
-                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                    </form>
-                    <div id="searchresults-outer" class="searchresults-outer hidden">
-                        <div id="searchresults-header" class="searchresults-header"></div>
-                        <ul id="searchresults">
-                        </ul>
-                    </div>
-                </div>
-                
-
-                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=one-liner-introduction.html><strong aria-hidden=true>2.</strong> One-liner introduction</a><li class="chapter-item expanded"><a href=line-processing.html><strong aria-hidden=true>3.</strong> Line processing</a><li class="chapter-item expanded"><a href=field-separators.html class=active><strong aria-hidden=true>4.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>5.</strong> Record separators</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>6.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>7.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>8.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>9.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=processing-structured-data.html><strong aria-hidden=true>10.</strong> Processing structured data</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>11.</strong> Exercise Solutions</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Ruby one-liners cookbook</h1><div class=right-buttons><a href=https://github.com/learnbyexample/learn_ruby_oneliners title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search name=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
                     });
-                </script>
-
-                <div id="content" class="content">
-                    <main>
-                        <h1><a class="header" href="#field-separators" id="field-separators">Field separators</a></h1>
-<p>This chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields. </p>
-<h2><a class="header" href="#default-field-separation" id="default-field-separation">Default field separation</a></h2>
-<p>By default, the <code>-a</code> option splits based on one or more sequence of <strong>whitespace</strong> characters. In addition, whitespaces at the start or end of input gets trimmed and won't be part of field contents. Using <code>-a</code> is equivalent to <code>$F = $_.split</code>. From <a href="https://ruby-doc.org/core-2.7.1/String.html#method-i-split">ruby-doc: split</a>:</p>
-<blockquote>
-<p>If pattern is a single space, <em>str</em> is split on whitespace, with leading and trailing whitespace and runs of contiguous whitespace characters ignored...If pattern is <code>nil</code>, the value of <code>$;</code> is used. If <code>$;</code> is <code>nil</code> (which is the default), <em>str</em> is split on whitespace as if <code>' '</code> were specified.</p>
-</blockquote>
-<pre><code class="language-bash">$ echo '   a   b   c   ' | ruby -ane 'puts $F.size'
+                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1><a class=header href=#field-separators id=field-separators>Field separators</a></h1><p>This chapter will dive deep into field processing. You'll learn how to set input and output field separators, how to use regexps for defining fields and how to work with fixed length fields.<h2><a class=header href=#default-field-separation id=default-field-separation>Default field separation</a></h2><p>By default, the <code>-a</code> option splits based on one or more sequence of <strong>whitespace</strong> characters. In addition, whitespaces at the start or end of input gets trimmed and won't be part of field contents. Using <code>-a</code> is equivalent to <code>$F = $_.split</code>. From <a href=https://ruby-doc.org/core-2.7.1/String.html#method-i-split>ruby-doc: split</a>:<blockquote><p>If pattern is a single space, <em>str</em> is split on whitespace, with leading and trailing whitespace and runs of contiguous whitespace characters ignored...If pattern is <code>nil</code>, the value of <code>$;</code> is used. If <code>$;</code> is <code>nil</code> (which is the default), <em>str</em> is split on whitespace as if <code>' '</code> were specified.</blockquote><pre><code class=language-bash>$ echo '   a   b   c   ' | ruby -ane 'puts $F.size'
 3
 $ # note that leading whitespaces isn't part of field content
 $ echo '   a   b   c   ' | ruby -ane 'puts $F[0]'
 a
 $ # note that trailing whitespaces isn't part of field content
-$ echo '   a   b   c   ' | ruby -ane 'puts $F[-1] + &quot;.&quot;'
+$ echo '   a   b   c   ' | ruby -ane 'puts $F[-1] + "."'
 c.
 
 $ # here's another example with more whitespace characters thrown in
 $ printf '     one \t\f\v two\t\r\tthree  ' | ruby -ane 'puts $F.size'
 3
-$ printf '     one \t\f\v two\t\r\tthree  ' | ruby -ane 'puts $F[1] + &quot;.&quot;'
+$ printf '     one \t\f\v two\t\r\tthree  ' | ruby -ane 'puts $F[1] + "."'
 two.
-</code></pre>
-<h2><a class="header" href="#input-field-separator" id="input-field-separator">Input field separator</a></h2>
-<p>You can use the <code>-F</code> command line option to specify a custom field separator. The value passed to the option will be treated as a regexp. Note that <code>-a</code> option is also necessary for <code>-F</code> option to work. Instead of <code>-F</code> option, you can also set <code>$;</code> to a string or regexp value in the code, but <code>$;</code> is deprecated.</p>
-<pre><code class="language-bash">$ # use ':' as input field separator
+</code></pre><h2><a class=header href=#input-field-separator id=input-field-separator>Input field separator</a></h2><p>You can use the <code>-F</code> command line option to specify a custom field separator. The value passed to the option will be treated as a regexp. Note that <code>-a</code> option is also necessary for <code>-F</code> option to work. Instead of <code>-F</code> option, you can also set <code>$;</code> to a string or regexp value in the code, but <code>$;</code> is deprecated.<pre><code class=language-bash>$ # use ':' as input field separator
 $ echo 'goal:amazing:whistle:kwality' | ruby -F: -ane 'puts $F[0], $F[-1]'
 goal
 kwality
@@ -205,9 +71,7 @@ $ # count number of vowels for each input line
 $ printf 'COOL\nnice car\n' | ruby -F'(?i)[aeiou]' -ane 'puts $F.size - 1'
 2
 3
-</code></pre>
-<p>No need to use field separation to access individual characters. See <a href="https://ruby-doc.org/core-2.7.1/Encoding.html">ruby-doc: Encoding</a> for details on handling different string encodings.</p>
-<pre><code class="language-bash">$ echo 'apple' | ruby -ne 'puts $_[0]'
+</code></pre><p>No need to use field separation to access individual characters. See <a href=https://ruby-doc.org/core-2.7.1/Encoding.html>ruby-doc: Encoding</a> for details on handling different string encodings.<pre><code class=language-bash>$ echo 'apple' | ruby -ne 'puts $_[0]'
 a
 
 $ ruby -e 'puts Encoding.default_external'
@@ -220,25 +84,19 @@ $ echo 'fox:αλεπού' | ruby -ne 'puts $_[4..5]'
 $ # use -E option to explicitly specify external/internal encodings
 $ echo 'fox:αλεπού' | ruby -E UTF-8:UTF-8 -ne 'puts $_[4..5]'
 αλ
-</code></pre>
-<blockquote>
-<p><img src="images/warning.svg" alt="warning" /> If the custom field separator with <code>-F</code> option doesn't affect the newline character, then the last element can contain the newline character.</p>
-</blockquote>
-<pre><code class="language-bash">$ # last element will not have newline character with default -a
+</code></pre><blockquote><p><img src=images/warning.svg alt=warning> If the custom field separator with <code>-F</code> option doesn't affect the newline character, then the last element can contain the newline character.</blockquote><pre><code class=language-bash>$ # last element will not have newline character with default -a
 $ # as leading/trailing whitespaces are trimmed with default split
-$ echo 'cat dog' | ruby -ane 'puts &quot;[#{$F[-1]}]&quot;'
+$ echo 'cat dog' | ruby -ane 'puts "[#{$F[-1]}]"'
 [dog]
 
 $ # last element will have newline character since field separator is ':'
-$ echo 'cat:dog' | ruby -F: -ane 'puts &quot;[#{$F[-1]}]&quot;'
+$ echo 'cat:dog' | ruby -F: -ane 'puts "[#{$F[-1]}]"'
 [dog
 ]
 $ # unless the input itself doesn't have newline character
-$ printf 'cat:dog' | ruby -F: -ane 'puts &quot;[#{$F[-1]}]&quot;'
+$ printf 'cat:dog' | ruby -F: -ane 'puts "[#{$F[-1]}]"'
 [dog]
-</code></pre>
-<p>The newline character can also show up as the content of last field.</p>
-<pre><code class="language-bash">$ # both leading and trailing whitespaces are trimmed
+</code></pre><p>The newline character can also show up as the content of last field.<pre><code class=language-bash>$ # both leading and trailing whitespaces are trimmed
 $ echo '  a b   c   ' | ruby -ane 'puts $F.size'
 3
 
@@ -246,13 +104,11 @@ $ # leading empty element won't be removed here
 $ # and last element will have newline character
 $ echo ':a:b:c:' | ruby -F: -ane 'puts $F.size'
 5
-</code></pre>
-<p>As mentioned before, the <code>-l</code> option is helpful if you wish to remove the newline character (more details will be discussed in <a href="./record-separators.html#record-separators">Record separators</a> chapter). A side effect of removing the newline character before applying <code>split</code> is that a trailing empty field will also get removed (you can explicitly call <code>split</code> method with <code>-1</code> as limit to prevent this).</p>
-<pre><code class="language-bash">$ # -l will remove the newline character
-$ echo 'cat:dog' | ruby -F: -lane 'puts &quot;[#{$F[-1]}]&quot;'
+</code></pre><p>As mentioned before, the <code>-l</code> option is helpful if you wish to remove the newline character (more details will be discussed in <a href=./record-separators.html#record-separators>Record separators</a> chapter). A side effect of removing the newline character before applying <code>split</code> is that a trailing empty field will also get removed (you can explicitly call <code>split</code> method with <code>-1</code> as limit to prevent this).<pre><code class=language-bash>$ # -l will remove the newline character
+$ echo 'cat:dog' | ruby -F: -lane 'puts "[#{$F[-1]}]"'
 [dog]
 $ # -l will also cause 'print' method to append the newline character
-$ echo 'cat:dog' | ruby -F: -lane 'print &quot;[#{$F[-1]}]&quot;'
+$ echo 'cat:dog' | ruby -F: -lane 'print "[#{$F[-1]}]"'
 [dog]
 
 $ # since newline character is chomped, last element is empty
@@ -262,179 +118,147 @@ $ echo ':a:b:c:' | ruby -F: -lane 'puts $F.size'
 $ # explicit call to split with -1 as limit will preserve the empty element
 $ echo ':a:b:c:' | ruby -lane 'puts $_.split(/:/, -1).size'
 5
-</code></pre>
-<h2><a class="header" href="#output-field-separator" id="output-field-separator">Output field separator</a></h2>
-<p>There are a few ways to affect the separator to be used while displaying multiple values. The value of <code>$,</code> global variable is used as the separator when multiple arguments are passed to the <code>print</code> method. This is usually used in combination with <code>-l</code> option so that a newline character is appended automatically as well. The <code>join</code> method also uses <code>$,</code> as the default value. But <code>$,</code> is deprecated now.</p>
-<pre><code class="language-bash">$ ruby -lane 'BEGIN{$, = &quot; &quot;}; print $F[0], $F[2]' table.txt
+</code></pre><h2><a class=header href=#output-field-separator id=output-field-separator>Output field separator</a></h2><p>There are a few ways to affect the separator to be used while displaying multiple values. The value of <code>$,</code> global variable is used as the separator when multiple arguments are passed to the <code>print</code> method. This is usually used in combination with <code>-l</code> option so that a newline character is appended automatically as well. The <code>join</code> method also uses <code>$,</code> as the default value. But <code>$,</code> is deprecated now.<pre><code class=language-bash>$ ruby -lane 'BEGIN{$, = " "}; print $F[0], $F[2]' table.txt
 -e:1: warning: `$,` is deprecated
 brown mat
 blue mug
 yellow window
 
-$ ruby -W:no-deprecated -lane 'BEGIN{$, = &quot; &quot;}; print $F[0], $F[2]' table.txt
+$ ruby -W:no-deprecated -lane 'BEGIN{$, = " "}; print $F[0], $F[2]' table.txt
 brown mat
 blue mug
 yellow window
-</code></pre>
-<p>The other options include manually building the output string within double quotes. Or, use the <code>join</code> method. Note that <code>-l</code> option is used in the examples below as a good practice even when not needed.</p>
-<pre><code class="language-bash">$ ruby -lane 'puts &quot;#{$F[0]} #{$F[2]}&quot;' table.txt
+</code></pre><p>The other options include manually building the output string within double quotes. Or, use the <code>join</code> method. Note that <code>-l</code> option is used in the examples below as a good practice even when not needed.<pre><code class=language-bash>$ ruby -lane 'puts "#{$F[0]} #{$F[2]}"' table.txt
 brown mat
 blue mug
 yellow window
 
-$ echo 'Sample123string42with777numbers' | ruby -F'\d+' -lane 'puts $F.join(&quot;,&quot;)'
+$ echo 'Sample123string42with777numbers' | ruby -F'\d+' -lane 'puts $F.join(",")'
 Sample,string,with,numbers
 
 $ s='goal:amazing:whistle:kwality'
-$ echo &quot;$s&quot; | ruby -F: -lane 'puts $F.values_at(-1, 1, 0).join(&quot;-&quot;)'
+$ echo "$s" | ruby -F: -lane 'puts $F.values_at(-1, 1, 0).join("-")'
 kwality-amazing-goal
 
 $ # you can also use the '*' operator
-$ echo &quot;$s&quot; | ruby -F: -lane '$F.append(42); puts $F * &quot;::&quot;'
+$ echo "$s" | ruby -F: -lane '$F.append(42); puts $F * "::"'
 goal::amazing::whistle::kwality::42
-</code></pre>
-<h2><a class="header" href="#scan-method" id="scan-method">scan method</a></h2>
-<p>The <code>-F</code> option uses the <code>split</code> method to get field values from input content. In contrast, <code>scan</code> method allows you to define what should the fields be made up of. And <code>scan</code> method does not have the concept of removing empty trailing fields nor does it have arguments like <code>limit</code>.</p>
-<pre><code class="language-bash">$ s='Sample123string42with777numbers'
+</code></pre><h2><a class=header href=#scan-method id=scan-method>scan method</a></h2><p>The <code>-F</code> option uses the <code>split</code> method to get field values from input content. In contrast, <code>scan</code> method allows you to define what should the fields be made up of. And <code>scan</code> method does not have the concept of removing empty trailing fields nor does it have arguments like <code>limit</code>.<pre><code class=language-bash>$ s='Sample123string42with777numbers'
 
 $ # define fields to be one or more consecutive digits
-$ echo &quot;$s&quot; | ruby -lne 'puts $_.scan(/\d+/)[1]'
+$ echo "$s" | ruby -lne 'puts $_.scan(/\d+/)[1]'
 42
 
 $ # define fields to be one or more consecutive alphabets
-$ echo &quot;$s&quot; | ruby -lne 'puts $_.scan(/[a-z]+/i) * &quot;,&quot;'
+$ echo "$s" | ruby -lne 'puts $_.scan(/[a-z]+/i) * ","'
 Sample,string,with,numbers
-</code></pre>
-<p>A simple <code>split</code> fails for <code>csv</code> input where fields can contain embedded delimiter characters. For example, a field content <code>&quot;fox,42&quot;</code> when <code>,</code> is the delimiter.</p>
-<pre><code class="language-bash">$ s='eagle,&quot;fox,42&quot;,bee,frog'
+</code></pre><p>A simple <code>split</code> fails for <code>csv</code> input where fields can contain embedded delimiter characters. For example, a field content <code>"fox,42"</code> when <code>,</code> is the delimiter.<pre><code class=language-bash>$ s='eagle,"fox,42",bee,frog'
 
 $ # simply using , as separator isn't sufficient
-$ echo &quot;$s&quot; | ruby -F, -lane 'puts $F[1]'
-&quot;fox
-</code></pre>
-<p>While <a href="https://ruby-doc.org/stdlib-2.7.1/libdoc/csv/rdoc/CSV.html">ruby-doc: CSV</a> library should be preferred for robust <code>csv</code> parsing, <code>scan</code> can be used for simple workarounds.</p>
-<pre><code class="language-bash">$ echo &quot;$s&quot; | ruby -lne 'puts $_.scan(/&quot;[^&quot;]*&quot;|[^,]+/)[1]'
-&quot;fox,42&quot;
-</code></pre>
-<h2><a class="header" href="#fixed-width-processing" id="fixed-width-processing">Fixed width processing</a></h2>
-<p>The <code>unpack</code> method is more than just a different way of using string slicing. It supports various formats and pre-processing, see <a href="https://ruby-doc.org/core-2.7.1/String.html#method-i-unpack">ruby-doc: unpack</a> for details.</p>
-<p>In the example below, <code>a</code> indicates arbitrary binary string. The optional number that follows indicates length of the field.</p>
-<pre><code class="language-bash">$ cat items.txt
+$ echo "$s" | ruby -F, -lane 'puts $F[1]'
+"fox
+</code></pre><p>While <a href=https://ruby-doc.org/stdlib-2.7.1/libdoc/csv/rdoc/CSV.html>ruby-doc: CSV</a> library should be preferred for robust <code>csv</code> parsing, <code>scan</code> can be used for simple workarounds.<pre><code class=language-bash>$ echo "$s" | ruby -lne 'puts $_.scan(/"[^"]*"|[^,]+/)[1]'
+"fox,42"
+</code></pre><h2><a class=header href=#fixed-width-processing id=fixed-width-processing>Fixed width processing</a></h2><p>The <code>unpack</code> method is more than just a different way of using string slicing. It supports various formats and pre-processing, see <a href=https://ruby-doc.org/core-2.7.1/String.html#method-i-unpack>ruby-doc: unpack</a> for details.<p>In the example below, <code>a</code> indicates arbitrary binary string. The optional number that follows indicates length of the field.<pre><code class=language-bash>$ cat items.txt
 apple   fig banana
 50      10  200
 
 $ # here field widths have been assigned such that
 $ # extra spaces are placed at the end of each field
-$ ruby -ne 'puts $_.unpack(&quot;a8a4a6&quot;) * &quot;,&quot;' items.txt
+$ ruby -ne 'puts $_.unpack("a8a4a6") * ","' items.txt
 apple   ,fig ,banana
 50      ,10  ,200
-$ ruby -ne 'puts $_.unpack(&quot;a8a4a6&quot;)[1]' items.txt
+$ ruby -ne 'puts $_.unpack("a8a4a6")[1]' items.txt
 fig 
 10  
-</code></pre>
-<p>You can specify characters to be ignored with <code>x</code> followed by optional length.</p>
-<pre><code class="language-bash">$ # first field is 5 characters
+</code></pre><p>You can specify characters to be ignored with <code>x</code> followed by optional length.<pre><code class=language-bash>$ # first field is 5 characters
 $ # then 3 characters are ignored and 3 characters for second field
 $ # then 1 character is ignored and 6 characters for third field
-$ ruby -ne 'puts $_.unpack(&quot;a5x3a3xa6&quot;) * &quot;,&quot;' items.txt
+$ ruby -ne 'puts $_.unpack("a5x3a3xa6") * ","' items.txt
 apple,fig,banana
 50   ,10 ,200
-</code></pre>
-<p>Using <code>*</code> will cause remaining characters of that particular format to be consumed. Here <code>Z</code> is used to process ASCII NUL separated string.</p>
-<pre><code class="language-bash">$ printf 'banana\x0050\x00' | ruby -ne 'puts $_.unpack(&quot;Z*Z*&quot;) * &quot;:&quot;'
+</code></pre><p>Using <code>*</code> will cause remaining characters of that particular format to be consumed. Here <code>Z</code> is used to process ASCII NUL separated string.<pre><code class=language-bash>$ printf 'banana\x0050\x00' | ruby -ne 'puts $_.unpack("Z*Z*") * ":"'
 banana:50
 
 $ # first field is 5 characters, then 3 characters are ignored
 $ # all the remaining characters are assigned to second field
-$ ruby -ne 'puts $_.unpack(&quot;a5x3a*&quot;) * &quot;,&quot;' items.txt
+$ ruby -ne 'puts $_.unpack("a5x3a*") * ","' items.txt
 apple,fig banana
 50   ,10  200
-</code></pre>
-<p>Unpacking isn't always needed, simple string slicing might suffice.</p>
-<pre><code class="language-bash">$ echo 'b 123 good' | ruby -ne 'puts $_[2,3]'
+</code></pre><p>Unpacking isn't always needed, simple string slicing might suffice.<pre><code class=language-bash>$ echo 'b 123 good' | ruby -ne 'puts $_[2,3]'
 123
 $ echo 'b 123 good' | ruby -ne 'puts $_[6,4]'
 good
 
 $ # replacing arbitrary slice
-$ echo 'b 123 good' | ruby -lpe '$_[2,3] = &quot;gleam&quot;'
+$ echo 'b 123 good' | ruby -lpe '$_[2,3] = "gleam"'
 b gleam good
-</code></pre>
-<h2><a class="header" href="#assorted-field-processing-methods" id="assorted-field-processing-methods">Assorted field processing methods</a></h2>
-<p>Having seen command line options and features commonly used for field processing, this section will highlight some of the built-in array and Enumerable methods. There's just too many to meaningfully cover them in all in detail, so consider this to be just a brief overview of features.</p>
-<p>First up, regexp based field selection. <code>grep(cond)</code> and <code>grep_v(cond)</code> are specialized filter methods that perform <code>cond === object</code> test check. See <a href="https://stackoverflow.com/questions/4467538/what-does-the-operator-do-in-ruby">stackoverflow: What does the === operator do in Ruby?</a> for more details.</p>
-<pre><code class="language-bash">$ s='goal:amazing:42:whistle:kwality:3.14'
+</code></pre><h2><a class=header href=#assorted-field-processing-methods id=assorted-field-processing-methods>Assorted field processing methods</a></h2><p>Having seen command line options and features commonly used for field processing, this section will highlight some of the built-in array and Enumerable methods. There's just too many to meaningfully cover them in all in detail, so consider this to be just a brief overview of features.<p>First up, regexp based field selection. <code>grep(cond)</code> and <code>grep_v(cond)</code> are specialized filter methods that perform <code>cond === object</code> test check. See <a href=https://stackoverflow.com/questions/4467538/what-does-the-operator-do-in-ruby>stackoverflow: What does the === operator do in Ruby?</a> for more details.<pre><code class=language-bash>$ s='goal:amazing:42:whistle:kwality:3.14'
 
 $ # fields containing 'in' or 'it' or 'is'
-$ echo &quot;$s&quot; | ruby -F: -lane 'puts $F.grep(/i[nts]/) * &quot;:&quot;'
+$ echo "$s" | ruby -F: -lane 'puts $F.grep(/i[nts]/) * ":"'
 amazing:whistle:kwality
 
 $ # fields NOT containing a digit character
-$ echo &quot;$s&quot; | ruby -F: -lane 'puts $F.grep_v(/\d/) * &quot;:&quot;'
+$ echo "$s" | ruby -F: -lane 'puts $F.grep_v(/\d/) * ":"'
 goal:amazing:whistle:kwality
-</code></pre>
-<p>The <code>map</code> method helps to transform each element according to the logic passed to it.</p>
-<pre><code class="language-bash">$ s='goal:amazing:42:whistle:kwality:3.14'
-$ echo &quot;$s&quot; | ruby -F: -lane 'puts $F.map(&amp;:upcase) * &quot;:&quot;'
+</code></pre><p>The <code>map</code> method helps to transform each element according to the logic passed to it.<pre><code class=language-bash>$ s='goal:amazing:42:whistle:kwality:3.14'
+$ echo "$s" | ruby -F: -lane 'puts $F.map(&:upcase) * ":"'
 GOAL:AMAZING:42:WHISTLE:KWALITY:3.14
 
 $ # you can also use numbered parameters: {_1.to_i ** 2}
-$ echo '23 756 -983 5' | ruby -ane 'puts $F.map {|n| n.to_i ** 2} * &quot; &quot;'
+$ echo '23 756 -983 5' | ruby -ane 'puts $F.map {|n| n.to_i ** 2} * " "'
 529 571536 966289 25
 
-$ echo 'AaBbCc' | ruby -lne 'puts $_.chars.map(&amp;:ord) * &quot; &quot;'
+$ echo 'AaBbCc' | ruby -lne 'puts $_.chars.map(&:ord) * " "'
 65 97 66 98 67 99
 
-$ echo '3.14,17,6' | ruby -F, -ane 'puts $F.map(&amp;:to_f).sum'
+$ echo '3.14,17,6' | ruby -F, -ane 'puts $F.map(&:to_f).sum'
 26.14
-</code></pre>
-<p>The <code>filter</code> method (which has other aliases and opposites too) is handy to construct all kinds of selection conditions. You can combine with <code>map</code> by using the <code>filter_map</code> method.</p>
-<pre><code class="language-bash">$ s='hour hand band mat heated pineapple'
+</code></pre><p>The <code>filter</code> method (which has other aliases and opposites too) is handy to construct all kinds of selection conditions. You can combine with <code>map</code> by using the <code>filter_map</code> method.<pre><code class=language-bash>$ s='hour hand band mat heated pineapple'
 
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.filter {|w| w[0]!=&quot;h&quot; &amp;&amp; w.size&lt;6}'
+$ echo "$s" | ruby -ane 'puts $F.filter {|w| w[0]!="h" && w.size&LT6}'
 band
 mat
 
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.filter_map {|w|
-                w.gsub(/[ae]/, &quot;X&quot;) if w[0]==&quot;h&quot;}'
+$ echo "$s" | ruby -ane 'puts $F.filter_map {|w|
+                w.gsub(/[ae]/, "X") if w[0]=="h"}'
 hour
 hXnd
 hXXtXd
-</code></pre>
-<p>The <code>reduce</code> method can be used to perform an action against all the elements of an array and get a singular value as the result.</p>
-<pre><code class="language-bash">$ # sum of input numbers with initial value of 100
-$ echo '3.14,17,6' | ruby -F, -lane 'puts $F.map(&amp;:to_f).reduce(100, :+)'
+</code></pre><p>The <code>reduce</code> method can be used to perform an action against all the elements of an array and get a singular value as the result.<pre><code class=language-bash>$ # sum of input numbers with initial value of 100
+$ echo '3.14,17,6' | ruby -F, -lane 'puts $F.map(&:to_f).reduce(100, :+)'
 126.14
 
 $ # product of input numbers
-$ echo '3.14,17,6' | ruby -F, -lane 'puts $F.map(&amp;:to_f).reduce(:*)'
+$ echo '3.14,17,6' | ruby -F, -lane 'puts $F.map(&:to_f).reduce(:*)'
 320.28000000000003
 $ echo '3.14,17,6' | ruby -F, -lane 'puts $F.reduce(1) {|op,n| op*n.to_f}'
 320.28000000000003
-</code></pre>
-<p>Here's some examples with <code>sort</code>, <code>sort_by</code> and <code>uniq</code> methods for arrays and strings.</p>
-<pre><code class="language-bash">$ s='floor bat to dubious four'
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.sort * &quot;:&quot;'
+</code></pre><p>Here's some examples with <code>sort</code>, <code>sort_by</code> and <code>uniq</code> methods for arrays and strings.<pre><code class=language-bash>$ s='floor bat to dubious four'
+$ echo "$s" | ruby -ane 'puts $F.sort * ":"'
 bat:dubious:floor:four:to
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.sort_by(&amp;:size) * &quot;:&quot;'
+$ echo "$s" | ruby -ane 'puts $F.sort_by(&:size) * ":"'
 to:bat:four:floor:dubious
 
-$ echo 'foobar' | ruby -lne 'puts $_.chars.sort.reverse * &quot;&quot;'
+$ # numeric sort example
+$ echo '23 756 -983 5' | ruby -lane 'puts $F.sort_by(&:to_i) * ":"'
+-983:5:23:756
+
+$ echo 'foobar' | ruby -lne 'puts $_.chars.sort.reverse * ""'
 roofba
 
 $ s='try a bad to good i teal by nice how'
-# longer words first, ascending alphabetic order as tie-breaker
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.sort { |a, b|
-                [b.size, a] &lt;=&gt; [a.size, b] } * &quot;:&quot;'
+$ # longer words first, ascending alphabetic order as tie-breaker
+$ echo "$s" | ruby -ane 'puts $F.sort { |a, b|
+                [b.size, a] <=> [a.size, b] } * ":"'
 good:nice:teal:bad:how:try:by:to:a:i
 
 $ s='3,b,a,3,c,d,1,d,c,2,2,2,3,1,b'
 $ # note that the input order of elements is preserved
-$ echo &quot;$s&quot; | ruby -F, -lane 'puts $F.uniq * &quot;,&quot;'
+$ echo "$s" | ruby -F, -lane 'puts $F.uniq * ","'
 3,b,a,c,d,1,2
-</code></pre>
-<p>Here's an example for sorting in descending order based on header column names.</p>
-<pre><code class="language-bash">$ cat marks.txt
+</code></pre><p>Here's an example for sorting in descending order based on header column names.<pre><code class=language-bash>$ cat marks.txt
 Dept    Name    Marks
 ECE     Raj     53
 ECE     Joel    72
@@ -444,8 +268,8 @@ EEE     Tia     59
 ECE     Om      92
 CSE     Amy     67
 
-$ ruby -ane 'idx = $F.each_index.sort {|i,j| $F[j] &lt;=&gt; $F[i]} if $.==1;
-             puts $F.values_at(*idx) * &quot;\t&quot;' marks.txt
+$ ruby -ane 'idx = $F.each_index.sort {|i,j| $F[j] <=> $F[i]} if $.==1;
+             puts $F.values_at(*idx) * "\t"' marks.txt
 Name    Marks   Dept
 Raj     53      ECE
 Joel    72      ECE
@@ -454,29 +278,20 @@ Surya   81      CSE
 Tia     59      EEE
 Om      92      ECE
 Amy     67      CSE
-</code></pre>
-<p>The <code>shuffle</code> method randomizes the order of elements.</p>
-<pre><code class="language-bash">$ s='floor bat to dubious four'
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.shuffle * &quot;:&quot;'
+</code></pre><p>The <code>shuffle</code> method randomizes the order of elements.<pre><code class=language-bash>$ s='floor bat to dubious four'
+$ echo "$s" | ruby -ane 'puts $F.shuffle * ":"'
 bat:floor:dubious:to:four
 
-$ echo 'foobar' | ruby -lne 'print $_.chars.shuffle * &quot;&quot;'
+$ echo 'foobar' | ruby -lne 'print $_.chars.shuffle * ""'
 bofrao
-</code></pre>
-<p>Use <code>sample</code> method to get one or more elements of an array in random order.</p>
-<pre><code class="language-bash">$ s='hour hand band mat heated pineapple'
+</code></pre><p>Use <code>sample</code> method to get one or more elements of an array in random order.<pre><code class=language-bash>$ s='hour hand band mat heated pineapple'
 
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.sample'
+$ echo "$s" | ruby -ane 'puts $F.sample'
 band
-$ echo &quot;$s&quot; | ruby -ane 'puts $F.sample(2)'
+$ echo "$s" | ruby -ane 'puts $F.sample(2)'
 pineapple
 hand
-</code></pre>
-<h2><a class="header" href="#summary" id="summary">Summary</a></h2>
-<p>This chapter discussed various ways in which you can split (or define) the input into fields and manipulate them. There's many more examples to be discussed related to fields in upcoming chapters.</p>
-<h2><a class="header" href="#exercises" id="exercises">Exercises</a></h2>
-<p><strong>a)</strong> Extract only the contents between <code>()</code> or <code>)(</code> from each input line. Assume that <code>()</code> characters will be present only once every line.</p>
-<pre><code class="language-bash">$ cat brackets.txt
+</code></pre><h2><a class=header href=#summary id=summary>Summary</a></h2><p>This chapter discussed various ways in which you can split (or define) the input into fields and manipulate them. There's many more examples to be discussed related to fields in upcoming chapters.<h2><a class=header href=#exercises id=exercises>Exercises</a></h2><p><strong>a)</strong> Extract only the contents between <code>()</code> or <code>)(</code> from each input line. Assume that <code>()</code> characters will be present only once every line.<pre><code class=language-bash>$ cat brackets.txt
 foo blah blah(ice) 123 xyz$ 
 (almond-pista) choco
 yo )yoyo( yo
@@ -485,9 +300,7 @@ yo )yoyo( yo
 ice
 almond-pista
 yoyo
-</code></pre>
-<p><strong>b)</strong> For the input file <code>scores.csv</code>, extract <code>Name</code> and <code>Physics</code> fields in the format shown below.</p>
-<pre><code class="language-bash">$ cat scores.csv
+</code></pre><p><strong>b)</strong> For the input file <code>scores.csv</code>, extract <code>Name</code> and <code>Physics</code> fields in the format shown below.<pre><code class=language-bash>$ cat scores.csv
 Name,Maths,Physics,Chemistry
 Blue,67,46,99
 Lin,78,83,80
@@ -504,39 +317,29 @@ Er:79
 Cy:98
 Ort:72
 Ith:100
-</code></pre>
-<p><strong>c)</strong> For the input file <code>scores.csv</code>, display names of those who've scored above <code>70</code> in Maths.</p>
-<pre><code class="language-bash">##### add your solution here
+</code></pre><p><strong>c)</strong> For the input file <code>scores.csv</code>, display names of those who've scored above <code>70</code> in Maths.<pre><code class=language-bash>##### add your solution here
 Lin
 Cy
 Ith
-</code></pre>
-<p><strong>d)</strong> Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with <code>gsub</code> and one without substitution functions?</p>
-<pre><code class="language-bash">$ # solve using gsub
+</code></pre><p><strong>d)</strong> Display the number of word characters for the given inputs. Word definition here is same as used in regular expressions. Can you construct a solution with <code>gsub</code> and one without substitution functions?<pre><code class=language-bash>$ # solve using gsub
 $ echo 'hi there' | ##### add your solution here
 7
 
 $ # solve without using substitution functions
-$ echo 'u-no;co%.&quot;(do_12:as' | ##### add your solution here
+$ echo 'u-no;co%."(do_12:as' | ##### add your solution here
 12
-</code></pre>
-<p><strong>e)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown.</p>
-<pre><code class="language-bash">$ s1='1 &quot;grape&quot; and &quot;mango&quot; and &quot;guava&quot;'
-$ s2='(&quot;a 1&quot;&quot;d&quot;&quot;c-2&quot;&quot;b&quot;)'
+</code></pre><p><strong>e)</strong> Construct a solution that works for both the given sample inputs and the corresponding output shown.<pre><code class=language-bash>$ s1='1 "grape" and "mango" and "guava"'
+$ s2='("a 1""d""c-2""b")'
 
-$ echo &quot;$s1&quot; | ##### add your solution here
-&quot;grape&quot;,&quot;guava&quot;,&quot;mango&quot;
-$ echo &quot;$s2&quot; | ##### add your solution here
-&quot;a 1&quot;,&quot;b&quot;,&quot;c-2&quot;,&quot;d&quot;
-</code></pre>
-<p><strong>f)</strong> Display only the third and fifth characters from each line input line.</p>
-<pre><code class="language-bash">$ printf 'restore\ncat one\ncricket' | ##### add your solution here
+$ echo "$s1" | ##### add your solution here
+"grape","guava","mango"
+$ echo "$s2" | ##### add your solution here
+"a 1","b","c-2","d"
+</code></pre><p><strong>f)</strong> Display only the third and fifth characters from each input line.<pre><code class=language-bash>$ printf 'restore\ncat one\ncricket' | ##### add your solution here
 so
 to
 ik
-</code></pre>
-<p><strong>g)</strong> Transform the given input file <code>fw.txt</code> to get the output as shown below. If second field is empty (i.e. contains only space characters), replace it with <code>NA</code>.</p>
-<pre><code class="language-bash">$ cat fw.txt
+</code></pre><p><strong>g)</strong> Transform the given input file <code>fw.txt</code> to get the output as shown below. If second field is empty (i.e. contains only space characters), replace it with <code>NA</code>.<pre><code class=language-bash>$ cat fw.txt
 1.3  rs   90  0.134563
 3.8           6
 5.2  ye       8.2387
@@ -547,23 +350,17 @@ ik
 3.8,NA,6
 5.2,ye,8.2387
 4.2,kt,45.1
-</code></pre>
-<p><strong>h)</strong> For the input file <code>scores.csv</code>, display the header as well as any row which contains <code>b</code> or <code>t</code> (irrespective of case) in the first field.</p>
-<pre><code class="language-bash">##### add your solution here
+</code></pre><p><strong>h)</strong> For the input file <code>scores.csv</code>, display the header as well as any row which contains <code>b</code> or <code>t</code> (irrespective of case) in the first field.<pre><code class=language-bash>##### add your solution here
 Name,Maths,Physics,Chemistry
 Blue,67,46,99
 Ort,68,72,66
 Ith,100,100,100
-</code></pre>
-<p><strong>i)</strong> Extract all whole words that contains <code>42</code> but not at the edge of a word. Assume a word cannot contain <code>42</code> more than once.</p>
-<pre><code class="language-bash">$ s='hi42bye nice1423 bad42 cool_42a 42fake'
-$ echo &quot;$s&quot; | ##### add your solution here
+</code></pre><p><strong>i)</strong> Extract all whole words that contains <code>42</code> but not at the edge of a word. Assume a word cannot contain <code>42</code> more than once.<pre><code class=language-bash>$ s='hi42bye nice1423 bad42 cool_42a 42fake'
+$ echo "$s" | ##### add your solution here
 hi42bye
 nice1423
 cool_42a
-</code></pre>
-<p><strong>j)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.</p>
-<pre><code class="language-bash">##### add your solution here
+</code></pre><p><strong>j)</strong> For the input file <code>scores.csv</code>, add another column named <code>GP</code> which is calculated out of <code>100</code> by giving <code>50%</code> weightage to <code>Maths</code> and <code>25%</code> each for <code>Physics</code> and <code>Chemistry</code>.<pre><code class=language-bash>##### add your solution here
 Name,Maths,Physics,Chemistry,GP
 Blue,67,46,99,69.75
 Lin,78,83,80,79.75
@@ -571,9 +368,7 @@ Er,56,79,92,70.75
 Cy,97,98,95,96.75
 Ort,68,72,66,68.5
 Ith,100,100,100,100.0
-</code></pre>
-<p><strong>k)</strong> For the input file <code>mixed_fs.txt</code>, retain only first two fields from each input line. The input and output field separators should be space for first two lines and <code>,</code> for the rest of the lines.</p>
-<pre><code class="language-bash">$ cat mixed_fs.txt
+</code></pre><p><strong>k)</strong> For the input file <code>mixed_fs.txt</code>, retain only first two fields from each input line. The input and output field separators should be space for first two lines and <code>,</code> for the rest of the lines.<pre><code class=language-bash>$ cat mixed_fs.txt
 rose lily jasmine tulip
 pink blue white yellow
 car,mat,ball,basket
@@ -584,20 +379,14 @@ rose lily
 pink blue
 car,mat
 light green,brown
-</code></pre>
-<p><strong>l)</strong> For the given space separated numbers, filter only numbers in the range <code>20</code> to <code>1000</code> (inclusive).</p>
-<pre><code class="language-bash">$ echo '20 -983 5 756 634223' | ##### add your solution here
+</code></pre><p><strong>l)</strong> For the given space separated numbers, filter only numbers in the range <code>20</code> to <code>1000</code> (inclusive).<pre><code class=language-bash>$ echo '20 -983 5 756 634223' | ##### add your solution here
 20 756
-</code></pre>
-<p><strong>m)</strong> For the given space separated words, randomize the order of characters for each word.</p>
-<pre><code class="language-bash">$ s='this is a sample sentence'
+</code></pre><p><strong>m)</strong> For the given space separated words, randomize the order of characters for each word.<pre><code class=language-bash>$ s='this is a sample sentence'
 
 $ # sample randomized output shown here, could be different for you
-$ echo &quot;$s&quot; | ##### add your solution here
+$ echo "$s" | ##### add your solution here
 shti si a salemp sneentce
-</code></pre>
-<p><strong>n)</strong> For the given input file <code>words.txt</code>, filter all lines containing characters in ascending and descending order.</p>
-<pre><code class="language-bash">$ cat words.txt
+</code></pre><p><strong>n)</strong> For the given input file <code>words.txt</code>, filter all lines containing characters in ascending and descending order.<pre><code class=language-bash>$ cat words.txt
 bot
 art
 are
@@ -615,17 +404,13 @@ $ # descending order
 ##### add your solution here
 toe
 reed
-</code></pre>
-<p><strong>o)</strong> For the given space separated words, extract the three longest words.</p>
-<pre><code class="language-bash">$ s='I bought two bananas and three mangoes'
+</code></pre><p><strong>o)</strong> For the given space separated words, extract the three longest words.<pre><code class=language-bash>$ s='I bought two bananas and three mangoes'
 
-$ echo &quot;$s&quot; | ##### add your solution here
+$ echo "$s" | ##### add your solution here
 mangoes
 bananas
 bought
-</code></pre>
-<p><strong>p)</strong> Convert the contents of <code>split.txt</code> as shown below.</p>
-<pre><code class="language-bash">$ cat split.txt
+</code></pre><p><strong>p)</strong> Convert the contents of <code>split.txt</code> as shown below.<pre><code class=language-bash>$ cat split.txt
 apple,1:2:5,mango
 wry,4,look
 pencil,3:8,paper
@@ -637,73 +422,6 @@ apple,5,mango
 wry,4,look
 pencil,3,paper
 pencil,8,paper
-</code></pre>
-
-                    </main>
-
-                    <nav class="nav-wrapper" aria-label="Page navigation">
-                        <!-- Mobile navigation buttons -->
-                        
-                            <a rel="prev" href="line-processing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                        
-
-                        
-                            <a rel="next" href="record-separators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        
-
-                        <div style="clear: both"></div>
-                    </nav>
-                </div>
-            </div>
-
-            <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                
-                    <a rel="prev" href="line-processing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                
-
-                
-                    <a rel="next" href="record-separators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                
-            </nav>
-
-        </div>
-
-        
-
-        
-
-        
-
-        
-        <script type="text/javascript">
+</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=line-processing.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=record-separators.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=line-processing.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=record-separators.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
             window.playground_copyable = true;
-        </script>
-        
-
-        
-
-        
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
-        
-
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
-
-        <!-- Custom JS scripts -->
-        
-
-        
-
-    </body>
-</html>
+        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
