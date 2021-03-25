@@ -26,6 +26,10 @@ s='   a\t\tb\n\t\n:1000\n\n\n\n123 7777:x  y \n \n z  '
 
 printf '%b' "$s" | ruby -0072 -lane 'puts $F * ","'
 
+printf 'apple\r\nfig\r\n' | cat -v
+
+printf 'apple\r\nfig\r\n' | ruby -lne 'print' | cat -v
+
 ## NUL separator and slurping
 
 printf 'foo\0bar\0' | cat -v

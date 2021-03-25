@@ -59,7 +59,7 @@ head -n2 table.txt > search.txt
 cat repl.txt
 
 ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
-                print(gsub(s, r.gsub(/\\/, "\\\0")))
+                print(gsub(s) {r})
                ' search.txt repl.txt table.txt
 
 ## Add file content conditionally

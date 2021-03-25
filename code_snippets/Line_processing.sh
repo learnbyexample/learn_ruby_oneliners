@@ -133,6 +133,10 @@ echo 'int #{a}' | s='#{a}' ruby -ne 'print if $_.include?(ENV["s"])'
 
 echo 'int #{a\\}' | s='#{a\\}' ruby -pe 'sub(ENV["s"], "b")'
 
+echo 'int a' | s='x\\y\0z' ruby -pe 'sub(/a/, ENV["s"])'
+
+echo 'int a' | s='x\\y\0z' ruby -pe 'sub(/a/) {ENV["s"]}'
+
 cat eqns.txt
 
 s='a+b' ruby -ne 'print if $_.start_with?(ENV["s"])' eqns.txt
@@ -152,16 +156,6 @@ printf 'a.b\na+b\n' | ruby -lne 'print if /^a.b$/'
 printf 'a.b\na+b\n' | ruby -lne 'print if $_ == %q/a.b/'
 
 printf '1 a.b\n2 a+b\n' | ruby -lane 'print if $F[1] != %q/a.b/'
-
-echo 'x+y' | ruby -pe 'sub(%q/x+y/, "x\y\\0z")'
-
-echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"])'
-
-echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"].gsub(/\\/, "\\\0"))'
-
-ruby -e 'puts %q/x\y\\0z/'
-
-echo 'x+y' | ruby -pe 'sub(%q/x+y/, %q/x\y\\0z/.gsub(/\\/, "\\\0"))'
 
 ## In-place file editing
 

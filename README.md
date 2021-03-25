@@ -61,7 +61,7 @@ Twitter: https://twitter.com/learn_byexample
 * [ruby-lang documentation](https://www.ruby-lang.org/en/documentation/) — manuals and tutorials
 * [/r/ruby/](https://www.reddit.com/r/ruby/) — helpful forum for beginners and experienced programmers alike
 * [stackoverflow](https://stackoverflow.com/) — for getting answers to pertinent questions on Ruby, one-liners, etc
-* [tex.stackexchange](https://tex.stackexchange.com/) — for help on `pandoc` and `tex` related questions
+* [tex.stackexchange](https://tex.stackexchange.com/) — for help on [pandoc](https://github.com/jgm/pandoc/) and `tex` related questions
 * [LibreOffice Draw](https://www.libreoffice.org/discover/draw/) — cover image
 * [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) for optimizing images
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain

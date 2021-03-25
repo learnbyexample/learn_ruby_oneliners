@@ -884,7 +884,7 @@ print+this
 but not that
 
 $ ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
-                  print(gsub(/^#{Regexp.escape(s)}/, r.gsub(/\\/, "\\\0")))
+                  print(gsub(/^#{Regexp.escape(s)}/) {r})
                  ' match.txt jumbled.txt error.txt
 print+this
 but not that or this

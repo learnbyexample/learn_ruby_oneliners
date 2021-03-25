@@ -54,8 +54,6 @@ echo ':a:b:c:' | ruby -lane 'puts $_.split(/:/, -1).size'
 
 ruby -lane 'BEGIN{$, = " "}; print $F[0], $F[2]' table.txt
 
-ruby -W:no-deprecated -lane 'BEGIN{$, = " "}; print $F[0], $F[2]' table.txt
-
 ruby -lane 'puts "#{$F[0]} #{$F[2]}"' table.txt
 
 echo 'Sample123string42with777numbers' | ruby -F'\d+' -lane 'puts $F.join(",")'

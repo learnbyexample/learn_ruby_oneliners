@@ -12,7 +12,7 @@ You should also have prior experience working with command line and `bash` shell
 
 ## Conventions
 
-* The examples presented here have been tested with **Ruby version 2.7.1** and includes features not available in earlier versions.
+* The examples presented here have been tested with **Ruby version 3.0.0** and includes features not available in earlier versions.
 * Code snippets shown are copy pasted from **bash** shell and modified for presentation purposes. Some commands are preceded by comments to provide context and explanations. Blank lines have been added to improve readability, only `real` time is shown for speed comparisons and so on.
 * External links are provided for further reading throughout the book. Not necessary to immediately visit them. They have been chosen with care and would help, especially during re-reads.
 * The [learn_ruby_oneliners repo](https://github.com/learnbyexample/learn_ruby_oneliners) has all the code snippets and files used in examples and exercises and other details related to the book. If you are not familiar with `git` command, click the **Code** button on the webpage to get the files.
@@ -22,7 +22,7 @@ You should also have prior experience working with command line and `bash` shell
 * [ruby-lang documentation](https://www.ruby-lang.org/en/documentation/) — manuals and tutorials
 * [/r/ruby/](https://www.reddit.com/r/ruby/) — helpful forum for beginners and experienced programmers alike
 * [stackoverflow](https://stackoverflow.com/) — for getting answers to pertinent questions on Ruby, one-liners, etc
-* [tex.stackexchange](https://tex.stackexchange.com/) — for help on `pandoc` and `tex` related questions
+* [tex.stackexchange](https://tex.stackexchange.com/) — for help on [pandoc](https://github.com/jgm/pandoc/) and `tex` related questions
 * [LibreOffice Draw](https://www.libreoffice.org/discover/draw/) — cover image
 * [pngquant](https://pngquant.org/) and [svgcleaner](https://github.com/RazrFalcon/svgcleaner) for optimizing images
 * [Warning](https://commons.wikimedia.org/wiki/File:Warning_icon.svg) and [Info](https://commons.wikimedia.org/wiki/File:Info_icon_002.svg) icons by [Amada44](https://commons.wikimedia.org/wiki/User:Amada44) under public domain
@@ -56,7 +56,7 @@ Resources mentioned in Acknowledgements section above are available under origin
 
 ## Book version
 
-1.5
+1.6
 
 See [Version_changes.md](https://github.com/learnbyexample/learn_ruby_oneliners/blob/master/Version_changes.md) to track changes across book versions.
 
@@ -75,9 +75,10 @@ Here's some one-liners (options will be explained later):
 * `ruby -e 'puts readlines.uniq' *.txt` — retain only one copy if lines are duplicated from the given list of input file(s)
 * `ruby -e 'puts readlines.uniq {|s| s.split[1]}' *.txt` — retain only first copy of duplicate lines using second field as duplicate criteria
 * `ruby -rcommonregex -ne 'puts CommonRegex.get_links($_)' *.md` — extract only the URLs, using a third-party [CommonRegexRuby](https://github.com/talyssonoc/CommonRegexRuby) library
-* [stackoverflow: merge duplicate key values while preserving order](https://stackoverflow.com/questions/63954081/bash-remove-duplicate-of-key-values-with-preserving-order) — a recent Q&A that I answered with a simpler `ruby` solution compared to `awk`
+* [stackoverflow: merge duplicate key values while preserving order](https://stackoverflow.com/q/63954081/4082052) — where I provide a simpler `ruby` solution compared to `awk`
+* [unix.stackexchange: pair each line of file](https://unix.stackexchange.com/q/506815/109046) — an example where `ruby`'s vast built-in features makes it easier to write a solution
 
-The main advantage of `ruby` over tools like `grep`, `sed` and `awk` includes feature rich regular expression engine, standard library and third-party libraries. If you don't already know the syntax and idioms for `sed` and `awk`, learning command line options for `ruby` would be the easier option. The main disadvantage is that `ruby` is likely to be slower compared to those tools.
+The main advantage of `ruby` over tools like `grep`, `sed` and `awk` includes feature rich regular expression engine, standard library and third-party libraries. If you don't already know the syntax and idioms for `sed` and `awk`, learning command line options for `ruby` would be the easier option. Another advantage is that `ruby` is more portable, given the many differences between GNU, BSD, Mac and other such implementations. The main disadvantage is that `ruby` is likely to be verbose and slower for features that are supported out of the box by those tools.
 
 ## Command line options
 
@@ -166,7 +167,7 @@ In the above examples, a regular expression (defined by the pattern between a pa
 
 `$_` is also the default argument for `print` method, which is why it is generally preferred in one-liners over `puts` method. More such defaults that apply to the `print` method will be discussed later.
 
->![info](images/info.svg) See [ruby-doc: Pre-defined global variables](https://ruby-doc.org/core-2.7.1/doc/globals_rdoc.html) for documentation on `$_`, `$&`, etc.
+>![info](images/info.svg) See [ruby-doc: Pre-defined global variables](https://ruby-doc.org/core-3.0.0/doc/globals_rdoc.html) for documentation on `$_`, `$&`, etc.
 
 Here's an example with file input instead of `stdin`.
 
@@ -203,7 +204,7 @@ $ printf '1:2:3:4\na:b:c:d\n' | ruby -pe 'gsub(/:/, "-")'
 a-b-c-d
 ```
 
-You might wonder how `$_` is modified without the use of `!` methods. The reason is that these methods are part of Kernel (see [ruby-doc: Kernel](https://ruby-doc.org/core-2.7.1/Kernel.html) for details) and are available only when `-n` or `-p` options are used.
+You might wonder how `$_` is modified without the use of `!` methods. The reason is that these methods are part of Kernel (see [ruby-doc: Kernel](https://ruby-doc.org/core-3.0.0/Kernel.html) for details) and are available only when `-n` or `-p` options are used.
 
 * `sub(/regexp/, repl)` is a shortcut for `$_.sub(/regexp/, repl)` and `$_` will be updated if substitution succeeds
 * `gsub(/regexp/, repl)` is a shortcut for `$_.gsub(/regexp/, repl)` and `$_` gets updated if substitution succeeds
@@ -311,7 +312,7 @@ two spare computers
 
 ## Executing external commands
 
-You can call external commands using the `system` Kernel method. See [ruby-doc: system](https://ruby-doc.org/core-2.7.1/Kernel.html#method-i-system) for documentation.
+You can call external commands using the `system` Kernel method. See [ruby-doc: system](https://ruby-doc.org/core-3.0.0/Kernel.html#method-i-system) for documentation.
 
 ```bash
 $ ruby -e 'system("echo Hello World")'
@@ -325,7 +326,7 @@ $ cat out.txt
 1,2,3,4,5,6,7,8,9,10
 ```
 
-Return value of `system` or global variable `$?` can be used to act upon exit status of command issued.
+Return value of `system` or global variable `$?` can be used to act upon the exit status of the command issued.
 
 ```bash
 $ ruby -e 'es=system("ls word_anchors.txt"); puts es'
@@ -334,7 +335,6 @@ true
 $ ruby -e 'system("ls word_anchors.txt"); puts $?'
 word_anchors.txt
 pid 6087 exit 0
-
 $ ruby -e 'system("ls xyz.txt"); puts $?'
 ls: cannot access 'xyz.txt': No such file or directory
 pid 6164 exit 2
@@ -352,7 +352,7 @@ $ ruby -e 'nums = %x/seq 3/; print nums'
 3
 ```
 
->![info](images/info.svg) See also [stackoverflow: difference between exec, system and %x() or backticks](https://stackoverflow.com/questions/6338908/ruby-difference-between-exec-system-and-x-or-backticks)
+>![info](images/info.svg) See also [stackoverflow: difference between exec, system and %x() or backticks](https://stackoverflow.com/q/6338908/4082052)
 
 ## Summary
 
@@ -490,7 +490,7 @@ $ printf 'gate\napple\nwhat\n' | ruby -ne '$_ =~ /at$/ && print'
 what
 ```
 
-If required, you can also use different delimiters with `%r`. Quoting from [ruby-doc: Percent Strings](https://ruby-doc.org/core-2.7.1/doc/syntax/literals_rdoc.html#label-Percent+Strings):
+If required, you can also use different delimiters with `%r`. Quoting from [ruby-doc: Percent Strings](https://ruby-doc.org/core-3.0.0/doc/syntax/literals_rdoc.html#label-Percent+Strings):
 
 >If you are using `(`, `[`, `{`, `<` you must close it with `)`, `]`, `}`, `>` respectively. You may use most other non-alphanumeric characters for percent string delimiters such as `%`, `|`, `^`, etc.
 
@@ -563,7 +563,7 @@ naming things, and off-by-1 errors by Leon Bambrick
 
 ## tr method
 
-The transliteration method `tr` allows you to specify per character transformation rule. See [ruby-doc: tr](https://ruby-doc.org/core-2.7.1/String.html#method-i-tr) for documentation.
+The transliteration method `tr` allows you to specify per character transformation rule. See [ruby-doc: tr](https://ruby-doc.org/core-3.0.0/String.html#method-i-tr) for documentation.
 
 ```bash
 $ # rot13
@@ -716,7 +716,7 @@ $ seq 14 25 | ruby -ne 'print if $. >= 10'
 25
 ```
 
-The global variable `$<` contains the file handle for the current file input being processed. Use `eof` method to process lines based on end of file condition. See [ruby-doc: eof](https://ruby-doc.org/core-2.7.1/IO.html#method-i-eof) for documentation. You can also use `ARGF` instead of `$<` here, see [ARGV and ARGF](#argv-and-argf) section for details.
+The global variable `$<` contains the file handle for the current file input being processed. Use `eof` method to process lines based on end of file condition. See [ruby-doc: eof](https://ruby-doc.org/core-3.0.0/IO.html#method-i-eof) for documentation. You can also use `ARGF` instead of `$<` here, see [ARGV and ARGF](#argv-and-argf) section for details.
 
 ```bash
 $ # same as: tail -n1 programming_quotes.txt
@@ -738,20 +738,21 @@ For large input files, use `exit` method to avoid processing unnecessary input l
 ```bash
 $ seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452'
 5993
+
 $ seq 3542 4623452 | ruby -ne 'print if $. == 250; (print; exit) if $. == 2452'
 3791
 5993
 
 $ # here is a sample time comparison
 $ time seq 3542 4623452 | ruby -ne '(print; exit) if $. == 2452' > f1
-real    0m0.068s
+real    0m0.050s
 $ time seq 3542 4623452 | ruby -ne 'print if $. == 2452' > f2
-real    0m1.158s
+real    0m0.847s
 ```
 
 ## Flip-Flop operator
 
-You can use Flip-Flop operator to select between pair of matching conditions like line numbers and regexp. See [ruby-doc: Flip-Flop](https://ruby-doc.org/core-2.7.1/doc/syntax/control_expressions_rdoc.html#label-Flip-Flop) for syntax details.
+You can use Flip-Flop operator to select between pair of matching conditions like line numbers and regexp. See [ruby-doc: Flip-Flop](https://ruby-doc.org/core-3.0.0/doc/syntax/control_expressions_rdoc.html#label-Flip-Flop) for syntax details.
 
 ```bash
 $ # the range is automatically compared against $. in this context
@@ -814,7 +815,7 @@ naming things, and off-by-1 errors by Leon Bambrick
 
 ## Working with fixed strings
 
-To match strings literally, use the `include?` method for line filtering and string argument instead of regexp for substitutions.
+To match strings literally, use the `include?` method for line filtering. Use string argument instead of regexp for fixed string matching with substitution methods.
 
 ```bash
 $ echo 'int a[5]' | ruby -ne 'print if /a[5]/'
@@ -848,6 +849,18 @@ $ echo 'int #{a\\}' | s='#{a\\}' ruby -pe 'sub(ENV["s"], "b")'
 int b
 ```
 
+To provide a fixed string in replacement section, environment variable comes in handy again. Need to use block form, since `\` is special in the replacement section.
+
+```bash
+$ # \\ will be treated as \ and \0 will backreference entire matched portion
+$ echo 'int a' | s='x\\y\0z' ruby -pe 'sub(/a/, ENV["s"])'
+int x\yaz
+
+$ # using block form will avoid above issues
+$ echo 'int a' | s='x\\y\0z' ruby -pe 'sub(/a/) {ENV["s"]}'
+int x\\y\0z
+```
+
 Use `start_with?` and `end_with?` methods to restrict the fixed string matching to the start or end of the input line. The line content in `$_` variable contains the `\n` line ending character as well. You can either use `chomp` method explicitly or use the `-l` command line option, which will be discussed in detail in [Record separators](#record-separators) chapter. For now, it is enough to know that `-l` will remove the line ending from `$_` and add it back when `print` is used.
 
 ```bash
@@ -866,7 +879,7 @@ $ s='a+b' ruby -lne 'print if $_.end_with?(ENV["s"])' eqns.txt
 i*(t+9-g)/8,4-a+b
 ```
 
-Use `index` method if you need more control over the location of the matching strings. You can use either the return value (which gives you the index of the matching string) or use the optional second argument to specify an offset to start searching. See [ruby-doc: index](https://ruby-doc.org/core-2.7.1/String.html#method-i-index) for details.
+Use `index` method if you need more control over the location of the matching strings. You can use either the return value (which gives you the index of the matching string) or use the optional second argument to specify an offset to start searching. See [ruby-doc: index](https://ruby-doc.org/core-3.0.0/String.html#method-i-index) for details.
 
 ```bash
 $ # same as: $_.include?("a+b")
@@ -899,28 +912,6 @@ a.b
 
 $ printf '1 a.b\n2 a+b\n' | ruby -lane 'print if $F[1] != %q/a.b/'
 2 a+b
-```
-
-To provide a fixed string in replacement section, environment variable comes in handy again. But you have to replace any `\` character in the environment variable with `\\` before using it as replacement string.
-
-```bash
-$ # the \ character special in replacement section
-$ # and \ is special within double quotes too
-$ echo 'x+y' | ruby -pe 'sub(%q/x+y/, "x\y\\0z")'
-xyx+yz
-
-$ # \ in value passed via environment variable is still special 
-$ echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"])'
-x\y\0z
-$ # have to preprocess the value by replacing \ with \\
-$ echo 'x+y' | r='x\y\\0z' ruby -pe 'sub(%q/x+y/, ENV["r"].gsub(/\\/, "\\\0"))'
-x\y\\0z
-
-$ # can't use %q strings for all cases as \\ is special
-$ ruby -e 'puts %q/x\y\\0z/'
-x\y\0z
-$ echo 'x+y' | ruby -pe 'sub(%q/x+y/, %q/x\y\\0z/.gsub(/\\/, "\\\0"))'
-x\y\0z
 ```
 
 ## In-place file editing
@@ -1156,7 +1147,7 @@ This chapter will dive deep into field processing. You'll learn how to set input
 
 ## Default field separation
 
-By default, the `-a` option splits based on one or more sequence of **whitespace** characters. In addition, whitespaces at the start or end of input gets trimmed and won't be part of field contents. Using `-a` is equivalent to `$F = $_.split`. From [ruby-doc: split](https://ruby-doc.org/core-2.7.1/String.html#method-i-split):
+By default, the `-a` option splits based on one or more sequence of **whitespace** characters. In addition, whitespaces at the start or end of input gets trimmed and won't be part of field contents. Using `-a` is equivalent to `$F = $_.split`. From [ruby-doc: split](https://ruby-doc.org/core-3.0.0/String.html#method-i-split):
 
 >If pattern is a single space, *str* is split on whitespace, with leading and trailing whitespace and runs of contiguous whitespace characters ignored...If pattern is `nil`, the value of `$;` is used. If `$;` is `nil` (which is the default), *str* is split on whitespace as if `' '` were specified.
 
@@ -1179,7 +1170,7 @@ two.
 
 ## Input field separator
 
-You can use the `-F` command line option to specify a custom field separator. The value passed to the option will be treated as a regexp. Note that `-a` option is also necessary for `-F` option to work. Instead of `-F` option, you can also set `$;` to a string or regexp value in the code, but `$;` is deprecated.
+You can use the `-F` command line option to specify a custom field separator. The value passed to the option will be treated as a regexp. Note that `-a` option is also necessary for `-F` option to work.
 
 ```bash
 $ # use ':' as input field separator
@@ -1203,7 +1194,7 @@ $ printf 'COOL\nnice car\n' | ruby -F'(?i)[aeiou]' -ane 'puts $F.size - 1'
 3
 ```
 
-No need to use field separation to access individual characters. See [ruby-doc: Encoding](https://ruby-doc.org/core-2.7.1/Encoding.html) for details on handling different string encodings.
+No need to use field separation to access individual characters. See [ruby-doc: Encoding](https://ruby-doc.org/core-3.0.0/Encoding.html) for details on handling different string encodings.
 
 ```bash
 $ echo 'apple' | ruby -ne 'puts $_[0]'
@@ -1272,16 +1263,10 @@ $ echo ':a:b:c:' | ruby -lane 'puts $_.split(/:/, -1).size'
 
 ## Output field separator
 
-There are a few ways to affect the separator to be used while displaying multiple values. The value of `$,` global variable is used as the separator when multiple arguments are passed to the `print` method. This is usually used in combination with `-l` option so that a newline character is appended automatically as well. The `join` method also uses `$,` as the default value. But `$,` is deprecated now.
+There are a few ways to affect the separator to be used while displaying multiple values. The value of `$,` global variable is used as the separator when multiple arguments are passed to the `print` method. This is usually used in combination with `-l` option so that a newline character is appended automatically as well. The `join` method also uses `$,` as the default value.
 
 ```bash
 $ ruby -lane 'BEGIN{$, = " "}; print $F[0], $F[2]' table.txt
--e:1: warning: `$,` is deprecated
-brown mat
-blue mug
-yellow window
-
-$ ruby -W:no-deprecated -lane 'BEGIN{$, = " "}; print $F[0], $F[2]' table.txt
 brown mat
 blue mug
 yellow window
@@ -1301,7 +1286,6 @@ Sample,string,with,numbers
 $ s='goal:amazing:whistle:kwality'
 $ echo "$s" | ruby -F: -lane 'puts $F.values_at(-1, 1, 0).join("-")'
 kwality-amazing-goal
-
 $ # you can also use the '*' operator
 $ echo "$s" | ruby -F: -lane '$F.append(42); puts $F * "::"'
 goal::amazing::whistle::kwality::42
@@ -1333,7 +1317,7 @@ $ echo "$s" | ruby -F, -lane 'puts $F[1]'
 "fox
 ```
 
-While [ruby-doc: CSV](https://ruby-doc.org/stdlib-2.7.1/libdoc/csv/rdoc/CSV.html) library should be preferred for robust `csv` parsing, `scan` can be used for simple workarounds.
+While [ruby-doc: CSV](https://ruby-doc.org/stdlib-3.0.0/libdoc/csv/rdoc/CSV.html) library should be preferred for robust `csv` parsing, `scan` can be used for simple workarounds.
 
 ```bash
 $ echo "$s" | ruby -lne 'puts $_.scan(/"[^"]*"|[^,]+/)[1]'
@@ -1342,7 +1326,7 @@ $ echo "$s" | ruby -lne 'puts $_.scan(/"[^"]*"|[^,]+/)[1]'
 
 ## Fixed width processing
 
-The `unpack` method is more than just a different way of using string slicing. It supports various formats and pre-processing, see [ruby-doc: unpack](https://ruby-doc.org/core-2.7.1/String.html#method-i-unpack) for details.
+The `unpack` method is more than just a different way of using string slicing. It supports various formats and pre-processing, see [ruby-doc: unpack](https://ruby-doc.org/core-3.0.0/String.html#method-i-unpack) for details.
 
 In the example below, `a` indicates arbitrary binary string. The optional number that follows indicates length of the field.
 
@@ -1402,7 +1386,7 @@ b gleam good
 
 Having seen command line options and features commonly used for field processing, this section will highlight some of the built-in array and Enumerable methods. There's just too many to meaningfully cover them in all in detail, so consider this to be just a brief overview of features.
 
-First up, regexp based field selection. `grep(cond)` and `grep_v(cond)` are specialized filter methods that perform `cond === object` test check. See [stackoverflow: What does the === operator do in Ruby?](https://stackoverflow.com/questions/4467538/what-does-the-operator-do-in-ruby) for more details.
+First up, regexp based field selection. `grep(cond)` and `grep_v(cond)` are specialized filter methods that perform `cond === object` test check. See [stackoverflow: What does the === operator do in Ruby?](https://stackoverflow.com/q/4467538/4082052) for more details.
 
 ```bash
 $ s='goal:amazing:42:whistle:kwality:3.14'
@@ -1851,6 +1835,18 @@ a,b
 x,y,z
 ```
 
+>![info](images/info.svg) Note that by default `chomp` will remove `\r\n` line endings as well from the input record. But, you'll get only `\n` in the output if you are relying on the `-l` option.
+
+```bash
+$ printf 'apple\r\nfig\r\n' | cat -v
+apple^M
+fig^M
+
+$ printf 'apple\r\nfig\r\n' | ruby -lne 'print' | cat -v
+apple
+fig
+```
+
 ## NUL separator and slurping
 
 If the `-0` option is used without an argument, the ASCII NUL character will be considered as the input record separator.
@@ -2139,7 +2135,7 @@ $ ruby -ne 'puts "#{ARGV.size}: " + ARGV * ","' f[12].txt table.txt
 0: 
 ```
 
-`ARGF` (or the `$<` global variable) represents the filehandle of the current file (that was passed as an argument to the `ruby` script) being processed. If `ARGV` is empty, then `ARGF` will process `stdin` data if available. If you explicitly call the `close` method on `ARGF`, it will reset the `$.` variable. See [ruby-doc: ARGF](https://ruby-doc.org/core-2.7.1/ARGF.html) for documentation.
+`ARGF` (or the `$<` global variable) represents the filehandle of the current file (that was passed as an argument to the `ruby` script) being processed. If `ARGV` is empty, then `ARGF` will process `stdin` data if available. If you explicitly call the `close` method on `ARGF`, it will reset the `$.` variable. See [ruby-doc: ARGF](https://ruby-doc.org/core-3.0.0/ARGF.html) for documentation.
 
 ```bash
 $ # logic to do something at the start of each input file
@@ -2178,7 +2174,7 @@ Hi there
 brown bread mat hair 42
 ```
 
-You can use methods like `read`, `readline`, `readlines`, `gets`, etc to explicitly get data from specific filehandle. `ARGF` is the default source for some of these methods like `readlines`, `gets`, etc as they are part of Kernel (see [ruby-doc: Kernel](https://ruby-doc.org/core-2.7.1/Kernel.html) for details).
+You can use methods like `read`, `readline`, `readlines`, `gets`, etc to explicitly get data from specific filehandle. `ARGF` is the default source for some of these methods like `readlines`, `gets`, etc as they are part of Kernel (see [ruby-doc: Kernel](https://ruby-doc.org/core-3.0.0/Kernel.html) for details).
 
 ```bash
 $ # note that only -e option is used
@@ -2854,7 +2850,7 @@ dark green
 yellow
 ```
 
-The `-r` command line option allows to specify a library required for the script. `Set` class is handy for two file processing cases. See [ruby-doc: Set](https://ruby-doc.org/stdlib-2.7.1/libdoc/set/rdoc/Set.html) for documentation.
+The `-r` command line option allows to specify a library required for the script. `Set` class is handy for two file processing cases. See [ruby-doc: Set](https://ruby-doc.org/stdlib-3.0.0/libdoc/set/rdoc/Set.html) for documentation.
 
 ```bash
 $ # common lines
@@ -3016,7 +3012,7 @@ Good bye
 
 ## Multiline fixed string substitution
 
-You can use file slurping for fixed string multiline search and replace requirements. Both `sub` and `gsub` methods allow matching fixed string if the first argument is a string instead of a regexp object. Since `\` is special in replacement section, you'll have to escape it to provide a fixed string.
+You can use file slurping for fixed string multiline search and replace requirements. Both `sub` and `gsub` methods allow matching fixed string if the first argument is a string instead of a regexp object. Since `\` is special in the replacement section, you'll have to use block form to provide the replacement string.
 
 The below example is substituting complete lines. The solution will work for partial lines as well, provided there is no newline character at the end of `search.txt` and `repl.txt` files.
 
@@ -3027,14 +3023,14 @@ $ cat repl.txt
 wise ice go goa
 
 $ ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
-                  print(gsub(s, r.gsub(/\\/, "\\\0")))
+                  print(gsub(s) {r})
                  ' search.txt repl.txt table.txt
 2$1$&3\0x\\yz
 wise ice go goa
 yellow banana window shoes 3.14
 ```
 
->![warning](images/warning.svg) Don't save contents of `search.txt` and `repl.txt` in shell variables for passing them to the `ruby` script. Trailing newlines and ASCII NUL characters will cause issues. See [stackoverflow: pitfalls of reading file into shell variable](https://stackoverflow.com/questions/7427262/how-to-read-a-file-into-a-variable-in-shell/22607352#22607352) for details.
+>![warning](images/warning.svg) Don't save contents of `search.txt` and `repl.txt` in shell variables for passing them to the `ruby` script. Trailing newlines and ASCII NUL characters will cause issues. See [stackoverflow: pitfalls of reading file into shell variable](https://stackoverflow.com/a/22607352/4082052) for details.
 
 ## Add file content conditionally
 
@@ -3398,7 +3394,7 @@ All the examples in previous chapters dealt with simple text formats separated b
 
 ## JSON
 
-The `JSON` built-in module helps you to process `json` data by converting it to a Ruby `hash` object. See [ruby-doc: JSON](https://ruby-doc.org/stdlib-2.7.1/libdoc/json/rdoc/JSON.html) for documentation.
+The `JSON` built-in module helps you to process `json` data by converting it to a Ruby `hash` object. See [ruby-doc: JSON](https://ruby-doc.org/stdlib-3.0.0/libdoc/json/rdoc/JSON.html) for documentation.
 
 Here's an example of converting possibly minified `json` input to a pretty printed output.
 
@@ -3469,7 +3465,7 @@ natural:["english", "hindi", "spanish"]
 
 ## CSV
 
-The `CSV` built-in class comes in handy for processing `csv` files. See [ruby-doc: CSV](https://ruby-doc.org/stdlib-2.7.1/libdoc/csv/rdoc/CSV.html) for documentation.
+The `CSV` built-in class comes in handy for processing `csv` files. See [ruby-doc: CSV](https://ruby-doc.org/stdlib-3.0.0/libdoc/csv/rdoc/CSV.html) for documentation.
 
 Here's a simple example that parses entire input string in one shot.
 
@@ -3528,7 +3524,7 @@ Om
 Amy
 ```
 
-You can automatically try to convert field value to given data type(s) using the `converters` option. See [ruby-doc: CSV Typed data reading](https://ruby-doc.org/stdlib-2.7.1/libdoc/csv/rdoc/CSV.html#class-CSV-label-Typed+data+reading) for details.
+You can automatically try to convert field value to given data type(s) using the `converters` option. See [ruby-doc: CSV Field Converters](https://ruby-doc.org/stdlib-3.0.0/libdoc/csv/rdoc/CSV.html#class-CSV-label-Field+Converters) for details.
 
 ```bash
 $ ruby -rcsv -le 'CSV.foreach("marks.txt", :converters => :integer,
@@ -3617,7 +3613,7 @@ Here's an example with `html` input.
 ```bash
 $ s='https://learnbyexample.github.io/substitution-with-ripgrep/'
 $ url="$s" ruby -rnokogiri -ropen-uri -e 'ip=Nokogiri.XML(URI.open(ENV["url"]));
-                 puts ip.css("@href")[3..5]'
+                 puts ip.css("@href")[5..7]'
 https://learnbyexample.github.io
 https://learnbyexample.github.io/books
 https://learnbyexample.github.io/tags

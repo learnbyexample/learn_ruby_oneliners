@@ -1,5 +1,14 @@
 <br>
 
+### 1.6
+
+* Corrected usage of substitution methods for fixed string replacement
+* Updated `ruby` version to **3.0.0**
+* Added example with `-l` usage when input has `\r\n` line endings
+* Miscellaneous changes like better description, fixed typos, etc
+
+<br>
+
 ### 1.5
 
 * added `pngquant` and `svgcleaner` in Acknowledgements

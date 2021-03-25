@@ -75,5 +75,5 @@ ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
 s='https://learnbyexample.github.io/substitution-with-ripgrep/'
 
 url="$s" ruby -rnokogiri -ropen-uri -e 'ip=Nokogiri.XML(URI.open(ENV["url"]));
-               puts ip.css("@href")[3..5]'
+               puts ip.css("@href")[5..7]'
 
