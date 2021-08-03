@@ -18,9 +18,10 @@ See [Version_changes.md](./Version_changes.md) to keep track of changes made to 
 
 You can purchase the book using these links:
 
-* https://gumroad.com/l/ruby-oneliners
+* https://learnbyexample.gumroad.com/l/ruby-oneliners
 * https://leanpub.com/ruby-oneliners
-* You can also get the book as part of **Ruby text processing** bundle from https://gumroad.com/l/ruby-textprocessing or https://leanpub.com/b/ruby-textprocessing
+* You can also get the book as part of **Ruby text processing** bundle from https://learnbyexample.gumroad.com/l/ruby-textprocessing or https://leanpub.com/b/ruby-textprocessing
+* You can also get the book as part of **Magical one-liners** bundle from https://learnbyexample.gumroad.com/l/oneliners or https://leanpub.com/b/oneliners
 * See https://learnbyexample.github.io/books/ for list of other books
 
 For a preview of the book, see [sample chapters](https://github.com/learnbyexample/learn_ruby_oneliners/blob/master/sample_chapters/ruby_oneliners_sample.pdf)
@@ -33,7 +34,9 @@ For web version of the book, visit https://learnbyexample.github.io/learn_ruby_o
 
 # Feedback
 
-Please open an issue if you spot any typo/errors.
+Please [open an issue](https://github.com/learnbyexample/learn_ruby_oneliners/issues) if you spot any typo/errors.
+
+⚠️ ⚠️ Please DO NOT submit pull requests. Main reason being any modification requires changes in multiple places.
 
 I'd also highly appreciate your feedback about the book.
 
