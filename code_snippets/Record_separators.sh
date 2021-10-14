@@ -72,7 +72,7 @@ ruby -l -00 -ne '(print $s, $_; $s="\n") if /you/' programming_quotes.txt
 
 seq 2 | ruby -ne 'print'
 
-seq 2 | ruby -ne 'BEGIN{$\ = "---\n"}; print'
+seq 2 | ruby -e '$\ = "---\n"' -p
 
 printf 'foo\0bar\0' | ruby -0 -lpe 'BEGIN{$\ = ".\n"}'
 
