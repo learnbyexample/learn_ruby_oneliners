@@ -70,11 +70,11 @@ ruby -l -00 -ne '(print $s, $_; $s="\n") if /you/' programming_quotes.txt
 
 ## Output record separator
 
-seq 2 | ruby -ne 'print'
+seq 2 | ruby -pne
 
 seq 2 | ruby -e '$\ = "---\n"' -p
 
-printf 'foo\0bar\0' | ruby -0 -lpe 'BEGIN{$\ = ".\n"}'
+printf 'foo\0bar\0' | ruby -0 -e '$\ = ".\n"' -lp
 
 seq 6 | ruby -lpe '$\ = $. % 3 != 0 ? "-" : "\n"'
 
