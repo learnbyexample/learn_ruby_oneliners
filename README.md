@@ -38,6 +38,14 @@ For web version of the book, visit https://learnbyexample.github.io/learn_ruby_o
 
 <br>
 
+# Testimonials
+
+>This Ruby one-liners cookbook is incredible. Pretty mind boggling all the stuff you can do.
+>
+> — [feedback on twitter](https://twitter.com/jbrancha/status/1506766118756786189)
+
+<br>
+
 # Feedback
 
 Please [open an issue](https://github.com/learnbyexample/learn_ruby_oneliners/issues) if you spot any typo/errors.
