@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Record separators - Ruby one-liners cookbook</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide for text processing with Ruby from the command line"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Record separators - Ruby One-Liners Guide</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide for text processing with Ruby from the command line"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Ruby One-Liners Guide"property=og:title><meta content=website property=og:type><meta content="Example based guide for text processing with Ruby from the command line"property=og:description><meta content=https://learnbyexample.github.io/learn_ruby_oneliners/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_ruby_oneliners/master/images/ruby_oneliners_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,62 +10,57 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=one-liner-introduction.html><strong aria-hidden=true>2.</strong> One-liner introduction</a><li class="chapter-item expanded"><a href=line-processing.html><strong aria-hidden=true>3.</strong> Line processing</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>4.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html class=active><strong aria-hidden=true>5.</strong> Record separators</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>6.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>7.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>8.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>9.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=processing-structured-data.html><strong aria-hidden=true>10.</strong> Processing structured data</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>11.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_ruby_oneliners>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Ruby one-liners cookbook</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_ruby_oneliners title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=one-liner-introduction.html><strong aria-hidden=true>2.</strong> One-liner introduction</a><li class="chapter-item expanded"><a href=line-processing.html><strong aria-hidden=true>3.</strong> Line processing</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>4.</strong> Field separators</a><li class="chapter-item expanded"><a class=active href=record-separators.html><strong aria-hidden=true>5.</strong> Record separators</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>6.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>7.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html><strong aria-hidden=true>8.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>9.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=processing-structured-data.html><strong aria-hidden=true>10.</strong> Processing structured data</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>11.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_ruby_oneliners>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Ruby One-Liners Guide</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_ruby_oneliners> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=record-separators><a class=header href=#record-separators>Record separators</a></h1><p>So far, you've seen examples where <code>ruby</code> automatically splits input line by line based on the <code>\n</code> newline character. Just like you can control how those lines are further split into fields using <code>-a</code>, <code>-F</code> options and other features, <code>ruby</code> provides a way to control what constitutes a line in the first place. In <code>ruby</code> parlance, the term <strong>record</strong> is used to describe the contents that gets placed in the <code>$_</code> global variable.<h2 id=input-record-separator><a class=header href=#input-record-separator>Input record separator</a></h2><p>By default, newline character is used as input record separator. You can change the <code>$/</code> global variable to specify a different input record separator. Unlike field separators, you can only use string, regexp isn't allowed.<pre><code class=language-bash>$ # changing input record separator to comma
-$ # note the content of second record, newline is just another character
-$ # also note that by default record separator stays with the record contents
-$ printf 'this,is\na,sample' | ruby -ne 'BEGIN{$/ = ","}; puts "#{$.})#{$_}"'
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=record-separators><a class=header href=#record-separators>Record separators</a></h1><p>So far, you've seen examples where Ruby automatically splits input line by line based on the newline character. Just like you can control how those lines are further split into fields using the <code>-a</code>, <code>-F</code> options and other features, Ruby provides a way to control what constitutes a line in the first place. The term <strong>record</strong> is used to describe the contents that gets placed in the <code>$_</code> global variable.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=input-record-separator><a class=header href=#input-record-separator>Input record separator</a></h2><p>By default, the newline character is used as the input record separator. You can change the <code>$/</code> global variable to specify a different input record separator. Unlike field separators, you can only use a string value, regexp isn't allowed.<pre><code class=language-bash># changing the input record separator to a comma character
+# note the content of the second record where newline is just another character
+# by default, the record separator stays with the record contents
+$ printf 'this,is\na,sample,ok' | ruby -ne 'BEGIN{$/ = ","}; puts "#{$.})#{$_}"'
 1)this,
 2)is
 a,
-3)sample
+3)sample,
+4)ok
 
-$ # use -l option to chomp the record separator
-$ printf 'this,is\na,sample' | ruby -lne 'BEGIN{$/ = ","}; puts "#{$.})#{$_}"'
+# use the -l option to chomp the record separator
+$ printf 'this,is\na,sample,ok' | ruby -lne 'BEGIN{$/ = ","}; puts "#{$.})#{$_}"'
 1)this
 2)is
 a
 3)sample
-</code></pre><p>Here's a multicharacter example:<pre><code class=language-bash>$ cat report.log
+4)ok
+</code></pre><p>Here's an example where the record separator has multiple characters:<pre><code class=language-bash>$ cat report.log
 blah blah Error: second record starts
 something went wrong
 some more details Error: third record
 details about what went wrong
 
-$ # uses 'Error:' as the input record separator
-$ # prints all the records that contains 'something'
+# uses 'Error:' as the input record separator
+# prints all the records containing 'something'
 $ ruby -lne 'BEGIN{$/ = "Error:"}; print if /something/' report.log
  second record starts
 something went wrong
 some more details 
-</code></pre><h2 id=single-character-separator-with--0-option><a class=header href=#single-character-separator-with--0-option>Single character separator with -0 option</a></h2><p>The <code>-0</code> command line option can be used to specify a single character record separator, represented with zero to three octal digits.<pre><code class=language-bash>$ s='this:is:a:sample:string'
+</code></pre><h2 id=single-character-separator-with-the--0-option><a class=header href=#single-character-separator-with-the--0-option>Single character separator with the -0 option</a></h2><p>The <code>-0</code> command line option can be used to specify a single character record separator, represented with zero to three octal digits.<pre><code class=language-bash>$ s='this:is:a:sample:string'
 
-$ # '072' is octal for : character
-$ # -l is used to chomp the separator
+# the : character is represented by 072 in octal
+# -l is used here to chomp the separator
 $ echo "$s" | ruby -0072 -lne 'puts "#{$.}) #{$_}"'
 1) this
 2) is
@@ -76,109 +68,112 @@ $ echo "$s" | ruby -0072 -lne 'puts "#{$.}) #{$_}"'
 4) sample
 5) string
 
-$ # print all records containing 'a'
+# print all records containing 'a'
 $ echo "$s" | ruby -0072 -lne 'puts $_ if /a/'
 a
 sample
-</code></pre><blockquote><p><img src=images/info.svg alt=info> The character that gets appended to <code>print</code> method when <code>-l</code> is used is based on the value of input record separator at that point. Here's some examples to clarify this point.</blockquote><pre><code class=language-bash>$ s='this:is:a:sample:string'
+</code></pre><p>The character that gets appended to the <code>print</code> method when the <code>-l</code> option is active is based on the value of the input record separator at that point. Here are some examples to clarify this point.<pre><code class=language-bash>$ s='this:is:a:sample:string'
 
-$ # here record separator is still the default \n when -l is used
-$ # so \n gets appended for 'print' method usage
-$ # note that chomp doesn't depend on the order
-$ # same as: echo "$s" | ruby -lne 'BEGIN{$/=":"}; print if /a/'
+# here, the record separator is still the default \n when -l is used
+# so \n gets appended when 'print' is used
+# note that chomp isn't affected by such differences in order
+# same as: echo "$s" | ruby -lne 'BEGIN{$/=":"}; print if /a/'
 $ echo "$s" | ruby -l -0072 -ne 'print if /a/'
 a
 sample
 
-$ # here -l is defined after -0, so : gets appended for 'print'
+# here -l is defined after -0, so : gets appended for 'print'
 $ echo "$s" | ruby -0072 -lne 'print if /a/'
 a:sample:
-</code></pre><p>Recall that default <code>-a</code> will split input record based on whitespaces and remove leading/trailing whitespaces. Now that you've seen how input record separator can be something other than newline, here's an example to show the full effect of default record splitting.<pre><code class=language-bash>$ # ':' character is the input record separator here
-$ s='   a\t\tb\n\t\n:1000\n\n\n\n123 7777:x  y \n \n z  '
+</code></pre><p>By default, the <code>-a</code> option will split the input record based on whitespaces and remove the leading/trailing whitespaces. Now that you've seen how the input record separator can be something other than newline, here's an example to show the full effect of the default record splitting.<pre><code class=language-bash># ':' character is the input record separator here
+$ s='   a\t\tb:1000\n\n\t \n\n123 7777:x  y \n \n z  :apple banana cherry'
 $ printf '%b' "$s" | ruby -0072 -lane 'puts $F * ","'
 a,b
 1000,123,7777
 x,y,z
-</code></pre><blockquote><p><img src=images/info.svg alt=info> Note that by default <code>chomp</code> will remove <code>\r\n</code> line endings as well from the input record. But, you'll get only <code>\n</code> in the output if you are relying on the <code>-l</code> option.</blockquote><pre><code class=language-bash>$ printf 'apple\r\nfig\r\n' | cat -v
+apple,banana,cherry
+</code></pre><blockquote><p><img alt=info src=images/info.svg> Note that by default <code>chomp</code> will remove <code>\r\n</code> line endings as well from the input record. But, you'll get only <code>\n</code> in the output if you are relying on the <code>-l</code> option.<pre><code class=language-bash>$ printf 'apple\r\nfig\r\n' | cat -v
 apple^M
 fig^M
 
 $ printf 'apple\r\nfig\r\n' | ruby -lne 'print' | cat -v
 apple
 fig
-</code></pre><h2 id=nul-separator-and-slurping><a class=header href=#nul-separator-and-slurping>NUL separator and slurping</a></h2><p>If the <code>-0</code> option is used without an argument, the ASCII NUL character will be considered as the input record separator.<pre><code class=language-bash>$ printf 'foo\0bar\0' | cat -v
-foo^@bar^@
+</code></pre></blockquote><h2 id=nul-separator><a class=header href=#nul-separator>NUL separator</a></h2><p>If the <code>-0</code> option is used without an argument, the ASCII NUL character will be considered as the input record separator.<pre><code class=language-bash>$ printf 'apple\0banana\0' | cat -v
+apple^@banana^@
 
-$ # could also be golfed to: ruby -l0pe ''
-$ printf 'foo\0bar\0' | ruby -l -0 -ne 'print'
-foo
-bar
-</code></pre><p>Any octal value of <code>400</code> and above will cause the entire input to be slurped as a single string. Idiomatically, <code>777</code> is used. Slurping entire file makes it easier to solve some problems, but be careful to not use it for large files that might not fit available memory.<pre><code class=language-bash>$ cat paths.txt
-/foo/a/report.log
-/foo/y/power.log
-/foo/abc/errors.log
+# could also be golfed to: ruby -l0pe ''
+$ printf 'apple\0banana\0' | ruby -l -0 -ne 'print'
+apple
+banana
+</code></pre><h2 id=slurping-entire-input><a class=header href=#slurping-entire-input>Slurping entire input</a></h2><p>Any octal value of <code>400</code> and above will cause the entire input to be slurped as a single string. Idiomatically, <code>777</code> is used. This is same as setting <code>$/ = nil</code>. Slurping the entire file makes it easier to solve some problems, but be careful to not use it for large files, as that might cause memory issues.<pre><code class=language-bash>$ cat paths.txt
+/home/joe/report.log
+/home/ram/power.log
+/home/rambo/errors.log
 $ ruby -0777 -pe 'sub(%r{(?&LT!\A)/.+/}m, "/")' paths.txt
-/foo/errors.log
+/home/errors.log
 
-$ # replicate entire input as many times as needed
+# replicate entire input as many times as needed
 $ seq 2 | ruby -0777 -ne 'print $_ * 2'
 1
 2
 1
 2
-</code></pre><h2 id=paragraph-mode><a class=header href=#paragraph-mode>Paragraph mode</a></h2><p>As a special case, using <code>-00</code> or setting <code>$/</code> to empty string will invoke paragraph mode. Two or more consecutive newline characters will act as the record separator. Consider the <code>programming_quotes.txt</code> sample file, shown here again for convenience:<pre><code class=language-bash>$ cat programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
+</code></pre><h2 id=paragraph-mode><a class=header href=#paragraph-mode>Paragraph mode</a></h2><p>As a special case, using <code>-00</code> or setting <code>$/</code> to an empty string will invoke paragraph mode. Two or more consecutive newline characters will act as the record separator. Consider the below sample file:<pre><code class=language-bash>$ cat para.txt
+Hello World
 
-Some people, when confronted with a problem, think - I know, I will
-use regular expressions. Now they have two problems by Jamie Zawinski
+Hi there
+How are you
 
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
+Just do-it
+Believe it
 
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
-</code></pre><p>Here's some examples of processing the input file paragraph wise.<pre><code class=language-bash>$ # all paragraphs containing 'you'
-$ # note that the record separator is preserved as there's no chomp
-$ ruby -00 -ne 'print if /you/' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
+banana
+papaya
+mango
 
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
+Much ado about nothing
+He he he
+Adios amigo
+</code></pre><p>Here are some examples of processing the input file paragraph wise.<pre><code class=language-bash># all paragraphs containing 'do'
+# note that the record separator is preserved as there's no chomp
+$ ruby -00 -ne 'print if /do/' para.txt
+Just do-it
+Believe it
 
-$ # all paragraphs containing exactly two lines
-$ ruby -F'\n' -00 -ane 'print if $F.size == 2' programming_quotes.txt
-Some people, when confronted with a problem, think - I know, I will
-use regular expressions. Now they have two problems by Jamie Zawinski
+Much ado about nothing
+He he he
+Adios amigo
 
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
+# all paragraphs containing exactly two lines
+# note that there's an empty line at the end of the output
+$ ruby -F'\n' -00 -ane 'print if $F.size == 2' para.txt
+Hi there
+How are you
 
-There are 2 hard problems in computer science: cache invalidation,
-naming things, and off-by-1 errors by Leon Bambrick
+Just do-it
+Believe it
+
 </code></pre><p>If the paragraphs are separated by more than two consecutive newlines, the extra newlines will not be part of the record content.<pre><code class=language-bash>$ s='a\n\n\n\n\n\n\n\n12\n34\n\nhi\nhello\n'
-
-$ # note that -l option isn't being used here
+# note that the -l option isn't being used here
 $ printf '%b' "$s" | ruby -00 -ne 'print if $. <= 2'
 a
 
 12
 34
 
-</code></pre><p>Any leading newlines (only newlines, not other whitespace characters) in the input data file will be trimmed and not lead to empty records. This is similar to how <code>-a</code> treats whitespaces for default field separation.<pre><code class=language-bash>$ s='\n\n\na\n\n12\n34\n\nhi\nhello\n\n\n\n'
+</code></pre><p>Any leading newlines (only newlines, not other whitespace characters) in the input data file will be trimmed and not lead to empty records. This is similar to how <code>-a</code> treats whitespaces for default field separation.<pre><code class=language-bash>$ s='\n\n\na\nb\n\n12\n34\n\nhi\nhello\n\n\n\n'
 
-$ # note that -l is used to chomp the record separator here
+# note that -l is used to chomp the record separator here
 $ printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---" if $. <= 2'
 a
+b
 ---
 12
 34
 ---
 
-$ # max. of two trailing newlines will be preserved if -l isn't used
+# max. of two trailing newlines will be preserved if -l isn't used
 $ printf '%b' "$s" | ruby -00 -lne 'puts "#{$_}\n---" if $<.eof'
 hi
 hello
@@ -188,64 +183,67 @@ $ printf '%b' "$s" | ruby -00 -ne 'END{puts $.}'
 3
 $ printf '%b' "$s" | ruby -00 -ne 'BEGIN{$/="\n\n"}; END{puts $.}'
 5
-</code></pre><p>If you wish to avoid the extra empty line at the end of the output for paragraph mode (or similar situations with other custom record separators), you can either post process the output to remove the extra empty line or add some logic like shown below.<pre><code class=language-bash>$ # single paragraph output, no empty line at the end
-$ ruby -l -00 -ne '(print $s, $_; $s="\n") if /code/' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
+</code></pre><p>The empty line at the end is a common problem when dealing with custom record separators. You could either process the output further to remove it or add extra logic to handle the issue. Here's one possible workaround:<pre><code class=language-bash># no empty line at the end
+$ ruby -l -00 -ne '(print $s, $_; $s="\n") if /are/' para.txt
+Hi there
+How are you
 
-$ # multiple paragraph output with empty line between the paragraphs
-$ ruby -l -00 -ne '(print $s, $_; $s="\n") if /you/' programming_quotes.txt
-Debugging is twice as hard as writing the code in the first place.
-Therefore, if you write the code as cleverly as possible, you are,
-by definition, not smart enough to debug it by Brian W. Kernighan
+# single empty line between the paragraphs
+$ ruby -l -00 -ne '(print $s, $_; $s="\n") if /are|an/' para.txt
+Hi there
+How are you
 
-A language that does not affect the way you think about programming,
-is not worth knowing by Alan Perlis
-</code></pre><h2 id=output-record-separator><a class=header href=#output-record-separator>Output record separator</a></h2><p>You can use <code>$\</code> to specify the string that gets appended to the <code>print</code> method. This is will override changes due to <code>-l</code> option, if any.<pre><code class=language-bash>$ # recall that input record separator isn't removed by default
+banana
+papaya
+mango
+</code></pre><h2 id=output-record-separator><a class=header href=#output-record-separator>Output record separator</a></h2><p>You can use <code>$\</code> to specify the string that gets appended to the <code>print</code> method. This is will override changes due to the <code>-l</code> option, if any.<pre><code class=language-bash># recall that the input record separator isn't removed by default
 $ seq 2 | ruby -ne 'print'
 1
 2
-$ # this will add four more characters after the already present newline
+# this will add four more characters after the already present newline
+# same as: ruby -pe 'BEGIN{$\ = "---\n"}'
 $ seq 2 | ruby -ne 'BEGIN{$\ = "---\n"}; print'
 1
 ---
 2
 ---
 
-$ # change NUL record separator to dot and newline
-$ # -l here helps to chomp the NUL character
-$ # -l also sets NUL to be added to print, but gets overridden in BEGIN block
-$ printf 'foo\0bar\0' | ruby -0 -lpe 'BEGIN{$\ = ".\n"}'
-foo.
-bar.
-</code></pre><p>Many a times, you need to change output record separator depending upon contents of input record or some other condition. The <code>cond ? expr1 : expr2</code> ternary operator is often used in such scenarios. The below example assumes that input is evenly divisible, you'll have to add more logic if that is not the case.<pre><code class=language-bash>$ # same as: ruby -pe 'sub(/\n/, "-") if $. % 3 != 0'
+# change the NUL character to a dot and newline characters
+# -l here helps to chomp the NUL character
+# -l also sets NUL to be added to print, but gets overridden in the BEGIN block
+$ printf 'apple\0banana\0' | ruby -0 -lpe 'BEGIN{$\ = ".\n"}'
+apple.
+banana.
+</code></pre><p>Many a times, you'd need to change the output record separator depending upon the contents of the input record or some other condition. The <code>cond ? expr1 : expr2</code> ternary operator is often used in such scenarios. The below example assumes that the input is evenly divisible, you'll have to add more logic if that is not the case.<pre><code class=language-bash># same as: ruby -pe 'sub(/\n/, "-") if $. % 3 != 0'
 $ seq 6 | ruby -lpe '$\ = $. % 3 != 0 ? "-" : "\n"'
 1-2-3
 4-5-6
-</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter showed you how to change the way input content is split into records and how to set the string to be appended when <code>print</code> is used. The paragraph mode is useful for processing multiline records separated by one or more empty lines. You also learned how to set ASCII NUL as the record separator and how to slurp entire input as a single string.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> The input file <code>jumbled.txt</code> consists of words separated by various delimiters. Display all words that contain <code>an</code> or <code>at</code> or <code>in</code> or <code>it</code>, one per line.<pre><code class=language-bash>$ cat jumbled.txt
+</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter showed you how to change the way the input content is split into records and how to set the string to be appended when <code>print</code> is used. The paragraph mode is useful for processing multiline records separated by one or more empty lines. You also learned how to set ASCII NUL as the record separator and how to slurp the entire input as a single string.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> The input file <code>jumbled.txt</code> consists of words separated by various delimiters. Display the last four words that contain <code>an</code> or <code>at</code> or <code>in</code> or <code>it</code>, one per line.<pre><code class=language-bash>$ cat jumbled.txt
 overcoats;furrowing-typeface%pewter##hobby
 wavering:concession/woof\retailer
+joint[]seer{intuition}titanic
 
 ##### add your solution here
-overcoats
-furrowing
 wavering
-</code></pre><p><strong>b)</strong> Emulate <code>paste -sd,</code> with <code>ruby</code>.<pre><code class=language-bash>$ # this command joins all input lines with ',' character
+joint
+intuition
+titanic
+</code></pre><p><strong>2)</strong> Emulate <code>paste -sd,</code> with Ruby.<pre><code class=language-bash># this command joins all input lines with the ',' character
 $ paste -sd, ip.txt
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
-$ # make sure there's no ',' at end of the line
-$ # and that there's a newline character at the end of the line
+
+# make sure there's no ',' at the end of the line
+# and that there's a newline character at the end of the line
 ##### add your solution here
 Hello World,How are you,This game is good,Today is sunny,12345,You are funny
 
-$ # if there's only one line in input, again make sure there's no trailing ','
-$ # and that there's a newline character at the end of the line
-$ printf 'foo' | paste -sd,
-foo
-$ printf 'foo' | ##### add your solution here
-foo
-</code></pre><p><strong>c)</strong> For the input file <code>sample.txt</code>, extract all paragraphs with words starting with <code>do</code>.<pre><code class=language-bash>$ cat sample.txt
+# if there's only one line in input, again make sure there's no trailing ','
+# and that there's a newline character at the end of the line
+$ printf 'fig' | paste -sd,
+fig
+$ printf 'fig' | ##### add your solution here
+fig
+</code></pre><p><strong>3)</strong> For the input file <code>sample.txt</code>, extract all paragraphs having words starting with <code>do</code>.<pre><code class=language-bash>$ cat sample.txt
 Hello World
 
 Good day
@@ -261,7 +259,7 @@ No doubt you like it too
 Much ado about nothing
 He he he
 
-$ # note that there's no extra empty line at the end of expected output
+# note that there's no extra empty line at the end of the output
 ##### add your solution here
 Just do-it
 Believe it
@@ -269,7 +267,7 @@ Believe it
 Today is sunny
 Not a bit funny
 No doubt you like it too
-</code></pre><p><strong>d)</strong> For the input file <code>sample.txt</code>, change all paragraphs into single line by joining lines using <code>.</code> and a space character as the separator. And add a final <code>.</code> to each paragraph.<pre><code class=language-bash>$ # note that there's no extra empty line at the end of expected output
+</code></pre><p><strong>4)</strong> For the input file <code>sample.txt</code>, change each paragraph to a single line by joining lines using <code>.</code> and a space character as the separator. Also, add a final <code>.</code> to each paragraph.<pre><code class=language-bash># note that there's no extra empty line at the end of the output
 ##### add your solution here
 Hello World.
 
@@ -280,11 +278,30 @@ Just do-it. Believe it.
 Today is sunny. Not a bit funny. No doubt you like it too.
 
 Much ado about nothing. He he he.
-</code></pre><p><strong>e)</strong> For the given input, use <code>;;</code> as record separators and <code>:</code> as field separators. Display all records with second field having an integer greater than <code>50</code>.<pre><code class=language-bash>$ s='mango:100;;apple:25;;grapes:75'
+</code></pre><p><strong>5)</strong> For the given input, use <code>;;</code> as the record separators and <code>:</code> as the field separators. Filter records whose second field is greater than <code>50</code>.<pre><code class=language-bash>$ s='mango:100;;apple:25;;grapes:75'
 
-$ # note that the output has ;; at the end but not newline character
+# note that the output has ;; at the end, not a newline character
 $ printf "$s" | ##### add your solution here
 mango:100;;grapes:75;;
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=field-separators.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=multiple-file-input.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=field-separators.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=multiple-file-input.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+</code></pre><p><strong>6)</strong> The input file <code>f1.txt</code> has varying amount of empty lines between the records. Change them to be always two empty lines. Also, remove empty lines at the start and end of the file.<pre><code class=language-bash>##### add your solution here
+hello
+
+
+world
+
+
+apple
+banana
+cherry
+
+
+tea coffee
+chocolate
+</code></pre><p><strong>7)</strong> The sample string shown below uses <code>cat</code> as the record separator. Display only the even numbered records separated by a single empty line.<pre><code class=language-bash>$ s='applecatfigcat12345catbananacatguava:cat:mangocat3'
+$ echo "$s" | ##### add your solution here
+fig
+
+banana
+
+:mango
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=field-separators.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=multiple-file-input.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=field-separators.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=multiple-file-input.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>

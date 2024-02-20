@@ -1,8 +1,5 @@
-<!DOCTYPE HTML><html lang=en class="sidebar-visible no-js light"><head><meta charset=UTF-8><title>Two file processing - Ruby one-liners cookbook</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta name=description content="Example based guide for text processing with Ruby from the command line"><meta name=viewport content="width=device-width, initial-scale=1"><meta name=theme-color content=#ffffff><link rel=icon href=favicon.svg><link rel="shortcut icon"href=favicon.png><link rel=stylesheet href=css/variables.css><link rel=stylesheet href=css/general.css><link rel=stylesheet href=css/chrome.css><link rel=stylesheet href=FontAwesome/css/font-awesome.css><link rel=stylesheet href=fonts/fonts.css><link rel=stylesheet href=highlight.css><link rel=stylesheet href=tomorrow-night.css><link rel=stylesheet href=ayu-highlight.css><link rel=stylesheet href=style.css><body><script>
-            var path_to_root = "";
-            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
-        </script><script>
-            try {
+<!doctypehtml><html class="sidebar-visible no-js light"lang=en><head><meta charset=UTF-8><title>Two file processing - Ruby One-Liners Guide</title><meta content="text/html; charset=utf-8"http-equiv=Content-Type><meta content="Example based guide for text processing with Ruby from the command line"name=description><meta content=width=device-width,initial-scale=1 name=viewport><meta content=#ffffff name=theme-color><meta content="Ruby One-Liners Guide"property=og:title><meta content=website property=og:type><meta content="Example based guide for text processing with Ruby from the command line"property=og:description><meta content=https://learnbyexample.github.io/learn_ruby_oneliners/ property=og:url><meta content=https://raw.githubusercontent.com/learnbyexample/learn_ruby_oneliners/master/images/ruby_oneliners_ls.png property=og:image><meta content=1280 property=og:image:width><meta content=720 property=og:image:height><meta content=summary_large_image property=twitter:card><meta content=@learn_byexample property=twitter:site><link href=favicon.svg rel=icon><link rel="shortcut icon"href=favicon.png><link href=css/variables.css rel=stylesheet><link href=css/general.css rel=stylesheet><link href=css/chrome.css rel=stylesheet><link href=FontAwesome/css/font-awesome.css rel=stylesheet><link href=fonts/fonts.css rel=stylesheet><link href=highlight.css rel=stylesheet><link href=tomorrow-night.css rel=stylesheet><link href=ayu-highlight.css rel=stylesheet><link href=style.css rel=stylesheet><body><script>var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";</script><script>try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
 
@@ -13,85 +10,78 @@
                 if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                     localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
                 }
-            } catch (e) { }
-        </script><script>
-            var theme;
+            } catch (e) { }</script><script>var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
             html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
-        </script><script>
-            var html = document.querySelector('html');
+            html.classList.add('js');</script><script>var html = document.querySelector('html');
             var sidebar = 'hidden';
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             }
             html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
-        </script><nav id=sidebar class=sidebar aria-label="Table of contents"><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=one-liner-introduction.html><strong aria-hidden=true>2.</strong> One-liner introduction</a><li class="chapter-item expanded"><a href=line-processing.html><strong aria-hidden=true>3.</strong> Line processing</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>4.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>5.</strong> Record separators</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>6.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>7.</strong> Processing multiple records</a><li class="chapter-item expanded"><a href=two-file-processing.html class=active><strong aria-hidden=true>8.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>9.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=processing-structured-data.html><strong aria-hidden=true>10.</strong> Processing structured data</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>11.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i id=git-repository-button class="fa fa-github"></i><a href=https://github.com/learnbyexample/learn_ruby_oneliners>   Source code</a><li class="chapter-item expanded"><i id=home-button class="fa fa-home"></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i id=book-button class="fa fa-book"></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i id=mail-button class="fa fa-envelope"></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a></ol></div><div id=sidebar-resize-handle class=sidebar-resize-handle></div></nav><div id=page-wrapper class=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div id=menu-bar class="menu-bar sticky bordered"><div class=left-buttons><button id=sidebar-toggle class=icon-button type=button title="Toggle Table of Contents"aria-label="Toggle Table of Contents"aria-controls=sidebar><i class="fa fa-bars"></i></button><button id=theme-toggle class=icon-button type=button title="Change theme"aria-label="Change theme"aria-haspopup=true aria-expanded=false aria-controls=theme-list><i class="fa fa-paint-brush"></i></button><ul id=theme-list class=theme-popup aria-label=Themes role=menu><li role=none><button role=menuitem class=theme id=light>Light (default)</button><li role=none><button role=menuitem class=theme id=rust>Rust</button><li role=none><button role=menuitem class=theme id=coal>Coal</button><li role=none><button role=menuitem class=theme id=navy>Navy</button><li role=none><button role=menuitem class=theme id=ayu>Ayu</button></ul><button id=search-toggle class=icon-button type=button title="Search. (Shortkey: s)"aria-label="Toggle Searchbar"aria-expanded=false aria-keyshortcuts=S aria-controls=searchbar><i class="fa fa-search"></i></button></div><h1 class=menu-title>Ruby one-liners cookbook</h1><div class=right-buttons><a href=https://learnbyexample.github.io title=Blog aria-label=Blog> <i id=home-button class="fa fa-home"></i> </a><a href=https://github.com/learnbyexample/learn_ruby_oneliners title="Git repository"aria-label="Git repository"> <i id=git-repository-button class="fa fa-github"></i> </a></div></div><div id=search-wrapper class=hidden><form id=searchbar-outer class=searchbar-outer><input type=search id=searchbar name=searchbar placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header></form><div id=searchresults-outer class="searchresults-outer hidden"><div id=searchresults-header class=searchresults-header></div><ul id=searchresults></ul></div></div><script>
-                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+            html.classList.add("sidebar-" + sidebar);</script><nav aria-label="Table of contents"class=sidebar id=sidebar><div class=sidebar-scrollbox><ol class=chapter><li class="chapter-item expanded affix"><a href=cover.html>Cover</a><li class="chapter-item expanded affix"><a href=buy.html>Buy PDF/EPUB versions</a><li class="chapter-item expanded"><a href=preface.html><strong aria-hidden=true>1.</strong> Preface</a><li class="chapter-item expanded"><a href=one-liner-introduction.html><strong aria-hidden=true>2.</strong> One-liner introduction</a><li class="chapter-item expanded"><a href=line-processing.html><strong aria-hidden=true>3.</strong> Line processing</a><li class="chapter-item expanded"><a href=field-separators.html><strong aria-hidden=true>4.</strong> Field separators</a><li class="chapter-item expanded"><a href=record-separators.html><strong aria-hidden=true>5.</strong> Record separators</a><li class="chapter-item expanded"><a href=multiple-file-input.html><strong aria-hidden=true>6.</strong> Multiple file input</a><li class="chapter-item expanded"><a href=processing-multiple-records.html><strong aria-hidden=true>7.</strong> Processing multiple records</a><li class="chapter-item expanded"><a class=active href=two-file-processing.html><strong aria-hidden=true>8.</strong> Two file processing</a><li class="chapter-item expanded"><a href=dealing-with-duplicates.html><strong aria-hidden=true>9.</strong> Dealing with duplicates</a><li class="chapter-item expanded"><a href=processing-structured-data.html><strong aria-hidden=true>10.</strong> Processing structured data</a><li class="chapter-item expanded"><a href=Exercise_solutions.html><strong aria-hidden=true>11.</strong> Exercise Solutions</a></li><br><hr><li class="chapter-item expanded"><i class="fa fa-github"id=git-repository-button></i><a href=https://github.com/learnbyexample/learn_ruby_oneliners>   Source code</a><li class="chapter-item expanded"><i class="fa fa-home"id=home-button></i><a href=https://learnbyexample.github.io/>   My Blog</a><li class="chapter-item expanded"><i class="fa fa-book"id=book-button></i><a href=https://learnbyexample.github.io/books/>   My Books</a><li class="chapter-item expanded"><i class="fa fa-envelope"id=mail-button></i><a href=https://learnbyexample.gumroad.com/l/learnbyexample-weekly>   learnbyexample weekly</a><li class="chapter-item expanded"><i class="fa fa-twitter"id=twitter-button></i><a href=https://twitter.com/learn_byexample>   Twitter</a></ol></div><div class=sidebar-resize-handle id=sidebar-resize-handle></div></nav><div class=page-wrapper id=page-wrapper><div class=page><div id=menu-bar-hover-placeholder></div><div class="menu-bar sticky bordered"id=menu-bar><div class=left-buttons><button aria-label="Toggle Table of Contents"title="Toggle Table of Contents"aria-controls=sidebar class=icon-button id=sidebar-toggle type=button><i class="fa fa-bars"></i></button><button aria-label="Change theme"title="Change theme"aria-controls=theme-list aria-expanded=false aria-haspopup=true class=icon-button id=theme-toggle type=button><i class="fa fa-paint-brush"></i></button><ul aria-label=Themes class=theme-popup id=theme-list role=menu><li role=none><button class=theme id=light role=menuitem>Light (default)</button><li role=none><button class=theme id=rust role=menuitem>Rust</button><li role=none><button class=theme id=coal role=menuitem>Coal</button><li role=none><button class=theme id=navy role=menuitem>Navy</button><li role=none><button class=theme id=ayu role=menuitem>Ayu</button></ul><button aria-label="Toggle Searchbar"title="Search. (Shortkey: s)"aria-controls=searchbar aria-expanded=false aria-keyshortcuts=S class=icon-button id=search-toggle type=button><i class="fa fa-search"></i></button></div><h1 class=menu-title>Ruby One-Liners Guide</h1><div class=right-buttons><a aria-label=Blog href=https://learnbyexample.github.io title=Blog> <i class="fa fa-home"id=home-button></i> </a><a aria-label=Twitter href=https://twitter.com/learn_byexample title=Twitter> <i class="fa fa-twitter"id=twitter-button></i> </a><a aria-label="Git repository"title="Git repository"href=https://github.com/learnbyexample/learn_ruby_oneliners> <i class="fa fa-github"id=git-repository-button></i> </a></div></div><div class=hidden id=search-wrapper><form class=searchbar-outer id=searchbar-outer><input placeholder="Search this book ..."aria-controls=searchresults-outer aria-describedby=searchresults-header id=searchbar name=searchbar type=search></form><div class="searchresults-outer hidden"id=searchresults-outer><div class=searchresults-header id=searchresults-header></div><ul id=searchresults></ul></div></div><script>document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
                         link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
-                    });
-                </script><div id=content class=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=two-file-processing><a class=header href=#two-file-processing>Two file processing</a></h1><p>This chapter focuses on solving problems which depend upon contents of two or more files. These are usually based on comparing records and fields. Sometimes, record number plays a role and some cases need entire file content. You'll also see examples with <code>-r</code> command line option and <code>gets</code> method.<h2 id=comparing-records><a class=header href=#comparing-records>Comparing records</a></h2><p>Consider the following input files which will be compared line wise in this section.<pre><code class=language-bash>$ cat color_list1.txt
+                    });</script><div class=content id=content><main><div class=sidetoc><nav class=pagetoc></nav></div><h1 id=two-file-processing><a class=header href=#two-file-processing>Two file processing</a></h1><p>This chapter focuses on solving problems which depend upon the contents of two or more files. These are usually based on comparing records and fields. Sometimes, record number plays a role and some cases need the entire file content. You'll also see examples with the <code>-r</code> command line option and the <code>gets</code> method.<blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/example_files>example_files</a> directory has all the files used in the examples.</blockquote><h2 id=comparing-records><a class=header href=#comparing-records>Comparing records</a></h2><p>Consider the following input files which will be compared line wise in this section.<pre><code class=language-bash>$ cat colors_1.txt
 teal
 light blue
 green
 yellow
 
-$ cat color_list2.txt
+$ cat colors_2.txt
 light blue
 black
 dark green
 yellow
-</code></pre><p>The <code>-r</code> command line option allows to specify a library required for the script. <code>Set</code> class is handy for two file processing cases. See <a href=https://ruby-doc.org/stdlib-3.0.0/libdoc/set/rdoc/Set.html>ruby-doc: Set</a> for documentation.<pre><code class=language-bash>$ # common lines
-$ # same as: grep -Fxf color_list1.txt color_list2.txt
-$ # ARGV.size==1 will be true only for the first file (for two file input)
+</code></pre><p>The <code>-r</code> command line option allows you to specify a library required for the script. The <code>Set</code> class is handy for two file processing cases. See <a href=https://ruby-doc.org/3.3.0/stdlibs/set/Set.html>ruby-doc: Set</a> for documentation.<pre><code class=language-bash># common lines
+# same as: grep -Fxf colors_1.txt colors_2.txt
+# ARGV.size==1 will be true only for the first file (for two file input)
 $ ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
-                  print if s.include?($_)' color_list1.txt color_list2.txt
+                  print if s.include?($_)' colors_1.txt colors_2.txt
 light blue
 yellow
 
-$ # lines from color_list2.txt not present in color_list1.txt
-$ # same as: grep -vFxf color_list1.txt color_list2.txt
+# lines from colors_2.txt not present in colors_1.txt
+# same as: grep -vFxf colors_1.txt colors_2.txt
 $ ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
-                  print if !s.include?($_)' color_list1.txt color_list2.txt
+                  print if !s.include?($_)' colors_1.txt colors_2.txt
 black
 dark green
 
-$ # reversing the order of input files gives
-$ # lines from color_list1.txt not present in color_list2.txt
+# reversing the order of input files gives
+# lines from colors_1.txt not present in colors_2.txt
 $ ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
-                  print if !s.include?($_)' color_list2.txt color_list1.txt
+                  print if !s.include?($_)' colors_2.txt colors_1.txt
 teal
 green
-</code></pre><p>Alternatively, you can store the contents of the two input files as arrays and use set operations between them.<pre><code class=language-bash>$ # common lines, output order is based on array to the left of & operator
-$ # note that only -e option is used and one of the files is passed as stdin
+</code></pre><p>Alternatively, you can store the contents of the two input files as arrays and use set operations between them.<pre><code class=language-bash># common lines, output order is based on the array to the left of & operator
+# note that only the -e option is used and one of the files is passed as stdin
 $ ruby -e 'f1=STDIN.readlines; f2=readlines;
-           puts f1 & f2' &LTcolor_list1.txt color_list2.txt
+           puts f1 & f2' &LTcolors_1.txt colors_2.txt
 light blue
 yellow
 
-$ # lines from color_list1.txt not present in color_list2.txt
+# lines from colors_1.txt not present in colors_2.txt
 $ ruby -e 'f1=STDIN.readlines; f2=readlines;
-           puts f1 - f2' &LTcolor_list1.txt color_list2.txt
+           puts f1 - f2' &LTcolors_1.txt colors_2.txt
 teal
 green
 
-$ # union of the two files, same as f1 | f2 if read as separate arrays
-$ ruby -e 'puts readlines.uniq' color_list1.txt color_list2.txt
+# union of the two files, same as f1 | f2 if read as separate arrays
+$ ruby -e 'puts readlines.uniq' colors_1.txt colors_2.txt
 teal
 light blue
 green
 yellow
 black
 dark green
-</code></pre><h2 id=comparing-fields><a class=header href=#comparing-fields>Comparing fields</a></h2><p>In the previous section, you saw how to compare whole contents of records between two files. This section will focus on comparing only specific field(s). The below sample file will be one of the two file inputs for examples in this section. Consider whitespace as the field separator, so <code>-a</code> option is enough to get the fields.<pre><code class=language-bash>$ cat marks.txt
+</code></pre><h2 id=comparing-fields><a class=header href=#comparing-fields>Comparing fields</a></h2><p>In the previous section, you saw how to compare the contents of whole records between two files. This section will focus on comparing only specific fields. The below sample file will be one of the two file inputs for examples in this section. Consider whitespace as the field separator, so the <code>-a</code> option is enough to get the fields.<pre><code class=language-bash>$ cat marks.txt
 Dept    Name    Marks
 ECE     Raj     53
 ECE     Joel    72
@@ -100,11 +90,11 @@ CSE     Surya   81
 EEE     Tia     59
 ECE     Om      92
 CSE     Amy     67
-</code></pre><p>To start with, here's a single field comparison. The problem statement is to fetch all the records from <code>marks.txt</code> if the first field matches any of the departments listed in <code>dept.txt</code> file.<pre><code class=language-bash>$ cat dept.txt
+</code></pre><p>To start with, here's an example with a single field comparison. The problem statement is to fetch all records from <code>marks.txt</code> if the first field matches any of the departments listed in the <code>dept.txt</code> file.<pre><code class=language-bash>$ cat dept.txt
 CSE
 ECE
 
-$ # note that dept.txt is used to build the set first
+# note that dept.txt is used to build the set first
 $ ruby -rset -ane 'BEGIN{s=Set.new}; (s.add($F[0]); next) if ARGV.size==1;
                    print if s.include?($F[0])' dept.txt marks.txt
 ECE     Raj     53
@@ -122,22 +112,21 @@ $ ruby -rset -ane 'BEGIN{s=Set.new}; (s.add($F); next) if ARGV.size==1;
 ECE     Raj     53
 EEE     Moi     68
 CSE     Amy     67
-</code></pre><p>In this example, one of the field is used for numerical comparison. <code>Hash</code> is needed here instead of <code>Set</code>.<pre><code class=language-bash>$ cat dept_mark.txt
+</code></pre><p>In this example, one of the fields is used for numerical comparison.<pre><code class=language-bash>$ cat dept_mark.txt
 ECE 70
 EEE 65
 CSE 80
 
-$ # match Dept and minimum marks specified in dept_mark.txt
-$ # since the marks are consistently 2-digits, string comparison is enough
-$ # otherwise, you need to convert to numbers before comparison
+# match Dept and minimum marks specified in dept_mark.txt
+# since the marks are consistently 2-digits, string comparison is enough
+# otherwise, you'd need to convert to numbers before comparison
 $ ruby -ane 'BEGIN{d={}}; (d[$F[0]]=$F[1]; next) if ARGV.size==1;
              print if d.key?($F[0]) && $F[2] >= d[$F[0]]' dept_mark.txt marks.txt
 ECE     Joel    72
 EEE     Moi     68
 CSE     Surya   81
 ECE     Om      92
-</code></pre><p>Here's an example of adding a new field.<pre><code class=language-bash>$ # adds a new grade column based on marks in 3rd column
-$ ruby -lane 'BEGIN{g = %w[D C B A S]};
+</code></pre><p>Here's an example of adding a new field based on the contents of another field.<pre><code class=language-bash>$ ruby -lane 'BEGIN{g = %w[D C B A S]};
               $F.append($.==1 ? "Grade" : g[$F[-1].to_i/10 - 5]);
               print $F * "\t"' marks.txt
 Dept    Name    Marks   Grade
@@ -148,14 +137,15 @@ CSE     Surya   81      A
 EEE     Tia     59      D
 ECE     Om      92      S
 CSE     Amy     67      C
-</code></pre><h2 id=gets><a class=header href=#gets>gets</a></h2><p><code>gets</code> (or the <code>readline</code>) method allows you to read a record from a file on demand. This is most useful when you need something based on record number. The following example shows how you can replace <code>m</code>th line from a file with <code>n</code>th line from another file.<pre><code class=language-bash>$ ruby -pe 'BEGIN{m=3; n=2; n.times {$s = STDIN.gets}};
+</code></pre><h2 id=gets><a class=header href=#gets>gets</a></h2><p>The <code>gets</code> method (or <code>readline</code>) helps you to read a record from a file on demand. This is most useful when you need something based on the record number. The following example shows how you can replace the <code>m</code>th line from a file with the <code>n</code>th line from another file.<pre><code class=language-bash># replace the 3rd line of table.txt with the 2nd line of greeting.txt
+$ ruby -pe 'BEGIN{m=3; n=2; n.times {$s = STDIN.gets}};
             $_ = $s if $. == m' &LTgreeting.txt table.txt
 brown bread mat hair 42
 blue cake mug shirt -7
 Have a nice day
-</code></pre><p>Here's an example where two files are processed simultaneously. This doesn't implement error detection for difference in number of lines between the two files though.<pre><code class=language-bash>$ # print line from greeting.txt if last column of corresponding line
-$ # from table.txt is a positive number
-$ # STDIN.gets will override $_ which is why $_ is saved to another variable
+</code></pre><p>Here's an example where two files are processed simultaneously. This doesn't implement error detection for difference in the number of lines between the two files though.<pre><code class=language-bash># print line from greeting.txt if the last column of the corresponding line
+# from table.txt is a positive number
+# STDIN.gets will override $_ which is why $_ is saved to another variable
 $ ruby -ne 'a=$_; n = STDIN.gets.split[-1].to_f;
             print a if n > 0' &LTtable.txt greeting.txt
 Hi there
@@ -171,37 +161,37 @@ $ ruby -0777 -ne 'ARGV.size==2 ? s=$_ : ARGV.size==1 ? r=$_ :
 2$1$&3\0x\\yz
 wise ice go goa
 yellow banana window shoes 3.14
-</code></pre><blockquote><p><img src=images/warning.svg alt=warning> Don't save contents of <code>search.txt</code> and <code>repl.txt</code> in shell variables for passing them to the <code>ruby</code> script. Trailing newlines and ASCII NUL characters will cause issues. See <a href=https://stackoverflow.com/a/22607352/4082052>stackoverflow: pitfalls of reading file into shell variable</a> for details.</blockquote><h2 id=add-file-content-conditionally><a class=header href=#add-file-content-conditionally>Add file content conditionally</a></h2><p><strong>Case 1:</strong> replace each matching line with entire contents of <code>STDIN</code>.<pre><code class=language-bash>$ # same as: sed -e '/[ot]/{r dept.txt' -e 'd}' greeting.txt
+</code></pre><blockquote><p><img alt=warning src=images/warning.svg> Don't save the contents of <code>search.txt</code> and <code>repl.txt</code> in shell variables for passing them to the Ruby script. Trailing newlines and ASCII NUL characters will cause issues. See <a href=https://stackoverflow.com/a/22607352/4082052>stackoverflow: pitfalls of reading file into shell variable</a> for details.</blockquote><h2 id=add-file-content-conditionally><a class=header href=#add-file-content-conditionally>Add file content conditionally</a></h2><p><strong>Case 1:</strong> replace each matching line with the entire contents of <code>STDIN</code>.<pre><code class=language-bash># same as: sed -e '/[ot]/{r dept.txt' -e 'd}' greeting.txt
 $ ruby -pe 'BEGIN{r = STDIN.read}; $_ = r if /[ot]/' &LTdept.txt greeting.txt
 CSE
 ECE
 Have a nice day
 CSE
 ECE
-</code></pre><p><strong>Case 2:</strong> insert entire contents of <code>STDIN</code> before each matching line.<pre><code class=language-bash>$ # same as: sed '/nice/e cat dept.txt' greeting.txt
+</code></pre><p><strong>Case 2:</strong> insert the entire contents of <code>STDIN</code> before each matching line.<pre><code class=language-bash># same as: sed '/nice/e cat dept.txt' greeting.txt
 $ ruby -pe 'BEGIN{r = STDIN.read}; print r if /nice/' &LTdept.txt greeting.txt
 Hi there
 CSE
 ECE
 Have a nice day
 Good bye
-</code></pre><p><strong>Case 3:</strong> append entire contents of <code>STDIN</code> after each matching line.<pre><code class=language-bash>$ # same as: sed '/nice/r dept.txt' greeting.txt
+</code></pre><p><strong>Case 3:</strong> append the entire contents of <code>STDIN</code> after each matching line.<pre><code class=language-bash># same as: sed '/nice/r dept.txt' greeting.txt
 $ ruby -pe 'BEGIN{r = STDIN.read}; $_ << r if /nice/' &LTdept.txt greeting.txt
 Hi there
 Have a nice day
 CSE
 ECE
 Good bye
-</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter discussed use cases where you need to process the contents of two or more files based on entire record/file or field(s). The <code>ARGV.size==1</code> trick is handy for such cases (where the number is <code>n-1</code> to match first file passed among <code>n</code> input files). The <code>gets</code> method is helpful for record number based comparisons.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><p><strong>a)</strong> Use contents of <code>match_words.txt</code> file to display matching lines from <code>jumbled.txt</code> and <code>sample.txt</code>. The matching criteria is that the second word of lines from these files should match the third word of lines from <code>match_words.txt</code>.<pre><code class=language-bash>$ cat match_words.txt
+</code></pre><h2 id=summary><a class=header href=#summary>Summary</a></h2><p>This chapter discussed use cases where you need to process the contents of two or more files based on entire record/file or field(s). The <code>ARGV.size==1</code> trick is handy for such cases (where the number is <code>n-1</code> to match the first file passed among <code>n</code> input files). The <code>gets</code> method is helpful for record number based comparisons.<h2 id=exercises><a class=header href=#exercises>Exercises</a></h2><blockquote><p><img alt=info src=images/info.svg> The <a href=https://github.com/learnbyexample/learn_ruby_oneliners/tree/master/exercises>exercises</a> directory has all the files used in this section.</blockquote><p><strong>1)</strong> Use the contents of <code>match_words.txt</code> file to display matching lines from <code>jumbled.txt</code> and <code>sample.txt</code>. The matching criteria is that the second word of lines from these files should match the third word of lines from <code>match_words.txt</code>.<pre><code class=language-bash>$ cat match_words.txt
 %whole(Hello)--{doubt}==ado==
 just,\joint*,concession<=nice
 
-$ # 'concession' is one of the third words from 'match_words.txt'
-$ # and second word from 'jumbled.txt'
+# 'concession' is one of the third words from 'match_words.txt'
+# and second word from 'jumbled.txt'
 ##### add your solution here
 wavering:concession/woof\retailer
 No doubt you like it too
-</code></pre><p><strong>b)</strong> Interleave contents of <code>secrets.txt</code> with the contents of a file passed as <code>stdin</code> in the format as shown below.<pre><code class=language-bash>##### add your solution here, use 'table.txt' as stdin
+</code></pre><p><strong>2)</strong> Interleave the contents of <code>secrets.txt</code> with the contents of a file passed as stdin in the format as shown below.<pre><code class=language-bash>##### add your solution here, use 'table.txt' as stdin
 stag area row tick
 brown bread mat hair 42
 ---
@@ -210,43 +200,43 @@ blue cake mug shirt -7
 ---
 Bi tac toe - 42
 yellow banana window shoes 3.14
-</code></pre><p><strong>c)</strong> The file <code>search_terms.txt</code> contains one search string per line (these have no regexp metacharacters). Construct a solution that reads this file and displays search terms (matched case insensitively) that were found in all of the other input file arguments. Note that these terms should be matched with any part of the line, not just whole words.<pre><code class=language-bash>$ cat search_terms.txt
+</code></pre><p><strong>3)</strong> The file <code>search_terms.txt</code> contains one search string per line, and these terms have no regexp metacharacters. Construct a solution that reads this file and displays the search terms (matched case insensitively) that were found in every file passed as the arguments after <code>search_terms.txt</code>. Note that these terms should be matched anywhere in the line (so, don't use word boundaries).<pre><code class=language-bash>$ cat search_terms.txt
 hello
 row
 you
 is
 at
 
-$ # ip: search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt oops.txt
+# ip: search_terms.txt jumbled.txt mixed_fs.txt secrets.txt table.txt oops.txt
 ##### add your solution here
 row
 at
 
-$ # ip: search_terms.txt ip.txt sample.txt oops.txt
+# ip: search_terms.txt ip.txt sample.txt oops.txt
 ##### add your solution here
 hello
 you
 is
-</code></pre><p><strong>d)</strong> For the input file <code>ip.txt</code>, print all lines that contain <code>are</code> and the line that comes after such a line, if any. Use <code>gets</code> method to construct the solution.<pre><code class=language-bash>$ # note that there shouldn't be an empty line at the end of the output
+</code></pre><p><strong>4)</strong> For the input file <code>ip.txt</code>, print all lines that contain <code>are</code> and the line that comes after such a line, if any. Use the <code>gets</code> method to construct the solution.<pre><code class=language-bash># note that there shouldn't be an empty line at the end of the output
 ##### add your solution here
 How are you
 This game is good
 You are funny
-</code></pre><p><strong>Bonus:</strong> Will <code>grep -A1 'is' ip.txt</code> give identical results for your solution with <code>is</code> as the search term? If not, why?<p><strong>e)</strong> Replace third to fifth lines of input file <code>ip.txt</code> with second to fourth lines from file <code>para.txt</code><pre><code class=language-bash>##### add your solution here
+</code></pre><p><strong>Bonus:</strong> Will <code>grep -A1 'is' ip.txt</code> give identical results for your solution with <code>is</code> as the search term? If not, why?<p><strong>5)</strong> Replace the third to fifth lines of the input file <code>ip.txt</code> with the second to fourth lines from the file <code>para.txt</code>.<pre><code class=language-bash>##### add your solution here
 Hello World
 How are you
 Start working on that
 project you always wanted
 to, do not let it end
 You are funny
-</code></pre><p><strong>f)</strong> Insert one line from <code>jumbled.txt</code> before every two lines of <code>idx.txt</code><pre><code class=language-bash>##### add your solution here
+</code></pre><p><strong>6)</strong> Insert one line from <code>jumbled.txt</code> before every two lines of <code>copyright.txt</code>.<pre><code class=language-bash>##### add your solution here
 overcoats;furrowing-typeface%pewter##hobby
-match after the last newline character
-and then you want to test
+bla bla 2015 bla
+blah 2018 blah
 wavering:concession/woof\retailer
-this is good bye then
-you were there to see?
-</code></pre><p><strong>g)</strong> Use entire contents of <code>match.txt</code> to search <code>error.txt</code> and replace with contents of <code>jumbled.txt</code>. Partial lines should NOT be matched.<pre><code class=language-bash>$ cat match.txt
+bla bla bla
+copyright: 2018
+</code></pre><p><strong>7)</strong> Use the entire contents of <code>match.txt</code> to search <code>error.txt</code> and replace matching portions with the contents of <code>jumbled.txt</code>. Partial lines should NOT be matched.<pre><code class=language-bash>$ cat match.txt
 print+this
 but not that
 $ cat error.txt
@@ -264,10 +254,59 @@ print+this
 but not that or this
 overcoats;furrowing-typeface%pewter##hobby
 wavering:concession/woof\retailer
+joint[]seer{intuition}titanic
 if print+this
 but not that
 overcoats;furrowing-typeface%pewter##hobby
 wavering:concession/woof\retailer
-</code></pre></main><nav class=nav-wrapper aria-label="Page navigation"><a rel=prev href=processing-multiple-records.html class="mobile-nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=dealing-with-duplicates.html class="mobile-nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav class=nav-wide-wrapper aria-label="Page navigation"><a rel=prev href=processing-multiple-records.html class="nav-chapters previous"title="Previous chapter"aria-label="Previous chapter"aria-keyshortcuts=Left> <i class="fa fa-angle-left"></i> </a><a rel=next href=dealing-with-duplicates.html class="nav-chapters next"title="Next chapter"aria-label="Next chapter"aria-keyshortcuts=Right> <i class="fa fa-angle-right"></i> </a></nav></div><script>
-            window.playground_copyable = true;
-        </script><script src=elasticlunr.min.js charset=utf-8></script><script src=mark.min.js charset=utf-8></script><script src=searcher.js charset=utf-8></script><script src=clipboard.min.js charset=utf-8></script><script src=highlight.js charset=utf-8></script><script src=book.js charset=utf-8></script><script src=sidebar.js></script>
+joint[]seer{intuition}titanic
+</code></pre><p><strong>8)</strong> Display lines from <code>scores.csv</code> by matching the first field based on a list of names from the <code>names.txt</code> file. Also, change the output field separator to a space character.<pre><code class=language-bash>$ cat names.txt
+Lin
+Cy
+Ith
+
+##### add your solution here
+Lin 78 83 80
+Cy 97 98 95
+Ith 100 100 100
+</code></pre><p><strong>9)</strong> The <code>result.csv</code> file has three columns — name, subject and mark. The <code>criteria.txt</code> file has two columns — name and subject. Match lines from <code>result.csv</code> based on the two columns from <code>criteria.txt</code> provided the mark column is greater than 80.<pre><code class=language-bash>$ cat result.csv
+Amy,maths,89
+Amy,physics,75
+Joe,maths,79
+John,chemistry,77
+John,physics,91
+Moe,maths,81
+Ravi,physics,84
+Ravi,chemistry,70
+Yui,maths,92
+
+$ cat criteria.txt
+Amy maths
+John chemistry
+John physics
+Ravi chemistry
+Yui maths
+
+##### add your solution here
+Amy,maths,89
+John,physics,91
+Yui,maths,92
+</code></pre><p><strong>10)</strong> Insert the contents of <code>hex.txt</code> before a line matching <code>cake</code> of <code>table.txt</code>.<pre><code class=language-bash>##### add your solution here
+brown bread mat hair 42
+start: 0xA0, func1: 0xA0
+end: 0xFF, func2: 0xB0
+restart: 0xA010, func3: 0x7F
+blue cake mug shirt -7
+yellow banana window shoes 3.14
+</code></pre><p><strong>11)</strong> For the input file <code>ip.txt</code>, replace lines containing <code>are</code> with the contents of <code>hex.txt</code>.<pre><code class=language-bash>##### add your solution here
+Hello World
+start: 0xA0, func1: 0xA0
+end: 0xFF, func2: 0xB0
+restart: 0xA010, func3: 0x7F
+This game is good
+Today is sunny
+12345
+start: 0xA0, func1: 0xA0
+end: 0xFF, func2: 0xB0
+restart: 0xA010, func3: 0x7F
+</code></pre></main><nav aria-label="Page navigation"class=nav-wrapper><a aria-label="Previous chapter"class="mobile-nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=processing-multiple-records.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="mobile-nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=dealing-with-duplicates.html rel=next> <i class="fa fa-angle-right"></i> </a><div style="clear: both"></div></nav></div></div><nav aria-label="Page navigation"class=nav-wide-wrapper><a aria-label="Previous chapter"class="nav-chapters previous"title="Previous chapter"aria-keyshortcuts=Left href=processing-multiple-records.html rel=prev> <i class="fa fa-angle-left"></i> </a><a aria-label="Next chapter"class="nav-chapters next"title="Next chapter"aria-keyshortcuts=Right href=dealing-with-duplicates.html rel=next> <i class="fa fa-angle-right"></i> </a></nav></div><script>window.playground_copyable = true;</script><script charset=utf-8 src=elasticlunr.min.js></script><script charset=utf-8 src=mark.min.js></script><script charset=utf-8 src=searcher.js></script><script charset=utf-8 src=clipboard.min.js></script><script charset=utf-8 src=highlight.js></script><script charset=utf-8 src=book.js></script><script src=sidebar.js></script>
