@@ -1,25 +1,25 @@
 ## Comparing records
 
-cat color_list1.txt
+cat colors_1.txt
 
-cat color_list2.txt
-
-ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
-                print if s.include?($_)' color_list1.txt color_list2.txt
+cat colors_2.txt
 
 ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
-                print if !s.include?($_)' color_list1.txt color_list2.txt
+                print if s.include?($_)' colors_1.txt colors_2.txt
 
 ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
-                print if !s.include?($_)' color_list2.txt color_list1.txt
+                print if !s.include?($_)' colors_1.txt colors_2.txt
+
+ruby -rset -ne 'BEGIN{s=Set.new}; (s.add($_); next) if ARGV.size==1;
+                print if !s.include?($_)' colors_2.txt colors_1.txt
 
 ruby -e 'f1=STDIN.readlines; f2=readlines;
-         puts f1 & f2' <color_list1.txt color_list2.txt
+         puts f1 & f2' <colors_1.txt colors_2.txt
 
 ruby -e 'f1=STDIN.readlines; f2=readlines;
-         puts f1 - f2' <color_list1.txt color_list2.txt
+         puts f1 - f2' <colors_1.txt colors_2.txt
 
-ruby -e 'puts readlines.uniq' color_list1.txt color_list2.txt
+ruby -e 'puts readlines.uniq' colors_1.txt colors_2.txt
 
 ## Comparing fields
 

@@ -3,7 +3,7 @@
 s='{"greeting":"hi","marks":[78,62,93]}'
 
 echo "$s" | ruby -rjson -e 'ip = JSON.parse(ARGF.read);
-                 puts JSON.pretty_generate(ip)'
+                            puts JSON.pretty_generate(ip)'
 
 type rq
 
@@ -52,28 +52,28 @@ ruby -rcsv -le 'CSV.foreach("marks.txt", :converters => :integer,
 cat sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.xpath("//blue")' sample.xml
+                    puts ip.xpath("//blue")' sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.xpath("//blue").grep(/stone/)' sample.xml
+                    puts ip.xpath("//blue").grep(/stone/)' sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.at_xpath("//blue")' sample.xml
+                    puts ip.at_xpath("//blue")' sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.css("light-blue").map(&:text)' sample.xml
+                    puts ip.css("light-blue").map(&:text)' sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.at_css("blue").text' sample.xml
+                    puts ip.at_css("blue").text' sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.xpath("//greeting/@type")' sample.xml
+                    puts ip.xpath("//greeting/@type")' sample.xml
 
 ruby -rnokogiri -e 'ip=Nokogiri.XML(ARGF);
-      puts ip.xpath("//greeting[@type=\"ask\"]").text' sample.xml
+                    puts ip.xpath("//greeting[@type=\"ask\"]").text' sample.xml
 
 s='https://learnbyexample.github.io/substitution-with-ripgrep/'
 
-url="$s" ruby -rnokogiri -ropen-uri -e 'ip=Nokogiri.XML(URI.open(ENV["url"]));
-               puts ip.css("@href")[5..7]'
+url="$s" ruby -rnokogiri -ropen-uri -e 'ip=Nokogiri.HTML(URI.open(ENV["url"]));
+                                        puts ip.css("@href")[5..7]'
 

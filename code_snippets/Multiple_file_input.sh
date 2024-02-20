@@ -32,6 +32,8 @@ printf 'apple\nmango\n' | ruby -e 'puts STDIN.readline' greeting.txt
 
 ## Skipping remaining contents per file
 
+ruby -ne '/\bba/ ? ARGF.close : print' ip.txt table.txt
+
 ruby -ne '(puts ARGF.filename; ARGF.close) if /I/' f[1-3].txt greeting.txt
 
 ruby -ne '$m1=true if /e\b/; $m2=true if /[bm]at/i;

@@ -2,17 +2,17 @@
 
 echo '   a   b   c   ' | ruby -ane 'puts $F.size'
 
-echo '   a   b   c   ' | ruby -ane 'puts $F[0]'
+echo '   a   b   c   ' | ruby -ane 'puts "(#{$F[0]})"'
 
-echo '   a   b   c   ' | ruby -ane 'puts $F[-1] + "."'
+echo '   a   b   c   ' | ruby -ane 'puts "(#{$F[-1]})"'
 
-printf '     one \t\f\v two\t\r\tthree  ' | ruby -ane 'puts $F.size'
+printf '     one \t\f\v two\t\r\tthree \t\r ' | ruby -ane 'puts $F.size'
 
-printf '     one \t\f\v two\t\r\tthree  ' | ruby -ane 'puts $F[1] + "."'
+printf '     one \t\f\v two\t\r\tthree \t\r ' | ruby -ane 'puts $F[1] + "."'
 
 ## Input field separator
 
-echo 'goal:amazing:whistle:kwality' | ruby -F: -ane 'puts $F[0], $F[-1]'
+echo 'goal:amazing:whistle:kwality' | ruby -F: -ane 'puts $F[0], $F[-1], $F[1]'
 
 echo 'one;two;three;four' | ruby -F';' -ane 'puts $F[2]'
 
@@ -21,6 +21,8 @@ echo 'load;err_msg--\ant,r2..not' | ruby -F'\W+' -ane 'puts $F[2]'
 echo 'hi.bye.hello' | ruby -F'\.' -ane 'puts $F[1]'
 
 printf 'COOL\nnice car\n' | ruby -F'(?i)[aeiou]' -ane 'puts $F.size - 1'
+
+## Character-wise separation
 
 echo 'apple' | ruby -ne 'puts $_[0]'
 
@@ -32,6 +34,8 @@ echo 'fox:αλεπού' | ruby -ne 'puts $_[4..5]'
 
 echo 'fox:αλεπού' | ruby -E UTF-8:UTF-8 -ne 'puts $_[4..5]'
 
+## Newline character in the last field
+
 echo 'cat dog' | ruby -ane 'puts "[#{$F[-1]}]"'
 
 echo 'cat:dog' | ruby -F: -ane 'puts "[#{$F[-1]}]"'
@@ -40,7 +44,9 @@ printf 'cat:dog' | ruby -F: -ane 'puts "[#{$F[-1]}]"'
 
 echo '  a b   c   ' | ruby -ane 'puts $F.size'
 
-echo ':a:b:c:' | ruby -F: -ane 'puts $F.size'
+echo ':a:b:c:' | ruby -F: -ane 'puts $F.size; puts "[#{$F[-1]}]"'
+
+## Using the -l option for field splitting
 
 echo 'cat:dog' | ruby -F: -lane 'puts "[#{$F[-1]}]"'
 
@@ -68,9 +74,17 @@ echo "$s" | ruby -F: -lane '$F.append(42); puts $F * "::"'
 
 s='Sample123string42with777numbers'
 
-echo "$s" | ruby -lne 'puts $_.scan(/\d+/)[1]'
+echo "$s" | ruby -ne 'puts $_.scan(/\d+/)[1]'
 
-echo "$s" | ruby -lne 'puts $_.scan(/[a-z]+/i) * ","'
+s='coat Bin food tar12 best Apple fig_42'
+
+echo "$s" | ruby -ne 'puts $_.scan(/\b[a-z0-9]+\b/) * ","'
+
+s='items: "apple" and "mango"'
+
+echo "$s" | ruby -ne 'puts $_.scan(/"[^"]+"/)[1]'
+
+echo "$s" | ruby -ne 'puts $_[/"[^"]+"/]'
 
 s='eagle,"fox,42",bee,frog'
 
@@ -106,11 +120,13 @@ echo "$s" | ruby -F: -lane 'puts $F.grep(/i[nts]/) * ":"'
 
 echo "$s" | ruby -F: -lane 'puts $F.grep_v(/\d/) * ":"'
 
+ruby -lane 'print if $F.grep(/r/).size <= 1' table.txt
+
 s='goal:amazing:42:whistle:kwality:3.14'
 
 echo "$s" | ruby -F: -lane 'puts $F.map(&:upcase) * ":"'
 
-echo '23 756 -983 5' | ruby -ane 'puts $F.map {|n| n.to_i ** 2} * " "'
+echo '23 756 -983 5' | ruby -ane 'puts $F.map {_1.to_i ** 2} * " "'
 
 echo 'AaBbCc' | ruby -lne 'puts $_.chars.map(&:ord) * " "'
 
@@ -118,16 +134,16 @@ echo '3.14,17,6' | ruby -F, -ane 'puts $F.map(&:to_f).sum'
 
 s='hour hand band mat heated pineapple'
 
-echo "$s" | ruby -ane 'puts $F.filter {|w| w[0]!="h" && w.size<6}'
+echo "$s" | ruby -ane 'puts $F.filter {_1[0]!="h" && _1.size<6}'
 
 echo "$s" | ruby -ane 'puts $F.filter_map {|w|
-              w.gsub(/[ae]/, "X") if w[0]=="h"}'
+                       w.gsub(/[ae]/, "X") if w[0]=="h"}'
 
 echo '3.14,17,6' | ruby -F, -lane 'puts $F.map(&:to_f).reduce(100, :+)'
 
 echo '3.14,17,6' | ruby -F, -lane 'puts $F.map(&:to_f).reduce(:*)'
 
-echo '3.14,17,6' | ruby -F, -lane 'puts $F.reduce(1) {|op,n| op*n.to_f}'
+echo '3.14,17,6' | ruby -F, -lane 'puts $F.reduce(2) {|op,n| op*n.to_f}'
 
 s='floor bat to dubious four'
 
@@ -137,12 +153,11 @@ echo "$s" | ruby -ane 'puts $F.sort_by(&:size) * ":"'
 
 echo '23 756 -983 5' | ruby -lane 'puts $F.sort_by(&:to_i) * ":"'
 
-echo 'foobar' | ruby -lne 'puts $_.chars.sort.reverse * ""'
+echo 'dragon' | ruby -lne 'puts $_.chars.sort.reverse * ""'
 
 s='try a bad to good i teal by nice how'
 
-echo "$s" | ruby -ane 'puts $F.sort { |a, b|
-              [b.size, a] <=> [a.size, b] } * ":"'
+echo "$s" | ruby -ane 'puts $F.sort_by {|w| [-w.size, w]} * ":"'
 
 s='3,b,a,3,c,d,1,d,c,2,2,2,3,1,b'
 
@@ -150,7 +165,7 @@ echo "$s" | ruby -F, -lane 'puts $F.uniq * ","'
 
 cat marks.txt
 
-ruby -ane 'idx = $F.each_index.sort {|i,j| $F[j] <=> $F[i]} if $.==1;
+ruby -ane 'idx = $F.each_index.sort {$F[_2] <=> $F[_1]} if $.==1;
            puts $F.values_at(*idx) * "\t"' marks.txt
 
 s='floor bat to dubious four'

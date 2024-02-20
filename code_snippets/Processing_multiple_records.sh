@@ -1,10 +1,10 @@
 ## Processing consecutive records
 
-ruby -ne 'puts $p, $_ if /not/ && $p=~/as/; $p = $_' programming_quotes.txt
+ruby -ne 'puts $p, $_ if /you/ && $p=~/he/; $p = $_' para.txt
 
-ruby -ne 'puts $p if /not/ && $p=~/as/; $p = $_' programming_quotes.txt
+ruby -ne 'puts $p if /you/ && $p=~/he/; $p = $_' para.txt
 
-ruby -ne 'print if /not/ && $p=~/as/; $p = $_' programming_quotes.txt
+ruby -ne 'print if /you/ && $p=~/he/; $p = $_' para.txt
 
 ## Context matching
 
@@ -36,7 +36,7 @@ ruby -e 'ip=readlines; n=2; ip.each_with_index { |s, i| c=i-n;
 ruby -ne 'print $p2 if $.>2 && /toy|flower/; $p2=$p1; $p1=$_' context.txt
 
 tac context.txt | ruby -ne 'print if $n.to_i>0 && ($n-=1)==0;
-                  $n=2 if /language/' | tac
+                            $n=2 if /language/' | tac
 
 ## Records bounded by distinct markers
 
@@ -80,8 +80,7 @@ seq 30 | ruby -ne 'BEGIN{n=1; c=0}; ($f=true; c+=1) if /4/;
 seq 30 | ruby -ne 'BEGIN{n=2; c=0}; ($f=true; c+=1) if /4/;
                    print if $f && c!=n; $f=false if /6/'
 
-seq 30 | ruby -ne '($f=true; buf=$_; next) if /4/;
-                   buf << $_ if $f;
+seq 30 | ruby -ne '($f=true; buf=$_; next) if /4/; buf << $_ if $f;
                    ($f=false; print buf if buf.match?(/^15$/)) if /6/;'
 
 ## Broken blocks

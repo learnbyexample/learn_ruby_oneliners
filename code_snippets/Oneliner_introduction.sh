@@ -22,6 +22,8 @@ cat table.txt
 
 ruby -ne 'puts $& if /\d+$/' table.txt
 
+ruby -ne 'puts $& if /(?<!-)\d+$/' table.txt
+
 ## Substitution
 
 printf '1:2:3:4\na:b:c:d\n' | ruby -pe 'sub(/:/, "-")'
